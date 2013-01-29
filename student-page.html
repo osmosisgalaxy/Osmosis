@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      
+     page-header {
+	     	font-size:100pt;
+      }
+      
+      }
+     
+    </style>
+    
+    <script type="text/javascript">
+    function showInnerHtml(){
+        var contents=document.getElementById("formArea");
+        alert(contents);
+    }
+  
+	$(function ()  
+	{ $("#profile_popover").popover({placement:'bottom'});
+	  
+	}); 
+</script>
+
+
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+ 
+   </head>
+
+
+
+  <body>
+
+	  
+	  
+	  
+	  	  <!-----------  Start of navigation bar  ------------>
+
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <img src="assets/img/OsmosisLogo.png" width=9.5% style=" position:relative;  top: 10px;">
+          <div style="position:relative; top: 5px; float:right; color:grey">Welcome, 
+          	<a href="#" id="profile_popover" rel="popover" data-content="Skills:{{skill}} Area of Interest:{{area_of_interest}}" data-original-title="Profile">{{name}}</a> | <a href="index-for-log-out.html" >Logout</a>
+          <br>
+          <a href="#link" style="float:right">FAQ</a></div>
+          <br>
+          <br>
+         
+            <ul class="nav">
+              <li class="active"><a href="#link">MY PROJECTS</a></li>
+              <li><a href="#link"><i class="icon-book"></i> PROJECT</a></li>
+              <li><a href="#link"><i class="icon-book"></i> TEAM</a></li>
+              
+              
+            </ul>
+            
+            
+            </div><!-- /.right -->
+            
+         </div><!-- /.container -->
+      </div><!-- /.navbar-inner -->
+    </div><!-- /.navbar navbar-inverse navbar-fixed-top -->
+ 
+    <!-----------  End of navigation bar  ------------>
+	  
+	  
+	<br>
+	<br>  
+	  
+	<div class="container-fluid">
+     
+     
+     
+    	<div class='span4'>
+	    
+	    <!-- Start of PROJECTS AVAILABLE --> 
+	      
+			<h3>Projects Available</h3>
+		
+				<div class="accordion" id="accordion1">
+      
+      
+          			<!-- Start of first accordion -->
+      
+                     <div class="accordion-group">                     
+	                 <div class="accordion-heading" style="background-color:#FAFAFA">
+	                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                      {{project_name}}
+                      	</a>
+                    </div>
+                    
+                    <div id="collapseOne" class="accordion-body collapse in">
+                    <div class="accordion-inner" style="font-size:12px; background-color:white">
+                    
+                    {{Project Objective}} <br><br>
+                    <div style="color:grey; display:inline">Technologies Exposure: </div> {{technologies_exposure}} <br>
+                    <div style="color:grey; display:inline">Learning Experience: </div> {{learning_experience}} <br>
+                    <div style="color:grey; display:inline">Contact Person: </div> {{contact_person}} <br>
+                    <div style="color:grey; display:inline">Contact Email: </div> {{contact_email}}
+                   
+                                        	  			  							
+					</div>
+					
+					</div>
+
+					</div><!-- .accordion-group -->
+
+					<!-- end of first accordion -->
+			
+			</div>
+   
+   
+		<!-- End of PROJECTS AVAILABLE --> 
+
+		</div><!-- span4 -->
+
+
+
+	 
+		<div class="span4">
+	    
+		<!-- Start of TEAM -->
+	   
+	
+			<h3>Team</h3>
+	    
+	 
+	   
+		      <div class="accordion" id="accordion2">
+      
+      
+          			<!-- Start of first accordion -->
+      
+                     <div class="accordion-group">                     
+	                 <div class="accordion-heading" style="background-color:#FAFAFA">
+	                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse1" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                      My Team
+                      	</a>
+                    </div>
+                    
+                    <div id="collapse1" class="accordion-body collapse in">
+                    <div class="accordion-inner" style="font-size:12px; background-color:white">
+                    
+                    Hi! You do not have a team currently.<br>
+                    Click on the button below to create one! <br>
+                    <i class="icon-hand-right"></i>&nbsp<button type="submit" class="btn btn-mini" onclick="showInnerHtml()">Create Team</button>
+                    
+                    
+                    <div id="formArea">
+				        <form class="form-horizontal">
+				          UserName : <input type="text" name="userName"> 
+				          UserName : <input type="text" name="userName"> 
+				          UserName : <input type="text" name="userName"> 
+				        </form>
+			        </div>
+                    
+                    
+                    	  			  							
+					</div>
+					
+					</div>
+
+					</div><!-- .accordion-group -->
+
+					<!-- end of first accordion -->
+
+
+
+					<!-- Start of second accordion -->
+      
+                     <div class="accordion-group">                     
+	                 <div class="accordion-heading" style="background-color:#FAFAFA">
+	                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse2" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                      Teams Recruiting
+                        </a>
+                    </div>
+                    
+                    <div id="collapse2" class="accordion-body collapse">
+                    <div class="accordion-inner" style="font-size:12px; background-color:white">
+                    
+                    {{team_name}} <br><br>
+                    <div style="color:grey; display:inline">Team members: </div> {{team_members}} <br>
+                    <div style="color:grey; display:inline">Area of interest: </div> {{area_of_interest}} <br>
+                    <div style="color:grey; display:inline">FYP term: </div> {{fyp_term}} <br>
+
+                    <div align="right">
+                    <i class="icon-hand-right"></i>&nbsp<button type="submit" class="btn btn-mini">I would like to join!</button>
+                    </div>
+                    
+                    	  
+                    
+                    	  			  							
+					</div>
+					
+					</div>
+
+					</div><!-- .accordion-group -->
+
+					<!-- end of second accordion -->
+
+
+			
+			</div>
+	 			
+			
+		 
+		 
+	 <!-- End of TEAM -->
+
+
+	 </div><!-- .span4 -->
+
+
+
+
+
+
+	 <div class="span4">
+	 
+	 <!-- Start of STUDENTS WITHOUT TEAM -->
+	 
+	 	<h3>Students Without Team</h3>
+	 	
+	 		<div class="accordion" id="accordion3" >
+      
+      
+          			<!-- Start of first accordion -->
+      
+                     <div class="accordion-group">                     
+	                 <div class="accordion-heading" style="background-color:#FAFAFA">
+	                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapse01" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                      Academic Year 2009/2010
+                      	</a>
+                    </div>
+                    
+                    <div id="collapse01" class="accordion-body collapse in" >
+                    <div class="accordion-inner" style="font-size:12px; background-color:white">
+                    
+                    <table width="400px">
+                    <tr>
+                    <td style="padding-bottom:7px" onmouseover="document.getElementById('studentinfo').style.visibility = 'visible'"; onmouseout="document.getElementById('studentinfo').style.visibility = 'hidden'";>
+	                    {{name1}}<div style="display:inline" id="studentinfo">Students info here!</div>
+	                    
+                    </td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    <tr>
+                    <td style="padding-bottom:7px">{{name2}}</td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    <tr>
+                    <td style="padding-bottom:7px">{{name3}}</td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    <tr>
+                    <td style="padding-bottom:7px">{{name4}}</td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    <tr>
+                    <td style="padding-bottom:7px">{{name5}}</td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    </table>
+                                                                         	  			  							
+					</div>
+					
+					</div>
+
+					</div><!-- .accordion-group -->
+
+					<!-- end of first accordion -->
+			
+			</div>
+
+
+			<div class="accordion" id="accordion4" >
+      
+      
+          			<!-- Start of first accordion -->
+      
+                     <div class="accordion-group">                     
+	                 <div class="accordion-heading" style="background-color:#FAFAFA">
+	                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapse001" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                      Academic Year 2010/2011
+                      	</a>
+                    </div>
+                    
+                    <div id="collapse001" class="accordion-body collapse">
+                    <div class="accordion-inner" style="font-size:12px; background-color:white">
+                    
+                    <table width="630px">
+                    <tr>
+                    <td style="padding-bottom:7px">{{name1}}</td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    <tr>
+                    <td style="padding-bottom:7px">{{name2}}</td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    <tr>
+                    <td style="padding-bottom:7px">{{name3}}</td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    <tr>
+                    <td style="padding-bottom:7px">{{name4}}</td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    <tr>
+                    <td style="padding-bottom:7px">{{name5}}</td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    </table>
+                                                            	  			  							
+					</div>
+					
+					</div>
+
+					</div><!-- .accordion-group -->
+
+					<!-- end of first accordion -->
+			
+			</div>
+	 
+	 
+			<div class="accordion" id="accordion5" >
+      
+      
+          			<!-- Start of first accordion -->
+      
+                     <div class="accordion-group">                     
+	                 <div class="accordion-heading" style="background-color:#FAFAFA">
+	                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapse0001" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                      Academic Year 2011/2012
+                      	</a>
+                    </div>
+                    
+                    <div id="collapse0001" class="accordion-body collapse">
+                    <div class="accordion-inner" style="font-size:12px; background-color:white">
+                    
+                    <table width="630px">
+                    <tr>
+                    <td style="padding-bottom:7px">{{name1}}</td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    <tr>
+                    <td style="padding-bottom:7px">{{name2}}</td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    <tr>
+                    <td style="padding-bottom:7px">{{name3}}</td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    <tr>
+                    <td style="padding-bottom:7px">{{name4}}</td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    <tr>
+                    <td style="padding-bottom:7px">{{name5}}</td>
+                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
+                    </tr>
+                    </table>
+                                                            	  			  							
+					</div>
+					
+					</div>
+
+					</div><!-- .accordion-group -->
+
+					<!-- end of first accordion -->
+			
+			</div>
+			
+			
+			
+	 
+	 <!-- End of STUDENTS WITHOUT TEAM -->
+	 
+	 
+	 
+	 </div>
+	
+</div><!-- .container-fluid -->
+
+
+      
+
+
+
+
+
+
+	<!-- FOOTER -->
+      
+      <div class='span12'>
+      <footer>
+        <p style="font-size:smaller">&copy; 2013 Osmosis &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+      </div><!-- /.span12 -->
+	  
+  
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--<script src="test/lib/angular/angular-mocks.js"></script>-->
+    <script src="assets/js/angular/angular.min.js"></script>
+    <script src="assets/js/angular/angular-resource.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/controllers.js"></script>
+
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-transition.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-alert.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-modal.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-dropdown.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-scrollspy.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-tab.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-tooltip.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-popover.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-button.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-collapse.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-carousel.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-typeahead.js"></script>
+  </body>
+</html>
