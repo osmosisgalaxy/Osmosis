@@ -99,39 +99,29 @@
 	    <!-- Start of PROJECTS AVAILABLE --> 
 	      
 			<h3>Projects Available</h3>
-		
-				<div class="accordion" id="accordion1">
-      
-      
-          			<!-- Start of first accordion -->
-      
-                     <div class="accordion-group">                     
-	                 <div class="accordion-heading" style="background-color:#FAFAFA">
-	                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-                      {{project_name}}
-                      	</a>
-                    </div>
-                    
-                    <div id="collapseOne" class="accordion-body collapse in">
-                    <div class="accordion-inner" style="font-size:12px; background-color:white">
-                    
-                    {{Project Objective}} <br><br>
-                    <div style="color:grey; display:inline">Technologies Exposure: </div> {{technologies_exposure}} <br>
-                    <div style="color:grey; display:inline">Learning Experience: </div> {{learning_experience}} <br>
-                    <div style="color:grey; display:inline">Contact Person: </div> {{contact_person}} <br>
-                    <div style="color:grey; display:inline">Contact Email: </div> {{contact_email}}
-                   
-                                        	  			  							
-					</div>
-					
-					</div>
+		    <div ng-repeat="proj in avail_proj">
+  				<div class="accordion" id="{{accordion1}}"><!-- Start of first accordion -->
+                        <div class="accordion-group">                     
+                          <div class="accordion-heading" style="background-color:#FAFAFA">
+      	                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#{{accordion1}}" href="#collapseOne" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                            {{project_name}}
+                            </a>
+                          </div>
+                      
+                          <div id="collapseOne" class="accordion-body collapse in">
+                            <div class="accordion-inner" style="font-size:12px; background-color:white">
+                          
+                              {{Project Objective}} <br><br>
+                              <div style="color:grey; display:inline">Technologies Exposure: </div> {{technologies_exposure}} <br>
+                              <div style="color:grey; display:inline">Learning Experience: </div> {{learning_experience}} <br>
+                              <div style="color:grey; display:inline">Contact Person: </div> {{contact_person}} <br>
+                              <div style="color:grey; display:inline">Contact Email: </div> {{contact_email}}
 
-					</div><!-- .accordion-group -->
-
-					<!-- end of first accordion -->
-			
-			</div>
-   
+                            </div>
+                          </div>
+                        </div><!-- .accordion-group -->
+          </div><!-- end of first accordion -->
+        </div>
    
 		<!-- End of PROJECTS AVAILABLE --> 
 

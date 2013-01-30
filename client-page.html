@@ -164,7 +164,7 @@
                                    <link rel="shortcut icon" href="../assets/ico/favicon.png">
   </head>
 
-  <body ng-controller="CompanyController">
+  <body ng-controller="ClientCtrl">
 
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -234,7 +234,7 @@
     <!--Body content-->
           <div class = "row-fluid">
 
-<form class="form-horizontal">  
+<form class="form-horizontal" ng-submit="createProj()">  
         <fieldset>  
           <legend>Create a Project</legend>  
           <div class="control-group">  
@@ -289,7 +289,7 @@
           
 
           <div class="form-actions">  
-            <button type="submit" class="btn btn-primary">Save changes</button>  
+            <button type="submit" class="btn btn-primary">Create</button>  
             <button class="btn">Cancel</button>  
           </div>  <!-- form actions -->
         </fieldset>  
@@ -298,44 +298,34 @@
 			   
       </div>
 	        
- <div class="span5">
-    <!--Sidebar content-->
-    <br/><br/><br/> 
-    
-  <div class="accordion" id="accordion2">
-  <div class="accordion-group" ng-repeat = "project in projects">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#{{project.id}}">
-        {{project.projectName}}
-        
-        
-      </a>
-    </div>
-    
-    <div id="{{project.id}}" class="accordion-body collapse in">
-      <div class="accordion-inner">
-        Project Objective: {{project.projectObjective}} <br/><br/>
-        Technologies Exposure: {{project.technologiesExposure}} <br/><br/>
-        Key Learning Points: {{project.keyLearningPoints}} <br/><br/>
-        Contact Person: {{project.contactPerson}} <br/><br/>
-        Contact Email: {{project.contactEmail}}
-        
-        <br/><br/><br/>
-       
-        <button>Remove</button>
-        <button>Update</button>
-        <button id="{{project.id}}" onClick="reply_click(this.id)">Copy</button>
-
-        
-       	        
-	        
-	        
-        
-
+<div class="span5">
+  <!--Sidebar content-->
+  <br/><br/><br/>
+  <div ng-repeat = "project in client_proj">
+    <div class="accordion" id="accordion2">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#{{project.id}}">
+          {{project.title}}
+          </a>
+        </div>
+        <div id="{{project.id}}" class="accordion-body collapse in">
+          <div class="accordion-inner">
+            Project Objective: {{project.description}} <br/><br/>
+            Technologies Exposure: {{project.exposure}} <br/><br/>
+            Key Learning Points: {{project.exposure}} <br/><br/>
+            Contact Person: {{project.poc}} <br/><br/>
+            Contact Email: {{project.email}}
+          
+            <br/><br/><br/>
+         
+            <button>Remove</button>
+            <button>Update</button>
+            <button id="{{project.id}}" onClick="reply_click(this.id)">Copy</button>
+          </div>
+        </div>
       </div>
     </div>
-    
-  </div>
   </div>
 </div>
 
