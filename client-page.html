@@ -310,10 +310,7 @@
         <div id="{{val.id}}" class="accordion-body collapse in">
           <div class="accordion-inner">
             Project Objective: {{val.description}} <br/><br/>
-            Technologies Exposure: 
-              <div ng-repeat = "exp in client_proj.project.exposure">
-                {{exp}}
-              </div> <br/><br/>
+            Technologies Exposure: {{val.exposure}} <br/><br/>
             Key Learning Points: {{val.exposure}} <br/><br/>
             Contact Person: {{val.poc}} <br/><br/>
             Contact Email: {{val.email}}
@@ -322,7 +319,9 @@
          
             <button>Remove</button>
             <button>Update</button>
-            <button id="{{val.id}}" onClick="$scope.copyToForm({{key}})">Copy</button>
+            <form ng-submit="copyToForm({{key}})">
+            <button id="{{val.id}}" type="submit">Copy</button>
+            </form>
           </div>
         </div>
       </div>
