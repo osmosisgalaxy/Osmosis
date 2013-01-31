@@ -160,9 +160,9 @@ function ClientCtrl($scope,$resource){
     'contactEmail':$scope.contactEmail};
 
     $scope.Model.send(data, function(response){
-      getClientProj();
+      $scope.getClientProj();
     });
   }
 
-  getClientProj();
+  $scope.getClientProj();
 }
