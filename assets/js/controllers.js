@@ -166,12 +166,12 @@ function ClientCtrl($scope,$resource){
 
   $scope.copyToForm = function(key){
     var project = $scope.client_proj.indexOf(key);
-    $scope.projectName.value = project.title;
-    $scope.projectObjective.value = project.description;
-    $scope.technologiesExposure.value = project.exposure.substring(1,project.exposure.length);
-    $scope.keyLearningPoints.value = project.exposure.substring(1,project.exposure.length);
-    $scope.contactPerson.value = project.poc;
-    $scope.contactEmail.value = project.email;
+    $scope.projectName = project.title;
+    $scope.projectObjective = project.description;
+    $scope.technologiesExposure = project.exposure.substring(1,project.exposure.length);
+    $scope.keyLearningPoints = project.exposure.substring(1,project.exposure.length);
+    $scope.contactPerson = project.poc;
+    $scope.contactEmail = project.email;
   };
 
   $scope.getClientProj();
