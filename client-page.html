@@ -298,32 +298,36 @@
 <div class="span5">
   <!--Sidebar content-->
   <br/><br/><br/>
-  <div ng-repeat = "project in client_proj">
-    <div class="accordion" id="accordion2">
+
+  <div ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List-->
+    <div class="accordion" id="{{val.id}}">
       <div class="accordion-group">
         <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#{{project.id}}">
-          {{project.title}}
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#{{val.id}}" href="#{{val.id}}">
+          {{val.title}}
           </a>
         </div>
-        <div id="{{project.id}}" class="accordion-body collapse in">
+        <div id="{{val.id}}" class="accordion-body collapse in">
           <div class="accordion-inner">
-            Project Objective: {{project.description}} <br/><br/>
-            Technologies Exposure: {{project.exposure}} <br/><br/>
-            Key Learning Points: {{project.exposure}} <br/><br/>
-            Contact Person: {{project.poc}} <br/><br/>
-            Contact Email: {{project.email}}
+            Project Objective: {{val.description}} <br/><br/>
+            Technologies Exposure: 
+              <div ng-repeat = "exp in {{val.exposure}}">
+                {{exp}}
+              </div> <br/><br/>
+            Key Learning Points: {{val.exposure}} <br/><br/>
+            Contact Person: {{val.poc}} <br/><br/>
+            Contact Email: {{val.email}}
           
             <br/><br/><br/>
          
             <button>Remove</button>
             <button>Update</button>
-            <button id="{{project.id}}" onClick="reply_click(this.id)">Copy</button>
+            <button id="{{val.id}}" onClick="">Copy</button>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </div><!--For Every Project in Project List-->
 </div>
 
 

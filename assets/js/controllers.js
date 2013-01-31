@@ -162,7 +162,11 @@ function ClientCtrl($scope,$resource){
     $scope.Model.send(data, function(response){
       $scope.getClientProj();
     });
-  }
+  };
+
+  $scope.copyToForm = function(project){
+    return $scope.client_proj.indexOf(project);
+  };
 
   $scope.getClientProj();
 }
