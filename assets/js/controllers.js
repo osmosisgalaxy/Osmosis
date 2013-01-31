@@ -163,4 +163,6 @@ function ClientCtrl($scope,$resource){
       getClientProj();
     });
   }
+
+  getClientProj();
 }
