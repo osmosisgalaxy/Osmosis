@@ -71,13 +71,15 @@ function LoginCtrl($scope,$resource){
     {},
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
     );
-    $scope.login_url;
+    $scope.student_url;
+    $scope.corporate_url;
     $scope.nickname;
     $scope.getLink = function(){
 
       $scope.Model.send({}, function(response){
 
-        $scope.login_url = response.student_url;
+        $scope.student_url = response.student_url;
+        $scope.corporate_url = response.corporate_url;
         $scope.nickname = response.nickname;
       });
     };
