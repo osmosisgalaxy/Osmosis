@@ -150,7 +150,7 @@ function ClientCtrl($scope,$resource){
   };
 
   $scope.createProj = function(){
-    var data = {'method':"get_cpr_proj",
+    var data = {'method':"create_proj",
     'projectName':$scope.projectName,
     'projectObjective':$scope.projectObjective,
     'technologiesExposure':$scope.technologiesExposure,
