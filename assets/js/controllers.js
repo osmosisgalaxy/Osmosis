@@ -168,8 +168,8 @@ function ClientCtrl($scope,$resource){
     var project = $scope.client_proj[key];
     $scope.projectName = project.title;
     $scope.projectObjective = project.description;
-    $scope.technologiesExposure = project.exposure.substring(1,project.exposure.length);
-    $scope.keyLearningPoints = project.exposure.substring(1,project.exposure.length);
+    $scope.technologiesExposure = project.exposure.substring(1,project.exposure.length-1);
+    $scope.keyLearningPoints = project.exposure.substring(1,project.exposure.length-1);
     $scope.contactPerson = project.poc;
     $scope.contactEmail = project.email;
   };

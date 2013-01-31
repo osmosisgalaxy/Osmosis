@@ -6,57 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    
-    <script>
-       
-	    
-	    function reply_click(clicked_id)
-		{
-		
-		    //retrieve the record in the db that matches with the id
-		    
-		    //this is a dummy json record, supposed to retrieve out the respective record according to the id that is clicked
-		     var testJson = '{"projectName":"FYP matching application", "projectObjective":"To build a web platform that allows matching between fyp teams that are seeking sponsors and sponsors that are looking for fyp teams " , "technologiesExposure":"AngularJS, javascript, twitterbootstrap, python","keyLearningPoints": "sing song and have fun", "contactPerson": "Zen", "contactEmail":"zen@zen.com"}';
-        
-		     var project = jQuery.parseJSON(testJson);
-		    
-		    
-		    // if its a match, retrieve the details from the array
-		    
-		    //put it inside the form
-		    var projectName = document.getElementById('projectName');
-		    var projectObjective = document.getElementById('projectObjective');
-		    var technologiesExposure = document.getElementById('technologiesExposure');
-		    var keyLearningPoints = document.getElementById('keyLearningPoints');
-		    var contactPerson = document.getElementById('contactPerson');
-		    var contactEmail = document.getElementById('contactEmail');
-		    
-		    projectName.value = project.projectName;
-		    projectObjective.value = project.projectObjective;
-		    technologiesExposure.value = project.technologiesExposure;
-		    keyLearningPoints.value = project.keyLearningPoints;
-		    contactPerson.value = project.contactPerson;
-		    contactEmail.value = project.contactEmail;
-		    
-		    
-		    
-		    
-		}
-	    
-	    
-    </script>
-
-<!--
-    <script src="assets/plunker.js"></script>
-    <script src="assets/rainbow.js"></script>
-	<script src="assets/rainbow-generic.js"></script>
-	<script src="assets/rainbow-javascript.js"></script>
-	<script src="assets/rainbow-html.js"></script>
-	<script src="assets/js/ui-bootstrap-tpls-0.1.0-SNAPSHOT.min.js"></script>
-    <script>
-        angular.module('bootstrapDemoApp', ['ui.bootstrap', 'plunker']);
-    </script>  
--->   
+ 
     <!-- Le- styles -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
@@ -299,11 +249,11 @@
   <!--Sidebar content-->
   <br/><br/><br/>
 
-  <div ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List-->
-    <div class="accordion" id="{{val.id}}">
+  <!--<div ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List
+    <div class="accordion" id="mainAccordion">
       <div class="accordion-group">
         <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#{{val.id}}" href="#{{val.id}}">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#mainAccordion" href="#{{val.id}}">
           {{val.title}}
           </a>
         </div>
@@ -327,6 +277,35 @@
       </div>
     </div>
   </div><!--For Every Project in Project List-->
+
+  <div ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List-->
+    <div class="accordion" id="mainAccordion">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#mainAccordion" href="#{{val.id}}">
+          {{val.title}}
+          </a>
+        </div>
+        <div id="{{val.id}}" class="accordion-body collapse in">
+          <div class="accordion-inner">
+            Project Objective: {{val.description}} <br/><br/>
+            Technologies Exposure: {{val.exposure}} <br/><br/>
+            Key Learning Points: {{val.exposure}} <br/><br/>
+            Contact Person: {{val.poc}} <br/><br/>
+            Contact Email: {{val.email}}
+          
+            <br/><br/><br/>
+         
+            <button>Remove</button>
+            <button>Update</button>
+            <form ng-submit="copyToForm({{key}})">
+            <button type="submit">Copy</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!--For Every Project in Project List-->
 </div>
 
 
@@ -344,28 +323,28 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     
-    <script src="assets/js/angular/angular.min.js"></script>
-    <script src="assets/js/angular/angular-resource.min.js"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/controllers.js"></script>
+<script src="assets/js/angular/angular.min.js"></script>
+<script src="assets/js/angular/angular-resource.min.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/controllers.js"></script>
 <script src="assets/js/jquery-1.9.0.min.js" type="text/javascript"></script>
 <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="assets/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
 <script src="assets/js/google-code-prettify/prettify.js" type="text/javascript"></script>
 <script src="assets/js/docs.js" type="text/javascript"></script>
 <script src="assets/js/demo.js" type="text/javascript"></script>
-    <script src="assets/js/bootstrap/bootstrap-transition.js"></script>
-    <script src="assets/js/bootstrap/bootstrap-alert.js"></script>
-    <script src="assets/js/bootstrap/bootstrap-modal.js"></script>
-    <script src="assets/js/bootstrap/bootstrap-dropdown.js"></script>
-    <script src="assets/js/bootstrap/bootstrap-scrollspy.js"></script>
-    <script src="assets/js/bootstrap/bootstrap-tab.js"></script>
-    <script src="assets/js/bootstrap/bootstrap-tooltip.js"></script>
-    <script src="assets/js/bootstrap/bootstrap-popover.js"></script>
-    <script src="assets/js/bootstrap/bootstrap-button.js"></script>
-    <script src="assets/js/bootstrap/bootstrap-collapse.js"></script>
-    <script src="assets/js/bootstrap/bootstrap-carousel.js"></script>
-    <script src="assets/js/bootstrap/bootstrap-typeahead.js"></script>
+<script src="assets/js/bootstrap/bootstrap-transition.js"></script>
+<script src="assets/js/bootstrap/bootstrap-alert.js"></script>
+<script src="assets/js/bootstrap/bootstrap-modal.js"></script>
+<script src="assets/js/bootstrap/bootstrap-dropdown.js"></script>
+<script src="assets/js/bootstrap/bootstrap-scrollspy.js"></script>
+<script src="assets/js/bootstrap/bootstrap-tab.js"></script>
+<script src="assets/js/bootstrap/bootstrap-tooltip.js"></script>
+<script src="assets/js/bootstrap/bootstrap-popover.js"></script>
+<script src="assets/js/bootstrap/bootstrap-button.js"></script>
+<script src="assets/js/bootstrap/bootstrap-collapse.js"></script>
+<script src="assets/js/bootstrap/bootstrap-carousel.js"></script>
+<script src="assets/js/bootstrap/bootstrap-typeahead.js"></script>
 
   </body>
 </html>
