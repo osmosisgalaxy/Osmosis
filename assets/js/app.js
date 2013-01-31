@@ -3,14 +3,7 @@
 //var testing = window.location.search.replace("?testing=", "");
 //var testing = 'true';
 
-var myApp = angular.module('myApp', ['ngResource']).
-  config(['$routeProvider', function($routeProvider) {
-  $routeProvider.
-      when('/main', {templateUrl: 'app/home-page.html'}).
-      when('/signup', {templateUrl: 'app/index-for-sign-up.html', controller: SignupCtrl}).
-      when('/index', {templateUrl: 'app/index-for-log-in.html', controller: LoginCtrl}).
-      otherwise({redirectTo: '/index'});
-}]);
+var myApp = angular.module('myApp', ['ngResource']);
 
 //All of the overrides for testing the controllers.
 //This is used to simulate the backend. 
