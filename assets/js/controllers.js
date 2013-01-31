@@ -164,8 +164,14 @@ function ClientCtrl($scope,$resource){
     });
   };
 
-  $scope.copyToForm = function(project){
-    return $scope.client_proj.indexOf(project);
+  $scope.copyToForm = function(key){
+    var project = $scope.client_proj.indexOf(key);
+    $scope.projectName.value = project.title;
+    $scope.projectObjective.value = project.description;
+    $scope.technologiesExposure.value = project.exposure.substring(1,project.exposure.length);
+    $scope.keyLearningPoints.value = project.exposure.substring(1,project.exposure.length);
+    $scope.contactPerson.value = project.poc;
+    $scope.contactEmail.value = project.email;
   };
 
   $scope.getClientProj();
