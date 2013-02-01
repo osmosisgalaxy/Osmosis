@@ -205,18 +205,4 @@ function ClientCtrl($scope,$resource){
   };
 
   $scope.getClientProj();
-  
-  	$scope.master= {};
-  
-	$scope.reset = function() {
-      $scope.projectName = "";
-      $scope.projectObjective = "";
-      $scope.technologiesExposure ="";
-      $scope.contactPerson = "";
-      $scope.contactEmail = "";
-      
-      };
 }
-
-
-

@@ -20,49 +20,49 @@
       }
 
       #pro{
-      	position:relative;
-      	top:25px;	
+        position:relative;
+        top:25px; 
       }
 
       #sort-by{
-      	position:relative;
-      	right:-880px;	
+        position:relative;
+        right:-880px; 
       }
 
       #sortTeams{
-      	position:relative;
-      	right:-900px;
+        position:relative;
+        right:-900px;
       }
       #welcome_msg{
-	      position:relative;
-	      top: 5px;
-	      float:right;
-	      color:grey;
+        position:relative;
+        top: 5px;
+        float:right;
+        color:grey;
       }
       
       #plus_sign{
-	      position:relative;
-	      top: -5px;
-	      left:-10px;
-	      color:red;
+        position:relative;
+        top: -5px;
+        left:-10px;
+        color:red;
       }
       
       #notify_btn{
-	      position:relative;
-	      top: 0px;
-	      left:10px;
+        position:relative;
+        top: 0px;
+        left:10px;
       }
       
       #notify_badge{
-	      position:relative;
-	      top: -5px;
-	      left:-90px;
+        position:relative;
+        top: -5px;
+        left:-90px;
       }
       
       #logo_img{
-	      position:relative;
-	      top: 10px;
-	      left: 0px;
+        position:relative;
+        top: 10px;
+        left: 0px;
       }
     </style>
 
@@ -141,16 +141,11 @@
                     <textarea class="input-xlarge" ng-model="technologiesExposure" id="technologiesExposure" rows="3"></textarea>  
                   </div>  
                 </div>
-                <div class="control-group">  
-                  <label class="control-label" for="keyLearningPoints">Key Learning Points*</label>  
-                  <div class="controls">  
-                    <textarea class="input-xlarge" ng-model="keyLearningPoints" id="keyLearningPoints" rows="3"></textarea>  
-                  </div>  
-                </div>
                <div class="control-group">  
                 <label class="control-label" for="contactPerson">Contact Person*</label>  
                 <div class="controls">  
                   <input type="text" class="input-xlarge" ng-model="contactPerson" id="contactPerson" required>
+                </div>
                 </div> 
                 <br/>
                 <div class="control-group">  
@@ -159,61 +154,93 @@
                     <input type="text" class="input-xlarge" ng-model="contactEmail" id="contactEmail" required>
                   </div> 
                   <br/>
+                </div>
+                <div class="control-group">  
+                  <label class="control-label" for="keyLearningPoints">Contact Number</label>  
+                  <div class="controls">  
+                    <input type="text" class="input-xlarge" ng-model="contactNumber" id="contactNumber"> 
+                  </div>  
+                </div>
                 <div class="form-actions">  
                   <button type="submit" class="btn btn-primary">Create</button>  
-                  <button class="btn" ng-click="reset()">Reset</button>  
+                  <button class="btn">Cancel</button>  
                 </div>  <!-- form actions -->
               </fieldset>  
             </form>  
           </div>
         </div>
-	        
+          
     <div class="span5">
       <!--Sidebar content-->
       <br/><br/><br/>
         <div class="accordion" id="mainAccordion">
           <div class="accordion-group" ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List-->
             <div class="accordion-heading">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#mainAccordion" href="#{{val.id}}">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#mainAccordion" href="#{{val.id}}" ng-click="disableEditor()">
               {{val.title}}
               </a>
             </div>
             <div id="{{val.id}}" class="accordion-body collapse in">
               <div class="accordion-inner">
 
-                <div ng-hide="editorEnabled">
-                  {{title}}
-                  <a href="#" ng-click="enableEditor()">Edit title</a>
-                </div>
-                
-
                 <strong>Project Objective:</strong><br/> 
-                  {{val.description}} 
+                  <div ng-hide="editorEnabled">
+                    {{val.description}}
+                  </div>
+                  <div ng-show="editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="editableDescription" ng-show="editorEnabled">
+                  </div>
                 <br/><br/>
                 <strong>Technologies Exposure:</strong><br/>
-                  {{val.exposure}}
+                  <div ng-hide="editorEnabled">
+                    {{val.exposure}}
+                  </div>
+                  <div ng-show="editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="editableExposure" ng-show="editorEnabled">
+                  </div>
                 <br/><br/>
                 <strong>Contact Person:</strong><br/>
-                  {{val.poc}}
+                  <div ng-hide="editorEnabled">
+                    {{val.poc}}
+                  </div>
+                  <div ng-show="editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="editableContact" ng-show="editorEnabled" required>
+                  </div>
                 <br/><br/>
                 <strong>Contact Email:</strong><br/>
-                  {{val.email}}
+                  <div ng-hide="editorEnabled">
+                    {{val.email}}
+                  </div>
+                  <div ng-show="editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="editableEmail" ng-show="editorEnabled" required>
+                  </div>
                 <br/><br/>
                 <strong>Contact Number:</strong><br/>
-                  {{val.contact}}
+                  <div ng-hide="editorEnabled">
+                    {{val.contact}}
+                  </div>
+                  <div ng-show="editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="editableNumber" ng-show="editorEnabled">
+                  </div>
                 <br/><br/><br/>
-
-                <div ng-show="editorEnabled">
-                  <input ng-model="editableTitle" ng-show="editorEnabled">
-                  <a href="#" ng-click="save()">Save</a>
-                  or
-                  <a href="#" ng-click="disableEditor()">cancel</a>.
+                <div ng-hide="editorEnabled">
+                  <button type="submit" ng-hide="editorEnabled" ng-click="removeProj({{key}})">Remove</button>
                 </div>
 
-                <button>Remove</button>
-                <form ng-submit="copyToForm({{key}})">
-                  <button type="submit">Copy</button>
-                </form>
+                <div ng-hide="editorEnabled">
+                  <button type="submit" ng-hide="editorEnabled" ng-click="enableEditor({{key}})">Edit</button>
+                </div>
+
+                <div ng-hide="editorEnabled">
+                  <button type="submit" ng-hide="editorEnabled" ng-click="copyToForm({{key}})">Copy</button>
+                </div>
+
+                <div ng-show="editorEnabled">
+                    <button type="submit" ng-show="editorEnabled" ng-click="saveProj({{key}},{{val.id}})">Save</button>
+                </div>
+                <div ng-show="editorEnabled">
+                    <button type="submit" ng-show="editorEnabled" ng-click="disableEditor()">Cancel</button>
+                </div>
               </div>
             </div>
           </div><!--For Every Project in Project List-->
@@ -225,7 +252,7 @@
 
       
       <footer>
-      	<p>* denotes compulsory field</p>
+        <p>* denotes compulsory field</p>
         <p>&copy; Company 2012</p>
       </footer>
 
@@ -255,11 +282,5 @@
 <script src="assets/js/bootstrap/bootstrap-collapse.js"></script>
 <script src="assets/js/bootstrap/bootstrap-carousel.js"></script>
 <script src="assets/js/bootstrap/bootstrap-typeahead.js"></script>
-<script src="assets/js/jquery.jeditable.js"></script>
-<script> 
-
-	
-	
-</script>
   </body>
 </html>
