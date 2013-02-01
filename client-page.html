@@ -163,7 +163,7 @@
                 </div>
                 <div class="form-actions">  
                   <button type="submit" class="btn btn-primary">Create</button>  
-                  <button class="btn" ng-click="reset()">Reset</button>  
+                  <button class="btn">Cancel</button>  
                 </div>  <!-- form actions -->
               </fieldset>  
             </form>  
@@ -223,23 +223,31 @@
                     <input type="text" class="input-xlarge" ng-model="editableNumber" ng-show="editorEnabled">
                   </div>
                 <br/><br/><br/>
-                <div ng-hide="editorEnabled">
-                  <button type="submit" ng-hide="editorEnabled" ng-click="removeProj({{key}})">Remove</button>
-                </div>
 
                 <div ng-hide="editorEnabled">
-                  <button ng-hide="editorEnabled" ng-click="enableEditor({{key}})">Edit</button>
+                  <form ng-submit="removeProj({{key}})">
+                    <button type="submit" ng-hide="editorEnabled">Remove</button>
+                  </form>
                 </div>
-
                 <div ng-hide="editorEnabled">
-                  <button ng-hide="editorEnabled" ng-click="copyToForm({{key}})">Copy</button>
+                  <form ng-submit="enableEditor({{key}})">
+                    <button type="submit" ng-hide="editorEnabled">Edit</button>
+                  </form>
                 </div>
-
+                <div ng-hide="editorEnabled">
+                  <form ng-submit="copyToForm({{key}})">
+                    <button type="submit" ng-hide="editorEnabled">Copy</button>
+                    </form>
+                </div>
                 <div ng-show="editorEnabled">
-                    <button ng-show="editorEnabled" ng-click="saveProj({{key}},{{val.id}})">Save</button>
+                  <form ng-submit="saveProj({{key}},{{val.id}})">
+                    <button type="submit" ng-show="editorEnabled">Save</button>
+                    </form>
                 </div>
                 <div ng-show="editorEnabled">
-                    <button ng-show="editorEnabled" ng-click="disableEditor()">Cancel</button>
+                  <form ng-submit="disableEditor()">
+                    <button type="submit" ng-show="editorEnabled">Cancel</button>
+                    </form>
                 </div>
               </div>
             </div>
