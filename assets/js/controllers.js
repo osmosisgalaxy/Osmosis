@@ -143,6 +143,7 @@ function ClientCtrl($scope,$resource){
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
     );
 
+  $scope.editorEnabled = false;
   $scope.client_proj;
 
   $scope.getClientProj = function(){
@@ -155,9 +156,9 @@ function ClientCtrl($scope,$resource){
     var data = {'method':"create_proj",
     'projectName':$scope.projectName,
     'projectObjective':$scope.projectObjective,
-    'technologiesExposure':$scope.technologiesExposure,
     'contactPerson':$scope.contactPerson,
-    'contactEmail':$scope.contactEmail};
+    'contactEmail':$scope.contactEmail,
+    'contactNumber':$scope.contactNumber};
 
     $scope.Model.send(data, function(response){
       $scope.getClientProj();
@@ -169,9 +170,38 @@ function ClientCtrl($scope,$resource){
     $scope.projectName = project.title;
     $scope.projectObjective = project.description;
     $scope.technologiesExposure = project.exposure.substring(1,project.exposure.length-1);
-    $scope.keyLearningPoints = project.exposure.substring(1,project.exposure.length-1);
     $scope.contactPerson = project.poc;
     $scope.contactEmail = project.email;
+    $scope.contactNumber = project.contact;
+  };
+
+  $scope.enableEditor = function(key) {
+    $scope.editorEnabled = true;
+    var project = $scope.client_proj[key];
+    $scope.editableDescription = project.description;
+    $scope.editableExposure = project.exposure.substring(1,project.exposure.length-1);
+    $scope.editableContact = project.poc;
+    $scope.editableEmail = project.email;
+    $scope.editableNumber = project.contact;
+  };
+
+  $scope.disableEditor = function() {
+    $scope.editorEnabled = false;
+  };
+
+  $scope.saveProj = function(key,proj_id) {
+    var project = $scope.client_proj[key];
+    data = {'method':"update_proj",
+    'proj_id': proj_id,
+    'ptitle': project.title,
+    'pdescription': $scope.editableDescription,
+    'pexposure': "{" + $scope.editableExposure + "}",
+    'ppoc': $scope.editableContact,
+    'pemail': $scope.editableEmail,
+    'pcontact': $scope.editableNumber};
+    $scope.Model.send({'method':"get_cpr_proj"}, function(response){
+      $scope.client_proj[key] = response.proj;
+    });
   };
 
   $scope.getClientProj();

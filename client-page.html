@@ -18,46 +18,26 @@
         padding-top: 60px;
         padding-bottom: 40px;
       }
-      
-/*
-     #profile-name{
-     		position:relative;
-     		top:30px;
-     		left:-10px;
-     		
-     		
-	     
+
+      #pro{
+      	position:relative;
+      	top:25px;	
       }
-*/
 
+      #sort-by{
+      	position:relative;
+      	right:-880px;	
+      }
 
-
-	#pro{
-		position:relative;
-		top:25px;
-		
-		
-		
-		
-	}
-	
-	#sort-by{
-		position:relative;
-		right:-880px;	
-		
-	}
-	
-	#sortTeams{
-		position:relative;
-		right:-900px;
-		
-	}
+      #sortTeams{
+      	position:relative;
+      	right:-900px;
+      }
       #welcome_msg{
 	      position:relative;
 	      top: 5px;
 	      float:right;
 	      color:grey;
-	      
       }
       
       #plus_sign{
@@ -65,21 +45,18 @@
 	      top: -5px;
 	      left:-10px;
 	      color:red;
-	      
       }
       
       #notify_btn{
 	      position:relative;
 	      top: 0px;
 	      left:10px;
-      
       }
       
       #notify_badge{
 	      position:relative;
 	      top: -5px;
 	      left:-90px;
-
       }
       
       #logo_img{
@@ -87,14 +64,6 @@
 	      top: 10px;
 	      left: 0px;
       }
-
-       
-      
-      
-
-      
- 
-
     </style>
 
 
@@ -125,190 +94,158 @@
           <div id="welcome_msg">Welcome, {{name}} | <a href="index-for-log-out.html" >Logout</a></div>
           <br>
           <br>
-         
-            <ul class="nav" >
-              <li class="active"><a href="#" id="tabcolor"><i class="icon-home icon-white"></i> HOME</a></li>
-              <li><a href="#about" >PROFILE</a></li>
-              <li><a href="#contact">PROJECT CATALOG</a></li>
-              <li><a href="#contact">TEAM CATALOG</a></li>
-              <li><a href="#contact">FAQ</a></li>
-              
-            </ul>
-            
-            <div align="right">
-            <button class="btn btn-small btn-warning" type="button" id="notify_btn"><b>Notification</b></button><span class="badge badge-important" id="notify_badge">1</span>
-            <button class="btn btn-small btn-primary" type="button">Create Proposal</button>
-            <i class="icon-white icon-plus" id="plus_sign"></i><button class="btn btn-small btn-primary" type="button">Create Project</button>
-            <i class="icon-white icon-plus" id="plus_sign"></i><button class="btn btn-small btn-primary" type="button">Create Team</button>
-            <i class="icon-white icon-plus" id="plus_sign"></i>
-            </div>
-            
+          <ul class="nav" >
+            <li class="active"><a href="#" id="tabcolor"><i class="icon-home icon-white"></i> HOME</a></li>
+            <li><a href="#about" >PROFILE</a></li>
+            <li><a href="#contact">PROJECT CATALOG</a></li>
+            <li><a href="#contact">TEAM CATALOG</a></li>
+            <li><a href="#contact">FAQ</a></li>
+          </ul>
+          <div align="right">
+          <button class="btn btn-small btn-warning" type="button" id="notify_btn"><b>Notification</b></button><span class="badge badge-important" id="notify_badge">1</span>
+          <button class="btn btn-small btn-primary" type="button">Create Proposal</button>
+          <i class="icon-white icon-plus" id="plus_sign"></i><button class="btn btn-small btn-primary" type="button">Create Project</button>
+          <i class="icon-white icon-plus" id="plus_sign"></i><button class="btn btn-small btn-primary" type="button">Create Team</button>
+          <i class="icon-white icon-plus" id="plus_sign"></i>
+          </div>
          </div>
       </div>
     </div>
 
-<br/><br/><br/>
-      
-      <!-- profile start -->
-   
+    <br/><br/><br/>
+    <br/><br/><br/><br/>
 
-      
-   
-      
-       <!-- start of update button and placeholder -->
-
-			      
-
-
-
-		      
-<!-- end update button and place holder -->
-	      
-         <!-- end profile --> 
-      
-    
-
-
-
-         
-           
-     <br/><br/><br/><br/> 
-      <!-- end .row -->
-      <!-- end .row -->
-      <div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span7">
-    <!--Body content-->
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span7">
+          <!--Body content-->
           <div class = "row-fluid">
-
-<form class="form-horizontal" ng-submit="createProj()" id="createForm">  
-        <fieldset>  
-          <legend>Create a Project</legend>  
-          <div class="control-group">  
-            <label class="control-label" for="projectName">Project Name*</label>  
-            <div class="controls">  
-              <input type="text" class="input-xlarge" id="projectName" ng-model="projectName" required>  
-        
-            </div> 
-            
-            <br/> 
-            
-           <div class="control-group">  
-            <label class="control-label" for="projectObjective">Project Objective*</label>  
-            <div class="controls">  
-              <textarea class="input-xlarge" ng-model="projectObjective" id="projectObjective" rows="3"></textarea>  
-            </div>  
-          </div> 
-          
-          
-          <div class="control-group">  
-            <label class="control-label" for="technicalRequirements">Technologies exposure*</label>  
-            <div class="controls">  
-              <textarea class="input-xlarge" ng-model="technologiesExposure" id="technologiesExposure" rows="3"></textarea>  
-            </div>  
-          </div>           
-           
-    
-          
-          <div class="control-group">  
-            <label class="control-label" for="keyLearningPoints">Key Learning Points*</label>  
-            <div class="controls">  
-              <textarea class="input-xlarge" ng-model="keyLearningPoints" id="keyLearningPoints" rows="3"></textarea>  
-            </div>  
-          </div>   
-          
-           
-           <div class="control-group">  
-            <label class="control-label" for="contactPerson">Contact Person*</label>  
-            <div class="controls">  
-              <input type="text" class="input-xlarge" ng-model="contactPerson" id="contactPerson" required>  
-        
-            </div> 
-            <br/>   
-            
-          <div class="control-group">  
-            <label class="control-label" for="contactEmail">Contact Email*</label>  
-            <div class="controls">  
-              <input type="text" class="input-xlarge" ng-model="contactEmail" id="contactEmail" required>  
-        
-            </div> 
-            <br/>    
-          
-
-          <div class="form-actions">  
-            <button type="submit" class="btn btn-primary">Create</button>  
-            <button class="btn">Cancel</button>  
-          </div>  <!-- form actions -->
-        </fieldset>  
-</form>  
-	     </div>			      
-			   
-      </div>
+            <form class="form-horizontal" ng-submit="createProj()" id="createForm">  
+              <fieldset>  
+                <legend>Create a Project</legend>  
+                <div class="control-group">  
+                  <label class="control-label" for="projectName">Project Name*</label>  
+                  <div class="controls">  
+                    <input type="text" class="input-xlarge" id="projectName" ng-model="projectName" required>
+                  </div>
+                  <br/> 
+                <div class="control-group">  
+                  <label class="control-label" for="projectObjective">Project Objective*</label>  
+                  <div class="controls">  
+                    <textarea class="input-xlarge" ng-model="projectObjective" id="projectObjective" rows="3"></textarea>  
+                  </div>  
+                </div>
+                <div class="control-group">  
+                  <label class="control-label" for="technicalRequirements">Technologies exposure*</label>  
+                  <div class="controls">  
+                    <textarea class="input-xlarge" ng-model="technologiesExposure" id="technologiesExposure" rows="3"></textarea>  
+                  </div>  
+                </div>
+               <div class="control-group">  
+                <label class="control-label" for="contactPerson">Contact Person*</label>  
+                <div class="controls">  
+                  <input type="text" class="input-xlarge" ng-model="contactPerson" id="contactPerson" required>
+                </div>
+                </div> 
+                <br/>
+                <div class="control-group">  
+                  <label class="control-label" for="contactEmail">Contact Email*</label>  
+                  <div class="controls">  
+                    <input type="text" class="input-xlarge" ng-model="contactEmail" id="contactEmail" required>
+                  </div> 
+                  <br/>
+                </div>
+                <div class="control-group">  
+                  <label class="control-label" for="keyLearningPoints">Contact Number</label>  
+                  <div class="controls">  
+                    <input type="text" class="input-xlarge" ng-model="contactNumber" id="contactNumber"> 
+                  </div>  
+                </div>
+                <div class="form-actions">  
+                  <button type="submit" class="btn btn-primary">Create</button>  
+                  <button class="btn">Cancel</button>  
+                </div>  <!-- form actions -->
+              </fieldset>  
+            </form>  
+          </div>
+        </div>
 	        
-<div class="span5">
-  <!--Sidebar content-->
-  <br/><br/><br/>
+    <div class="span5">
+      <!--Sidebar content-->
+      <br/><br/><br/>
+        <div class="accordion" id="mainAccordion">
+          <div class="accordion-group" ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List-->
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#mainAccordion" href="#{{val.id}}" ng-click="disableEditor()">
+              {{val.title}}
+              </a>
+            </div>
+            <div id="{{val.id}}" class="accordion-body collapse in">
+              <div class="accordion-inner">
 
-  <!--<div ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List
-    <div class="accordion" id="mainAccordion">
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#mainAccordion" href="#{{val.id}}">
-          {{val.title}}
-          </a>
+                <strong>Project Objective:</strong><br/> 
+                  <div ng-hide="editorEnabled">
+                    {{val.description}}
+                  </div>
+                  <div ng-show="editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="editableDescription" ng-show="editorEnabled">
+                  </div>
+                <br/><br/>
+                <strong>Technologies Exposure:</strong><br/>
+                  <div ng-hide="editorEnabled">
+                    {{val.exposure}}
+                  </div>
+                  <div ng-show="editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="editableExposure" ng-show="editorEnabled">
+                  </div>
+                <br/><br/>
+                <strong>Contact Person:</strong><br/>
+                  <div ng-hide="editorEnabled">
+                    {{val.poc}}
+                  </div>
+                  <div ng-show="editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="editableContact" ng-show="editorEnabled" required>
+                  </div>
+                <br/><br/>
+                <strong>Contact Email:</strong><br/>
+                  <div ng-hide="editorEnabled">
+                    {{val.email}}
+                  </div>
+                  <div ng-show="editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="editableEmail" ng-show="editorEnabled" required>
+                  </div>
+                <br/><br/>
+                <strong>Contact Number:</strong><br/>
+                  <div ng-hide="editorEnabled">
+                    {{val.contact}}
+                  </div>
+                  <div ng-show="editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="editableNumber" ng-show="editorEnabled">
+                  </div>
+                <br/><br/><br/>
+                <div ng-hide="editorEnabled">
+                  <button type="submit" ng-hide="editorEnabled" ng-click="removeProj({{key}})">Remove</button>
+                </div>
+
+                <div ng-hide="editorEnabled">
+                  <button type="submit" ng-hide="editorEnabled" ng-click="enableEditor({{key}})">Edit</button>
+                </div>
+
+                <div ng-hide="editorEnabled">
+                  <button type="submit" ng-hide="editorEnabled" ng-click="copyToForm({{key}})">Copy</button>
+                </div>
+
+                <div ng-show="editorEnabled">
+                    <button type="submit" ng-show="editorEnabled" ng-click="saveProj({{key}},{{val.id}})">Save</button>
+                </div>
+                <div ng-show="editorEnabled">
+                    <button type="submit" ng-show="editorEnabled" ng-click="disableEditor()">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div><!--For Every Project in Project List-->
         </div>
-        <div id="{{val.id}}" class="accordion-body collapse in">
-          <div class="accordion-inner">
-            Project Objective: {{val.description}} <br/><br/>
-            Technologies Exposure: {{val.exposure}} <br/><br/>
-            Key Learning Points: {{val.exposure}} <br/><br/>
-            Contact Person: {{val.poc}} <br/><br/>
-            Contact Email: {{val.email}}
-          
-            <br/><br/><br/>
-         
-            <button>Remove</button>
-            <button>Update</button>
-            <form ng-submit="copyToForm({{key}})">
-            <button id="{{val.id}}" type="submit">Copy</button>
-            </form>
-          </div>
-        </div>
-      </div>
     </div>
-  </div><!--For Every Project in Project List-->
-
-  <div ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List-->
-    <div class="accordion" id="mainAccordion">
-      <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#mainAccordion" href="#{{val.id}}">
-          {{val.title}}
-          </a>
-        </div>
-        <div id="{{val.id}}" class="accordion-body collapse in">
-          <div class="accordion-inner">
-            Project Objective: {{val.description}} <br/><br/>
-            Technologies Exposure: {{val.exposure}} <br/><br/>
-            Key Learning Points: {{val.exposure}} <br/><br/>
-            Contact Person: {{val.poc}} <br/><br/>
-            Contact Email: {{val.email}}
-          
-            <br/><br/><br/>
-         
-            <button>Remove</button>
-            <button>Update</button>
-            <form ng-submit="copyToForm({{key}})">
-            <button type="submit">Copy</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div><!--For Every Project in Project List-->
-</div>
-
-
   </div>
 </div>      
 
@@ -345,6 +282,7 @@
 <script src="assets/js/bootstrap/bootstrap-collapse.js"></script>
 <script src="assets/js/bootstrap/bootstrap-carousel.js"></script>
 <script src="assets/js/bootstrap/bootstrap-typeahead.js"></script>
+<script src="assets/js/jquery.jeditable.js"></script>
 
   </body>
 </html>
