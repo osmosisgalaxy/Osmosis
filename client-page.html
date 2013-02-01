@@ -163,7 +163,7 @@
                 </div>
                 <div class="form-actions">  
                   <button type="submit" class="btn btn-primary">Create</button>  
-                  <button class="btn">Cancel</button>  
+                  <button class="btn" ng-click="reset()">Reset</button>  
                 </div>  <!-- form actions -->
               </fieldset>  
             </form>  
@@ -228,18 +228,18 @@
                 </div>
 
                 <div ng-hide="editorEnabled">
-                  <button type="submit" ng-hide="editorEnabled" ng-click="enableEditor({{key}})">Edit</button>
+                  <button ng-hide="editorEnabled" ng-click="enableEditor({{key}})">Edit</button>
                 </div>
 
                 <div ng-hide="editorEnabled">
-                  <button type="submit" ng-hide="editorEnabled" ng-click="copyToForm({{key}})">Copy</button>
+                  <button ng-hide="editorEnabled" ng-click="copyToForm({{key}})">Copy</button>
                 </div>
 
                 <div ng-show="editorEnabled">
-                    <button type="submit" ng-show="editorEnabled" ng-click="saveProj({{key}},{{val.id}})">Save</button>
+                    <button ng-show="editorEnabled" ng-click="saveProj({{key}},{{val.id}})">Save</button>
                 </div>
                 <div ng-show="editorEnabled">
-                    <button type="submit" ng-show="editorEnabled" ng-click="disableEditor()">Cancel</button>
+                    <button ng-show="editorEnabled" ng-click="disableEditor()">Cancel</button>
                 </div>
               </div>
             </div>
