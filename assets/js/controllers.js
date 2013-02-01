@@ -151,7 +151,7 @@ function ClientCtrl($scope,$resource){
   $scope.getClientProj = function(){
     $scope.Model.send({'method':"get_cpr_proj"}, function(response){
       $scope.client_proj = response.proj;
-      for(proj in $scope.client_proj){
+      for(var proj in $scope.client_proj){
         proj.exposure = proj.exposure.substring(1,project.exposure.length-1);
       }
     });
