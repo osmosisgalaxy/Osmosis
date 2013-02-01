@@ -168,7 +168,7 @@ function ClientCtrl($scope,$resource){
   };
 
   $scope.copyToForm = function(key){
-    var project = $scope.client_proj[key];
+    var project = angular.copy($scope.client_proj[key]);
     $scope.projectName = project.title;
     $scope.projectObjective = project.description;
     $scope.technologiesExposure = project.exposure.substring(1,project.exposure.length-1);
@@ -180,14 +180,13 @@ function ClientCtrl($scope,$resource){
   $scope.enableEditor = function(key) {
     $scope.editorEnabled = true;
     $scope.proj_key = key;
-    var project = $scope.client_proj[key];
-    $scope.proj_backup = project;
+    $scope.proj_backup = angular.copy($scope.client_proj[key]);
   };
 
   $scope.disableEditor = function() {
     $scope.editorEnabled = false;
     if($scope.proj_key != null){
-      $scope.client_proj[$scope.proj_key] = $scope.proj_backup;
+      $scope.client_proj[$scope.proj_key] = angular.copy($scope.proj_backup);
       $scope.proj_key = null;
     }
   };
