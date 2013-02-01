@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+  <head>
+    	
+    <meta charset="utf-8">
+    
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    
+    <style>
+
+   
+    body {
+      padding-bottom: 40px;
+      color: #5a5a5a;
+    }
+
+
+
+    /* CUSTOMIZE THE NAVBAR
+    -------------------------------------------------- */
+
+    /* Carousel base class */
+    .carousel {
+      margin-bottom: 60px;
+    }
+
+    .carousel .container {
+      position: relative;
+      z-index: 9;
+    }
+
+    .carousel-control {
+      height: 80px;
+      margin-top: 0;
+      font-size: 120px;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+      background-color: transparent;
+      border: 0;
+    }
+
+    .carousel .item {
+      height: 400px;
+    }
+    .carousel img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      height: 400px;
+    }
+
+    .carousel-caption {
+      background-color: transparent;
+      position: static;
+      max-width: 550px;
+      padding: 0 20px;
+      margin-top: 200px;
+    }
+    .carousel-caption h1,
+    .carousel-caption .lead {
+      margin: 0;
+      line-height: 1.25;
+      color: #fff;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    }
+    .carousel-caption .btn {
+      margin-top: 10px;
+    }
+
+
+ 
+     /* RESPONSIVE CSS
+    -------------------------------------------------- */
+
+    @media (max-width: 979px) {
+
+      .carousel .item {
+        height: 400px;
+      }
+      .carousel img {
+        width: auto;
+        height: 400px;
+      }
+
+      }
+
+
+    @media (max-width: 767px) {
+
+      .carousel {
+        margin-left: -20px;
+        margin-right: -20px;
+      }
+      .carousel .container {
+
+      }
+      .carousel .item {
+        height: 300px;
+      }
+      .carousel img {
+        height: 300px;
+      }
+      .carousel-caption {
+        width: 65%;
+        padding: 0 70px;
+        margin-top: 100px;
+      }
+      .carousel-caption h1 {
+        font-size: 30px;
+      }
+      .carousel-caption .lead,
+      .carousel-caption .btn {
+        font-size: 18px;
+      }
+      
+
+      
+      }
+    </style>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    
+  </head>
+
+  <body ng-controller="LoginCtrl">
+  
+  
+  <!-------------------------- navigation bar -------------------------->
+  
+  
+  <div class='span12'>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+         
+          <img src="assets/img/OsmosisLogo.png" width=9% align="left" style="position:relative;top: 10px">
+         
+         
+         <!-- ---------------------Login button------------------------- -->
+          <button class="btn btn-small btn-warning" type="button" style="float:right; position:relative; bottom:-10px" onclick="location.href='{{corporate_url}}'"><img src="assets/img/googleLogo.jpg" style="height:20px; width:20px; position:relative; left:-3px"><b>| Client Login</b></button>
+         
+          <button class="btn btn-small btn-primary" type="button" style="float:right; position:relative; left:-5px; bottom:-10px" onclick="location.href='{{student_url}}'"><img src="assets/img/googleLogo.jpg" style="height:20px; width:20px; position:relative; left:-3px"><b>| Student Login</b></button>
+                  
+
+                  
+         </div>
+         
+          <br>  
+      </div>
+    </div>
+  </div>
+  
+  <br>
+  <br>
+  <br>
+  
+   
+  
+  
+  
+    <!-- Carousel
+    ================================================== -->
+    <br>
+    <div class='span12'>
+    <div id="myCarousel" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="assets/img/examples/slide-01.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>About Osmosis</h1>
+              <p class="lead">The nickname variable was loaded via AJAX. This shows that the basics are in place. You now need to do this for all of the other views.</p>
+              <a class="btn btn-large btn-primary" href="#contact">Contact</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="assets/img/examples/slide-02.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>This awesome app will change the world.</h1>
+              <ul class="lead">
+                <li> yea</li>
+                <li> yea</li>
+                <li> yea</li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="assets/img/examples/slide-03.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>One more for good measure.</h1>
+              <p class="lead">This is an awesome application! Woohoo!</p>
+              <a class="btn btn-large btn-primary" href="#">Browse gallery</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div><!-- /.span8 -->
+    </div><!-- /.carousel -->
+    
+
+  
+  
+  
+  
+      <!-- FOOTER -->
+      
+      <div class='span12'>
+      <footer>
+        
+        <p style="font-size:smaller">&copy; 2013 Osmosis &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+      </div><!-- /.span12 -->
+      
+    </div><!-- /.container -->
+
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="assets/js/angular/angular.min.js"></script>
+    <script src="assets/js/angular/angular-resource.min.js"></script>
+    <script src="assets/js/controllers.js"></script>
+    <script src="assets/js/app.js"></script>
+
+
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-transition.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-alert.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-modal.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-dropdown.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-scrollspy.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-tab.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-tooltip.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-popover.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-button.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-collapse.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-carousel.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-typeahead.js"></script>
+    <script>
+      !function ($) {
+        $(function(){
+          // carousel demo
+          $('#myCarousel').carousel()
+        })
+       
+      }(window.jQuery)
+      
+      
+     
+    </script>
+  </body>
+</html>
