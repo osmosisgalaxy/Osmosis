@@ -190,7 +190,7 @@
                   <div ng-show="editorEnabled">
                     <input type="text" class="input-xlarge" ng-model="val.description" ng-show="editorEnabled">
                   </div>
-                <br/><br/>
+                <br/>
                 <strong>Technologies Exposure:</strong><br/>
                   <div ng-hide="editorEnabled">
                     {{val.exposure}}
@@ -198,7 +198,7 @@
                   <div ng-show="editorEnabled">
                     <input type="text" class="input-xlarge" ng-model="val.exposure" ng-show="editorEnabled">
                   </div>
-                <br/><br/>
+                <br/>
                 <strong>Contact Person:</strong><br/>
                   <div ng-hide="editorEnabled">
                     {{val.poc}}
@@ -206,7 +206,7 @@
                   <div ng-show="editorEnabled">
                     <input type="text" class="input-xlarge" ng-model="val.poc" ng-show="editorEnabled" required>
                   </div>
-                <br/><br/>
+                <br/>
                 <strong>Contact Email:</strong><br/>
                   <div ng-hide="editorEnabled">
                     {{val.email}}
@@ -214,7 +214,7 @@
                   <div ng-show="editorEnabled">
                     <input type="text" class="input-xlarge" ng-model="val.email" ng-show="editorEnabled" required>
                   </div>
-                <br/><br/>
+                <br/>
                 <strong>Contact Number:</strong><br/>
                   <div ng-hide="editorEnabled">
                     {{val.contact}}
@@ -222,32 +222,26 @@
                   <div ng-show="editorEnabled">
                     <input type="text" class="input-xlarge" ng-model="val.contact" ng-show="editorEnabled">
                   </div>
-                <br/><br/><br/>
+                <br/><br/>
 
                 <div ng-hide="editorEnabled">
                   <form ng-submit="removeProj({{key}})">
                     <button type="submit" ng-hide="editorEnabled">Remove</button>
                   </form>
-                </div>
-                <div ng-hide="editorEnabled">
                   <form ng-submit="enableEditor({{key}})">
                     <button type="submit" ng-hide="editorEnabled">Edit</button>
                   </form>
-                </div>
-                <div ng-hide="editorEnabled">
                   <form ng-submit="copyToForm({{key}})">
                     <button type="submit" ng-hide="editorEnabled">Copy</button>
-                    </form>
+                  </form>
                 </div>
                 <div ng-show="editorEnabled">
                   <form ng-submit="saveProj({{key}},{{val.id}})">
                     <button type="submit" ng-show="editorEnabled">Save</button>
-                    </form>
-                </div>
-                <div ng-show="editorEnabled">
+                  </form>
                   <form ng-submit="disableEditor()">
                     <button type="submit" ng-show="editorEnabled">Cancel</button>
-                    </form>
+                  </form>
                 </div>
               </div>
             </div>
