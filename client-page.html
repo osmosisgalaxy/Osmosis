@@ -141,11 +141,16 @@
                     <textarea class="input-xlarge" ng-model="technologiesExposure" id="technologiesExposure" rows="3"></textarea>  
                   </div>  
                 </div>
+                <div class="control-group">  
+                  <label class="control-label" for="keyLearningPoints">Key Learning Points*</label>  
+                  <div class="controls">  
+                    <textarea class="input-xlarge" ng-model="keyLearningPoints" id="keyLearningPoints" rows="3"></textarea>  
+                  </div>  
+                </div>
                <div class="control-group">  
                 <label class="control-label" for="contactPerson">Contact Person*</label>  
                 <div class="controls">  
                   <input type="text" class="input-xlarge" ng-model="contactPerson" id="contactPerson" required>
-                </div>
                 </div> 
                 <br/>
                 <div class="control-group">  
@@ -154,16 +159,9 @@
                     <input type="text" class="input-xlarge" ng-model="contactEmail" id="contactEmail" required>
                   </div> 
                   <br/>
-                </div>
-                <div class="control-group">  
-                  <label class="control-label" for="keyLearningPoints">Contact Number</label>  
-                  <div class="controls">  
-                    <input type="text" class="input-xlarge" ng-model="contactNumber" id="contactNumber"> 
-                  </div>  
-                </div>
                 <div class="form-actions">  
                   <button type="submit" class="btn btn-primary">Create</button>  
-                  <button class="btn">Cancel</button>  
+                  <button class="btn" ng-click="reset()">Reset</button>  
                 </div>  <!-- form actions -->
               </fieldset>  
             </form>  
@@ -176,71 +174,46 @@
         <div class="accordion" id="mainAccordion">
           <div class="accordion-group" ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List-->
             <div class="accordion-heading">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#mainAccordion" href="#{{val.id}}" ng-click="disableEditor()">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#mainAccordion" href="#{{val.id}}">
               {{val.title}}
               </a>
             </div>
             <div id="{{val.id}}" class="accordion-body collapse in">
               <div class="accordion-inner">
 
+                <div ng-hide="editorEnabled">
+                  {{title}}
+                  <a href="#" ng-click="enableEditor()">Edit title</a>
+                </div>
+                
+
                 <strong>Project Objective:</strong><br/> 
-                  <div ng-hide="editorEnabled">
-                    {{val.description}}
-                  </div>
-                  <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="editableDescription" ng-show="editorEnabled">
-                  </div>
+                  {{val.description}} 
                 <br/><br/>
                 <strong>Technologies Exposure:</strong><br/>
-                  <div ng-hide="editorEnabled">
-                    {{val.exposure}}
-                  </div>
-                  <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="editableExposure" ng-show="editorEnabled">
-                  </div>
+                  {{val.exposure}}
                 <br/><br/>
                 <strong>Contact Person:</strong><br/>
-                  <div ng-hide="editorEnabled">
-                    {{val.poc}}
-                  </div>
-                  <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="editableContact" ng-show="editorEnabled" required>
-                  </div>
+                  {{val.poc}}
                 <br/><br/>
                 <strong>Contact Email:</strong><br/>
-                  <div ng-hide="editorEnabled">
-                    {{val.email}}
-                  </div>
-                  <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="editableEmail" ng-show="editorEnabled" required>
-                  </div>
+                  {{val.email}}
                 <br/><br/>
                 <strong>Contact Number:</strong><br/>
-                  <div ng-hide="editorEnabled">
-                    {{val.contact}}
-                  </div>
-                  <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="editableNumber" ng-show="editorEnabled">
-                  </div>
+                  {{val.contact}}
                 <br/><br/><br/>
-                <div ng-hide="editorEnabled">
-                  <button type="submit" ng-hide="editorEnabled" ng-click="removeProj({{key}})">Remove</button>
-                </div>
-
-                <div ng-hide="editorEnabled">
-                  <button type="submit" ng-hide="editorEnabled" ng-click="enableEditor({{key}})">Edit</button>
-                </div>
-
-                <div ng-hide="editorEnabled">
-                  <button type="submit" ng-hide="editorEnabled" ng-click="copyToForm({{key}})">Copy</button>
-                </div>
 
                 <div ng-show="editorEnabled">
-                    <button type="submit" ng-show="editorEnabled" ng-click="saveProj({{key}},{{val.id}})">Save</button>
+                  <input ng-model="editableTitle" ng-show="editorEnabled">
+                  <a href="#" ng-click="save()">Save</a>
+                  or
+                  <a href="#" ng-click="disableEditor()">cancel</a>.
                 </div>
-                <div ng-show="editorEnabled">
-                    <button type="submit" ng-show="editorEnabled" ng-click="disableEditor()">Cancel</button>
-                </div>
+
+                <button>Remove</button>
+                <form ng-submit="copyToForm({{key}})">
+                  <button type="submit">Copy</button>
+                </form>
               </div>
             </div>
           </div><!--For Every Project in Project List-->
@@ -283,6 +256,10 @@
 <script src="assets/js/bootstrap/bootstrap-carousel.js"></script>
 <script src="assets/js/bootstrap/bootstrap-typeahead.js"></script>
 <script src="assets/js/jquery.jeditable.js"></script>
+<script> 
 
+	
+	
+</script>
   </body>
 </html>
