@@ -169,7 +169,7 @@ function ClientCtrl($scope,$resource){
     var project = $scope.client_proj[key];
     $scope.projectName = project.title;
     $scope.projectObjective = project.description;
-    $scope.technologiesExposure = project.exposure.substring(0,project.exposure.length-1);
+    $scope.technologiesExposure = project.exposure.substring(1,project.exposure.length-1);
     $scope.contactPerson = project.poc;
     $scope.contactEmail = project.email;
     $scope.contactNumber = project.contact;
@@ -179,7 +179,7 @@ function ClientCtrl($scope,$resource){
     $scope.editorEnabled = true;
     var project = $scope.client_proj[key];
     $scope.editableDescription = project.description;
-    $scope.editableExposure = project.exposure.substring(0,project.exposure.length-1);
+    $scope.editableExposure = project.exposure.substring(1,project.exposure.length-1);
     $scope.editableContact = project.poc;
     $scope.editableEmail = project.email;
     $scope.editableNumber = project.contact;
@@ -191,14 +191,15 @@ function ClientCtrl($scope,$resource){
 
   $scope.saveProj = function(key,proj_id) {
     var project = $scope.client_proj[key];
+    var proj_detail = document.getElementById(proj_id);
     var data = {'method':"update_proj",
                 'proj_id': proj_id,
                 'ptitle': project.title,
-                'pdescription': $scope.editableDescription,
-                'pexposure': "{" + $scope.editableExposure + "}",
-                'ppoc': $scope.editableContact,
-                'pemail': $scope.editableEmail,
-                'pcontact': $scope.editableNumber};
+                'pdescription': proj_detail.editableDescription,
+                'pexposure': "{" + proj_detail.editableExposure + "}",
+                'ppoc': proj_detail.editableContact,
+                'pemail': proj_detail.editableEmail,
+                'pcontact': proj_detail.editableNumber};
     $scope.Model.send(data, function(response){
       $scope.client_proj[key] = response.proj;
     });
