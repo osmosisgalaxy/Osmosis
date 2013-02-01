@@ -145,6 +145,8 @@ function ClientCtrl($scope,$resource){
 
   $scope.editorEnabled = false;
   $scope.client_proj;
+  $scope.proj_backup;
+  $scope.proj_key;
 
   $scope.getClientProj = function(){
     $scope.Model.send({'method':"get_cpr_proj"}, function(response){
@@ -177,31 +179,33 @@ function ClientCtrl($scope,$resource){
 
   $scope.enableEditor = function(key) {
     $scope.editorEnabled = true;
+    $scope.proj_key = key;
     var project = $scope.client_proj[key];
-    $scope.editableDescription = project.description;
-    $scope.editableExposure = project.exposure.substring(1,project.exposure.length-1);
-    $scope.editableContact = project.poc;
-    $scope.editableEmail = project.email;
-    $scope.editableNumber = project.contact;
+    $scope.proj_backup = project;
   };
 
   $scope.disableEditor = function() {
     $scope.editorEnabled = false;
+    if($scope.proj_key != null){
+      $scope.client_proj[$scope.proj_key] = $scope.proj_backup;
+      $scope.proj_key = null;
+    }
   };
 
   $scope.saveProj = function(key,proj_id) {
     var project = $scope.client_proj[key];
-    var proj_detail = document.getElementById(proj_id);
     var data = {'method':"update_proj",
                 'proj_id': proj_id,
                 'ptitle': project.title,
-                'pdescription': proj_detail.editableDescription,
-                'pexposure': "{" + proj_detail.editableExposure + "}",
-                'ppoc': proj_detail.editableContact,
-                'pemail': proj_detail.editableEmail,
-                'pcontact': proj_detail.editableNumber};
+                'pdescription': project.description,
+                'pexposure': "{" + project.exposure + "}",
+                'ppoc': project.poc,
+                'pemail': project.email,
+                'pcontact': project.contact};
     $scope.Model.send(data, function(response){
       $scope.client_proj[key] = response.proj;
+      $scope.proj_key = null;
+      $scope.editorEnabled = false;
     });
   };
   

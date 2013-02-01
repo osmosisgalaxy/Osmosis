@@ -188,7 +188,7 @@
                     {{val.description}}
                   </div>
                   <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="editableDescription" ng-show="editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="val.description" ng-show="editorEnabled">
                   </div>
                 <br/><br/>
                 <strong>Technologies Exposure:</strong><br/>
@@ -196,7 +196,7 @@
                     {{val.exposure}}
                   </div>
                   <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="editableExposure" ng-show="editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="val.exposure" ng-show="editorEnabled">
                   </div>
                 <br/><br/>
                 <strong>Contact Person:</strong><br/>
@@ -204,7 +204,7 @@
                     {{val.poc}}
                   </div>
                   <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="editableContact" ng-show="editorEnabled" required>
+                    <input type="text" class="input-xlarge" ng-model="val.poc" ng-show="editorEnabled" required>
                   </div>
                 <br/><br/>
                 <strong>Contact Email:</strong><br/>
@@ -212,7 +212,7 @@
                     {{val.email}}
                   </div>
                   <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="editableEmail" ng-show="editorEnabled" required>
+                    <input type="text" class="input-xlarge" ng-model="val.email" ng-show="editorEnabled" required>
                   </div>
                 <br/><br/>
                 <strong>Contact Number:</strong><br/>
@@ -220,7 +220,7 @@
                     {{val.contact}}
                   </div>
                   <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="editableNumber" ng-show="editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="val.contact" ng-show="editorEnabled">
                   </div>
                 <br/><br/><br/>
 
@@ -257,12 +257,15 @@
   </div>
 </div>      
 
+<!--close all accordion-->
+<script type="text/javascript">
+          $('.accordion-body').collapse("hide");
+</script>
 
-      
-      <footer>
-        <p>* denotes compulsory field</p>
-        <p>&copy; Company 2012</p>
-      </footer>
+<footer>
+  <p>* denotes compulsory field</p>
+  <p>&copy; Company 2012</p>
+</footer>
 
     <!-- Le javascript
     ================================================== -->
