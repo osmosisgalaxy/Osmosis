@@ -42,7 +42,7 @@
     </script>
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
    </head>
-<body>
+<body ng-controller="StudentCtrl">
 	  	  <!-----------  Start of navigation bar  ------------>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -126,10 +126,10 @@
                 <div class="accordion-inner" style="font-size:12px; background-color:white">
                   <div ng-hide="noTeam">
                     Hi! You do not have a team currently.<br>
-                    Click on the button below to create one! <br>
+                    Click on the button below to create one! <br><br>
                     <form ng-submit=""><!-- create team-->
-                      UserName : <input type="text" ng-model="teamName"> 
-                      <button type="submit" class="btn btn-large">Create Team</button>
+                      Team Name : <input type="text" ng-model="teamName"> 
+                      <button type="submit" class="btn btn-small">Create Team</button>
                     </form>
                   </div>
                   <div ng-show="noTeam">
