@@ -108,7 +108,7 @@ function StudentCtrl($scope,$resource){
 
   $scope.getAvailProj = function(){
     $scope.Model.send({'method':"get_available_project"}, function(response){
-      $scope.avail_proj = response.projects;
+      $scope.avail_proj = response.proj;
     });
   };
 
