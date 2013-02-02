@@ -226,7 +226,7 @@ function ClientCtrl($scope,$resource){
     var data = {'method':"delete_proj",
                 'proj_id':key};
     $scope.Model.send(data, function(response){
-      if (response.result == "True"){
+      if (response.result == "true"){
         $scope.getClientProj();
       }
     });
