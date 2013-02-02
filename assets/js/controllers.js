@@ -206,8 +206,10 @@ function ClientCtrl($scope,$resource){
                 'pcontact': project.contact};
     $scope.Model.send(data, function(response){
       $scope.client_proj[key] = response.proj;
+      $scope.client_proj[key].exposure = $scope.client_proj[key].exposure.substring(1,$scope.client_proj[key].exposure.length-1);
       $scope.proj_key = null;
       $scope.editorEnabled = false;
+      $('#' + $scope.client_proj[key].id).collapse("show");
     });
   };
   
@@ -224,7 +226,9 @@ function ClientCtrl($scope,$resource){
     var data = {'method':"delete_proj",
                 'proj_id':key};
     $scope.Model.send(data, function(response){
-      $scope.getClientProj();
+      if (response.result == "True"){
+        $scope.getClientProj();
+      }
     });
   };
 
