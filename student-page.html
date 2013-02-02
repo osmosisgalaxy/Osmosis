@@ -28,6 +28,7 @@
       }
 
       #projAvailable{
+        height: 500px;
         overflow: auto;
       }
      
@@ -89,27 +90,29 @@
      
      
      
-    	<div id="projAvailable">
+    	<div class='span4'>
 	    <!-- Start of PROJECTS AVAILABLE -->   
         <h3>Projects Available</h3>
-				<div class="accordion" id="projAccordion">
-          <div class="accordion-group" ng-repeat="(key,val) in avail_proj">                     
-            <div class="accordion-heading" style="background-color:#FAFAFA">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#projAccordion" href="#{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-              {{val.title}}
-              </a>
-            </div>
-            <div id="{{val.id}}" class="accordion-body collapse in">
-              <div class="accordion-inner" style="font-size:12px; background-color:white">
-                <div style="color:grey; display:inline">Project Objective: </div>{{val.description}} </br>
-                <div style="color:grey; display:inline">Technologies Exposure: </div>{{val.exposure}} </br>
-                <div style="color:grey; display:inline">Contact Person: </div> {{val.poc}} </br>
-                <div style="color:grey; display:inline">Contact Email: </div> {{val.email}} </br>
-                <div style="color:grey; display:inline">Contact Number: </div> {{val.contact}} </br>
+        <div id='projAvailable'>
+  				<div class="accordion" id="projAccordion">
+            <div class="accordion-group" ng-repeat="(key,val) in avail_proj">                     
+              <div class="accordion-heading" style="background-color:#FAFAFA">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#projAccordion" href="#{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                {{val.title}}
+                </a>
               </div>
-            </div>
-          </div><!-- .accordion-group -->
-        </div><!-- end of first accordion -->
+              <div id="{{val.id}}" class="accordion-body collapse in">
+                <div class="accordion-inner" style="font-size:12px; background-color:white">
+                  <div style="color:grey; display:inline">Project Objective: </div>{{val.description}} </br>
+                  <div style="color:grey; display:inline">Technologies Exposure: </div>{{val.exposure}} </br>
+                  <div style="color:grey; display:inline">Contact Person: </div> {{val.poc}} </br>
+                  <div style="color:grey; display:inline">Contact Email: </div> {{val.email}} </br>
+                  <div style="color:grey; display:inline">Contact Number: </div> {{val.contact}} </br>
+                </div>
+              </div>
+            </div><!-- .accordion-group -->
+          </div><!-- end of first accordion -->
+        </div>
 		  <!-- End of PROJECTS AVAILABLE --> 
       </div>
 
