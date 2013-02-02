@@ -64,6 +64,10 @@
         top: 10px;
         left: 0px;
       }
+
+      .btn_left_side {
+        float: left;
+      }
     </style>
 
 
@@ -226,21 +230,21 @@
 
                 <div ng-hide="editorEnabled">
                   <form ng-submit="removeProj({{val.id}})">
-                    <button type="submit" ng-hide="editorEnabled">Remove</button>
+                    <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Remove</button>
                   </form>
                   <form ng-submit="enableEditor({{key}})">
-                    <button type="submit" ng-hide="editorEnabled">Edit</button>
+                    <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Edit</button>
                   </form>
                   <form ng-submit="copyToForm({{key}})">
-                    <button type="submit" ng-hide="editorEnabled">Copy</button>
+                    <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Copy</button>
                   </form>
                 </div>
                 <div ng-show="editorEnabled">
                   <form ng-submit="saveProj({{key}},{{val.id}})">
-                    <button type="submit" ng-show="editorEnabled">Save</button>
+                    <button class="btn_left_side" type="submit" ng-show="editorEnabled">Save</button>
                   </form>
                   <form ng-submit="disableEditor()">
-                    <button type="submit" ng-show="editorEnabled">Cancel</button>
+                    <button class="btn_left_side" type="submit" ng-show="editorEnabled">Cancel</button>
                   </form>
                 </div>
               </div>

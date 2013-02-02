@@ -22,6 +22,10 @@
       }
       
       }
+
+      .btn_right_side {
+        float: right;
+      }
      
     </style>
     
@@ -31,28 +35,15 @@
         alert(contents);
     }
   
-	$(function ()  
-	{ $("#profile_popover").popover({placement:'bottom'});
+    $(function ()  
+      { $("#profile_popover").popover({placement:'bottom'});
 	  
-	}); 
-</script>
-
-
+    }); 
+    </script>
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
-
- 
    </head>
-
-
-
-  <body>
-
-	  
-	  
-	  
+<body>
 	  	  <!-----------  Start of navigation bar  ------------>
-
-
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -95,161 +86,143 @@
      
      
     	<div class='span4'>
-	    
-	    <!-- Start of PROJECTS AVAILABLE --> 
-	      
-			<h3>Projects Available</h3>
-		    <div ng-repeat="proj in avail_proj">
-  				<div class="accordion" id="{{accordion1}}"><!-- Start of first accordion -->
-                        <div class="accordion-group">                     
-                          <div class="accordion-heading" style="background-color:#FAFAFA">
-      	                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#{{accordion1}}" href="#collapseOne" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-                            {{project_name}}
-                            </a>
-                          </div>
-                      
-                          <div id="collapseOne" class="accordion-body collapse in">
-                            <div class="accordion-inner" style="font-size:12px; background-color:white">
-                          
-                              {{Project Objective}} <br><br>
-                              <div style="color:grey; display:inline">Technologies Exposure: </div> {{technologies_exposure}} <br>
-                              <div style="color:grey; display:inline">Learning Experience: </div> {{learning_experience}} <br>
-                              <div style="color:grey; display:inline">Contact Person: </div> {{contact_person}} <br>
-                              <div style="color:grey; display:inline">Contact Email: </div> {{contact_email}}
-
-                            </div>
-                          </div>
-                        </div><!-- .accordion-group -->
-          </div><!-- end of first accordion -->
-        </div>
-   
-		<!-- End of PROJECTS AVAILABLE --> 
-
-		</div><!-- span4 -->
+	    <!-- Start of PROJECTS AVAILABLE -->   
+        <h3>Projects Available</h3>
+				<div class="accordion" id="projAccordion">
+          <div class="accordion-group" ng-repeat="(key,val) in avail_proj">                     
+            <div class="accordion-heading" style="background-color:#FAFAFA">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#projAccordion" href="#{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+              {{val.title}}
+              </a>
+            </div>
+            <div id="{{val.id}}" class="accordion-body collapse in">
+              <div class="accordion-inner" style="font-size:12px; background-color:white">
+                <div style="color:grey; display:inline">Project Objective: </div>{{val.description}} </br>
+                <div style="color:grey; display:inline">Technologies Exposure: </div>{{val.exposure}} </br>
+                <div style="color:grey; display:inline">Contact Person: </div> {{val.poc}} </br>
+                <div style="color:grey; display:inline">Contact Email: </div> {{val.email}} </br>
+                <div style="color:grey; display:inline">Contact Number: </div> {{val.contact}} </br>
+              </div>
+            </div>
+          </div><!-- .accordion-group -->
+        </div><!-- end of first accordion -->
+		  <!-- End of PROJECTS AVAILABLE --> 
+      </div>
 
 
 
 	 
 		<div class="span4">
-	    
-		<!-- Start of TEAM -->
-	   
-	
 			<h3>Team</h3>
-	    
-	 
-	   
-		      <div class="accordion" id="accordion2">
-      
-      
-          			<!-- Start of first accordion -->
-      
-                     <div class="accordion-group">                     
-	                 <div class="accordion-heading" style="background-color:#FAFAFA">
-	                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse1" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-                      My Team
-                      	</a>
-                    </div>
-                    
-                    <div id="collapse1" class="accordion-body collapse in">
-                    <div class="accordion-inner" style="font-size:12px; background-color:white">
-                    
+		      <div class="accordion" id="teamAccordion"><!-- Start of TEAM -->
+      			<!-- Start of my team accordion -->
+            <div class="accordion-group">                     
+              <div class="accordion-heading" style="background-color:#FAFAFA">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#teamAccordion" href="#collapse1" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                  My Team
+                </a>
+              </div>
+              <div id="createTeam" class="accordion-body collapse in">
+                <div class="accordion-inner" style="font-size:12px; background-color:white">
+                  <div ng-hide="noTeam">
                     Hi! You do not have a team currently.<br>
                     Click on the button below to create one! <br>
-                    <i class="icon-hand-right"></i>&nbsp<button type="submit" class="btn btn-mini" onclick="showInnerHtml()">Create Team</button>
-                    
-                    
-                    <div id="formArea">
-				        <form class="form-horizontal">
-				          UserName : <input type="text" name="userName"> 
-				          UserName : <input type="text" name="userName"> 
-				          UserName : <input type="text" name="userName"> 
-				        </form>
-			        </div>
-                    
-                    
-                    	  			  							
-					</div>
-					
-					</div>
-
-					</div><!-- .accordion-group -->
-
-					<!-- end of first accordion -->
-
-
-
-					<!-- Start of second accordion -->
-      
-                     <div class="accordion-group">                     
-	                 <div class="accordion-heading" style="background-color:#FAFAFA">
-	                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse2" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-                      Teams Recruiting
+                    <form ng-submit=""><!-- create team-->
+                      UserName : <input type="text" ng-model="teamName"> 
+                      <button type="submit" class="btn btn-large">Create Team</button>
+                    </form>
+                  </div>
+                  <div ng-show="noTeam">
+                    {{}}<!-- team name -->
+                    Team Members:</br>
+                    <div ng-repeat=""><!-- team member -->
+                      {{}}<!-- member name-->
+    				          <form ng-submit=""><!-- remove team member-->
+                        <button class="btn_right_side" type="submit" class="btn btn-mini">Remove</button>
+                      </form>
+                    </div>
+                    <hr>
+                    Pending Invitation:</br>
+                    <div ng-repeat=""><!-- pending list -->
+                      {{}}<!-- pending name-->
+                      <form ng-submit=""><!-- remove pending-->
+                        <button class="btn_right_side" type="submit" class="btn btn-mini">Cancel Invite</button>
+                      </form>
+                    </div>
+                    <hr>
+                    Interested Students:</br>
+                    <div ng-repeat=""><!-- interested list -->
+                      {{}}<!-- interested name-->
+                      <form ng-submit=""><!-- reject interested-->
+                        <button class="btn_right_side" type="submit" class="btn btn-mini">Reject</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end of my team accordion -->
+            <!-- Start of recruit team accordion -->
+            <div class="accordion-group">                     
+              <div class="accordion-heading" style="background-color:#FAFAFA">
+	              <a class="accordion-toggle" data-toggle="collapse" data-parent="#teamAccordion" href="#collapse2" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                  Teams Recruiting
+                </a>
+              </div>
+              <div id="teamRecruit" class="accordion-body collapse in">
+                <div class="accordion-inner" style="font-size:12px; background-color:white">
+                  <!-- Start of inner recruit teams accordion -->
+                  <div class="accordion" id="recruitTeamAccordion">
+                    <div class="accordion-group" ng-repeat=""><!-- repeat number of teams recruiting -->
+                      <div class="accordion-heading" style="background-color:#FAFAFA">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#recruitTeamAccordion" href="#{{}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                          {{}}<!-- team name -->
                         </a>
+                      </div>
+                      <div id="{{}}" class="accordion-body collapse in"><!-- team id -->
+                        <div class="accordion-inner" style="font-size:12px; background-color:white">
+                          <div style="color:grey; display:inline">Team members: </div> {{team_members}} <br>
+                          <div style="color:grey; display:inline">Area of interest: </div> {{area_of_interest}} <br>
+                          <div style="color:grey; display:inline">FYP term: </div> {{fyp_term}} <br>
+                          <div align="right">
+                            <form ng-submit="" ng-hide="noTeam"><!-- i want to join -->
+                              <button type="submit" class="btn btn-mini">I would like to join!</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    
-                    <div id="collapse2" class="accordion-body collapse">
-                    <div class="accordion-inner" style="font-size:12px; background-color:white">
-                    
-                    {{team_name}} <br><br>
-                    <div style="color:grey; display:inline">Team members: </div> {{team_members}} <br>
-                    <div style="color:grey; display:inline">Area of interest: </div> {{area_of_interest}} <br>
-                    <div style="color:grey; display:inline">FYP term: </div> {{fyp_term}} <br>
-
-                    <div align="right">
-                    <i class="icon-hand-right"></i>&nbsp<button type="submit" class="btn btn-mini">I would like to join!</button>
-                    </div>
-                    
-                    	  
-                    
-                    	  			  							
-					</div>
-					
-					</div>
-
-					</div><!-- .accordion-group -->
-
-					<!-- end of second accordion -->
-
-
-			
-			</div>
-	 			
-			
-		 
-		 
-	 <!-- End of TEAM -->
-
-
-	 </div><!-- .span4 -->
+                  </div><!-- end of inner recruit teams accordion -->		  							
+					       </div>
+					     </div>
+              </div><!-- end of recruit team accordion -->
+            </div><!-- End of TEAM -->
+          </div><!-- .span4 -->
 
 
 
 
 
 
-	 <div class="span4">
-	 
-	 <!-- Start of STUDENTS WITHOUT TEAM -->
-	 
-	 	<h3>Students Without Team</h3>
-	 	
-	 		<div class="accordion" id="accordion3" >
-      
-      
-          			<!-- Start of first accordion -->
-      
-                     <div class="accordion-group">                     
-	                 <div class="accordion-heading" style="background-color:#FAFAFA">
-	                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapse01" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-                      Academic Year 2009/2010
-                      	</a>
-                    </div>
-                    
-                    <div id="collapse01" class="accordion-body collapse in" >
-                    <div class="accordion-inner" style="font-size:12px; background-color:white">
-                    
-                    <table width="400px">
+  <div class="span4">
+    <!-- Start of STUDENTS WITHOUT TEAM -->
+    <h3>Students Without Team</h3>
+	 	<div class="accordion" id="studentNoTeamAccordion" >
+      <div class="accordion-group" ng-repeat=""><!-- academic years   -->          
+	      <div class="accordion-heading" style="background-color:#FAFAFA">
+	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#studentNoTeamAccordion" href="#{{}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- the year -->
+            Academic Year {{}}<!-- the year -->
+          </a>
+        </div>
+        <div id="{{}}" class="accordion-body collapse in" ><!-- the year -->
+          <div class="accordion-inner" style="font-size:12px; background-color:white">
+            <div ng-repeat=""><!-- students of current academic yr without team -->
+              {{}}<!-- student name -->
+              <form ng-submit=""><!-- invite student to team -->
+                <button class="btn_right_side" type="submit" class="btn btn-mini">Invite</button>
+              </form>
+            </div>      
+                    <!-- <table width="400px">
                     <tr>
                     <td style="padding-bottom:7px" onmouseover="document.getElementById('studentinfo').style.visibility = 'visible'"; onmouseout="document.getElementById('studentinfo').style.visibility = 'hidden'";>
 	                    {{name1}}<div style="display:inline" id="studentinfo">Students info here!</div>
@@ -273,124 +246,13 @@
                     <td style="padding-bottom:7px">{{name5}}</td>
                     <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
                     </tr>
-                    </table>
-                                                                         	  			  							
-					</div>
-					
-					</div>
-
-					</div><!-- .accordion-group -->
-
-					<!-- end of first accordion -->
-			
-			</div>
-
-
-			<div class="accordion" id="accordion4" >
-      
-      
-          			<!-- Start of first accordion -->
-      
-                     <div class="accordion-group">                     
-	                 <div class="accordion-heading" style="background-color:#FAFAFA">
-	                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapse001" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-                      Academic Year 2010/2011
-                      	</a>
-                    </div>
-                    
-                    <div id="collapse001" class="accordion-body collapse">
-                    <div class="accordion-inner" style="font-size:12px; background-color:white">
-                    
-                    <table width="630px">
-                    <tr>
-                    <td style="padding-bottom:7px">{{name1}}</td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    <tr>
-                    <td style="padding-bottom:7px">{{name2}}</td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    <tr>
-                    <td style="padding-bottom:7px">{{name3}}</td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    <tr>
-                    <td style="padding-bottom:7px">{{name4}}</td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    <tr>
-                    <td style="padding-bottom:7px">{{name5}}</td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    </table>
-                                                            	  			  							
-					</div>
-					
-					</div>
-
-					</div><!-- .accordion-group -->
-
-					<!-- end of first accordion -->
-			
-			</div>
-	 
-	 
-			<div class="accordion" id="accordion5" >
-      
-      
-          			<!-- Start of first accordion -->
-      
-                     <div class="accordion-group">                     
-	                 <div class="accordion-heading" style="background-color:#FAFAFA">
-	                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapse0001" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-                      Academic Year 2011/2012
-                      	</a>
-                    </div>
-                    
-                    <div id="collapse0001" class="accordion-body collapse">
-                    <div class="accordion-inner" style="font-size:12px; background-color:white">
-                    
-                    <table width="630px">
-                    <tr>
-                    <td style="padding-bottom:7px">{{name1}}</td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    <tr>
-                    <td style="padding-bottom:7px">{{name2}}</td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    <tr>
-                    <td style="padding-bottom:7px">{{name3}}</td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    <tr>
-                    <td style="padding-bottom:7px">{{name4}}</td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    <tr>
-                    <td style="padding-bottom:7px">{{name5}}</td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    </table>
-                                                            	  			  							
-					</div>
-					
-					</div>
-
-					</div><!-- .accordion-group -->
-
-					<!-- end of first accordion -->
-			
-			</div>
-			
-			
-			
-	 
-	 <!-- End of STUDENTS WITHOUT TEAM -->
-	 
-	 
-	 
-	 </div>
+                    </table> -->
+          </div>
+				</div>
+      </div><!-- .accordion-group -->
+		</div>
+		<!-- End of STUDENTS WITHOUT TEAM -->
+	</div>
 	
 </div><!-- .container-fluid -->
 
