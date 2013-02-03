@@ -268,17 +268,17 @@
     <!-- Start of STUDENTS WITHOUT TEAM -->
     <h3>Students Without Team</h3>
 	 	<div class="accordion" id="studentNoTeamAccordion" >
-      <div class="accordion-group" ng-repeat="(key,val) in stud_finding"><!-- academic years   -->          
+      <div class="accordion-group" ng-repeat="(key,val) in stud_year"><!-- academic years   -->          
 	      <div class="accordion-heading" style="background-color:#FAFAFA">
-	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#studentNoTeamAccordion" href="#{{key}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- the year -->
-            Academic Year {{key}}<!-- the year -->
+	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#studentNoTeamAccordion" href="#{{val.year}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- the year -->
+            Academic Year {{val.year}}<!-- the year -->
           </a>
         </div>
-        <div id="{{key}}" class="accordion-body collapse in" ><!-- the year -->
+        <div id="{{val.year}}" class="accordion-body collapse in" ><!-- the year -->
           <div class="accordion-inner" style="font-size:12px; background-color:white">
-            <div ng-repeat="std in {{val}}"><!-- students of current academic yr without team -->
-              {{std.full_name}}<!-- student name --></br>
-              {{std.email}}
+            <div ng-repeat="(key,val) in stud_finding[{{key}}]"><!-- students of current academic yr without team -->
+              {{val.students.full_name}}<!-- student name --></br>
+              {{val.students.email}}
               <form ng-submit="" ng-show="noTeam"><!-- invite student to team -->
                 <button class="btn_right_side" type="submit" class="btn btn-mini">Invite</button>
               </form>
