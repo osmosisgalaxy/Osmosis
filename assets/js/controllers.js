@@ -98,6 +98,7 @@ function StudentCtrl($scope,$resource){
   $scope.stud_team;
   $scope.team_recruit;
   $scope.stud_finding;
+  $scope.stud_year;
 
   //get student info
   $scope.getStudInfo = function(){
@@ -127,6 +128,7 @@ function StudentCtrl($scope,$resource){
   $scope.getStudFinding = function(){
     $scope.Model.send({'method':"get_available_stud"}, function(response){
       $scope.stud_finding = response.students;
+      $scope.stud_year = response.year;
     });
   };
 
