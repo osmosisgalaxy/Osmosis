@@ -276,9 +276,9 @@
         </div>
         <div id="{{val.year}}" class="accordion-body collapse in" ><!-- the year -->
           <div class="accordion-inner" style="font-size:12px; background-color:white">
-            <div ng-repeat="(key,val) in stud_finding[{{key}}]"><!-- students of current academic yr without team -->
-              {{val.students.full_name}}<!-- student name --></br>
-              {{val.students.email}}
+            <div ng-repeat="(key,val) in stud_finding[{{key}}].students"><!-- students of current academic yr without team -->
+              {{val.full_name}}<!-- student name --></br>
+              {{val.email}}
               <form ng-submit="" ng-show="noTeam"><!-- invite student to team -->
                 <button class="btn_right_side" type="submit" class="btn btn-mini">Invite</button>
               </form>
