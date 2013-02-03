@@ -268,7 +268,7 @@
     <!-- Start of STUDENTS WITHOUT TEAM -->
     <h3>Students Without Team</h3>
 	 	<div class="accordion" id="studentNoTeamAccordion" >
-      <div class="accordion-group" ng-repeat="(key,val) in stud_year"><!-- academic years   -->          
+      <div class="accordion-group" ng-repeat="(key,val) in stud_finding"><!-- academic years   -->          
 	      <div class="accordion-heading" style="background-color:#FAFAFA">
 	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#studentNoTeamAccordion" href="#{{val.year}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- the year -->
             Academic Year {{val.year}}<!-- the year -->
@@ -276,7 +276,7 @@
         </div>
         <div id="{{val.year}}" class="accordion-body collapse in" ><!-- the year -->
           <div class="accordion-inner" style="font-size:12px; background-color:white">
-            <div ng-repeat="(key,val) in stud_finding"><!-- students of current academic yr without team -->
+            <div ng-repeat="(key,val) in {{val.students}}"><!-- students of current academic yr without team -->
               {{val.full_name}}<!-- student name --></br>
               {{val.email}}
               <form ng-submit="" ng-show="noTeam"><!-- invite student to team -->
