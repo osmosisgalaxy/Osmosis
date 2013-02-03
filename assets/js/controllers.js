@@ -128,7 +128,6 @@ function StudentCtrl($scope,$resource){
   $scope.getStudFinding = function(){
     $scope.Model.send({'method':"get_available_stud"}, function(response){
       $scope.stud_finding = response.students;
-      $scope.stud_year = response.year;
     });
   };
 
