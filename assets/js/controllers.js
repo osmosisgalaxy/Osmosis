@@ -169,7 +169,7 @@ function ClientCtrl($scope,$resource){
     'contact':$scope.contactNumber};
 
     $scope.Model.send(data, function(response){
-      $scope.client_proj.append(data);
+      $scope.client_proj.push(data);
       $('#mainAccordion').load();
     });
   };
