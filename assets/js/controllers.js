@@ -213,7 +213,7 @@ function ClientCtrl($scope,$resource){
       $scope.client_proj[key].exposure = $scope.client_proj[key].exposure.substring(1,$scope.client_proj[key].exposure.length-1);
       $scope.proj_key = null;
       $scope.editorEnabled = false;
-      $('#' + $scope.client_proj[key].id).modal("show");
+      $('#' + $scope.client_proj[key].id).collapse();
     });
   };
   
