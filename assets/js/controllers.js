@@ -151,10 +151,11 @@ function ClientCtrl($scope,$resource){
 
   $scope.getClientProj = function(){
     $scope.Model.send({'method':"get_cpr_proj"}, function(response){
-      $scope.client_proj = response.proj;
-      for(var i = 0; i < $scope.client_proj.length; i++){
-        $scope.client_proj[i].exposure = $scope.client_proj[i].exposure.substring(1,$scope.client_proj[i].exposure.length-1);
+      var projects = response.proj;
+      for(var i = 0; i < projects.length; i++){
+        projects[i].exposure = projects[i].exposure.substring(1,projects[i].exposure.length-1);
       }
+      $scope.client_proj = projects;
     });
   };
 
