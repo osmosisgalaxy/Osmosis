@@ -209,11 +209,8 @@ function ClientCtrl($scope,$resource){
                 'pemail': project.email,
                 'pcontact': project.contact};
     $scope.Model.send(data, function(response){
-      $scope.client_proj[key] = response.proj;
-      $scope.client_proj[key].exposure = $scope.client_proj[key].exposure.substring(1,$scope.client_proj[key].exposure.length-1);
       $scope.proj_key = null;
       $scope.editorEnabled = false;
-      $('#' + proj_id).collapse("show");
     });
   };
   
