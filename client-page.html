@@ -229,7 +229,7 @@
                 <br/><br/>
 
                 <div ng-hide="editorEnabled">
-                  <form ng-submit="removeProj({{val.id}})">
+                  <form ng-submit="removeProj({{val.id}},{{key}})">
                     <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Remove</button>
                   </form>
                   <form ng-submit="enableEditor({{key}})">
