@@ -161,15 +161,15 @@ function ClientCtrl($scope,$resource){
 
   $scope.createProj = function(){
     var data = {'method':"create_proj",
-    'projectName':$scope.projectName,
-    'projectObjective':$scope.projectObjective,
-    'technologiesExposure': "{" + $scope.technologiesExposure + "}",
-    'contactPerson':$scope.contactPerson,
-    'contactEmail':$scope.contactEmail,
-    'contactNumber':$scope.contactNumber};
+    'title':$scope.projectName,
+    'description':$scope.projectObjective,
+    'exposure': "{" + $scope.technologiesExposure + "}",
+    'poc':$scope.contactPerson,
+    'email':$scope.contactEmail,
+    'contact':$scope.contactNumber};
 
     $scope.Model.send(data, function(response){
-      $scope.getClientProj();
+      $scope.client_proj.append(data);
       $('#mainAccordion').load();
     });
   };
@@ -226,12 +226,12 @@ function ClientCtrl($scope,$resource){
     $scope.contactNumber = "";
   };
 
-  $scope.removeProj = function(key){
+  $scope.removeProj = function(proj_id, key){
     var data = {'method':"delete_proj",
-                'proj_id':key};
+                'proj_id':proj_id};
     $scope.Model.send(data, function(response){
       if (response.result){
-        $scope.getClientProj();
+        $scope.client_proj.splice(key,1);
         $('#mainAccordion').load();
       }
     });
