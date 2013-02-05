@@ -162,7 +162,7 @@ function ClientCtrl($scope,$resource){
     var data = {'method':"create_proj",
     'projectName':$scope.projectName,
     'projectObjective':$scope.projectObjective,
-    'technologiesExposure': $scope.technologiesExposure,
+    'technologiesExposure': "{" + $scope.technologiesExposure + "}",
     'contactPerson':$scope.contactPerson,
     'contactEmail':$scope.contactEmail,
     'contactNumber':$scope.contactNumber};
@@ -212,7 +212,7 @@ function ClientCtrl($scope,$resource){
       $scope.client_proj[key].exposure = $scope.client_proj[key].exposure.substring(1,$scope.client_proj[key].exposure.length-1);
       $scope.proj_key = null;
       $scope.editorEnabled = false;
-      $('#' + $scope.client_proj[key].id).collapse();
+      $('#' + $scope.client_proj[key].id).collapse("show");
     });
   };
   
