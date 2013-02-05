@@ -169,7 +169,6 @@ function ClientCtrl($scope,$resource){
 
     $scope.Model.send(data, function(response){
       $scope.getClientProj();
-      $('#mainAccordion').accordion("destroy");
       $('#mainAccordion').accordion();
     });
   };
@@ -232,7 +231,6 @@ function ClientCtrl($scope,$resource){
     $scope.Model.send(data, function(response){
       if (response.result){
         $scope.getClientProj();
-        $('#mainAccordion').accordion("destroy");
         $('#mainAccordion').accordion();
       }
     });
