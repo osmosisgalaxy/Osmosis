@@ -162,6 +162,7 @@ function ClientCtrl($scope,$resource){
     var data = {'method':"create_proj",
     'projectName':$scope.projectName,
     'projectObjective':$scope.projectObjective,
+    'technologiesExposure': $scope.technologiesExposure,
     'contactPerson':$scope.contactPerson,
     'contactEmail':$scope.contactEmail,
     'contactNumber':$scope.contactNumber};
@@ -176,7 +177,7 @@ function ClientCtrl($scope,$resource){
     var project = angular.copy($scope.client_proj[key]);
     $scope.projectName = project.title;
     $scope.projectObjective = project.description;
-    $scope.technologiesExposure = project.exposure.substring(1,project.exposure.length-1);
+    $scope.technologiesExposure = project.exposure;
     $scope.contactPerson = project.poc;
     $scope.contactEmail = project.email;
     $scope.contactNumber = project.contact;
