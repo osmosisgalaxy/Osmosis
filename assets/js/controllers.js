@@ -169,6 +169,7 @@ function ClientCtrl($scope,$resource){
 
     $scope.Model.send(data, function(response){
       $scope.getClientProj();
+      $('#mainAccordion').accordion("destroy");
       $('#mainAccordion').accordion();
     });
   };
@@ -212,7 +213,7 @@ function ClientCtrl($scope,$resource){
       $scope.client_proj[key].exposure = $scope.client_proj[key].exposure.substring(1,$scope.client_proj[key].exposure.length-1);
       $scope.proj_key = null;
       $scope.editorEnabled = false;
-      $('#' + $scope.client_proj[key].id).collapse("show");
+      $('#' + $scope.client_proj[key].id).modal("show");
     });
   };
   
@@ -231,6 +232,7 @@ function ClientCtrl($scope,$resource){
     $scope.Model.send(data, function(response){
       if (response.result){
         $scope.getClientProj();
+        $('#mainAccordion').accordion("destroy");
         $('#mainAccordion').accordion();
       }
     });
