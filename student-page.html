@@ -149,11 +149,11 @@
   				<div class="accordion" id="projAccordion">
             <div class="accordion-group" ng-repeat="(key,val) in avail_proj">                     
               <div class="accordion-heading" style="background-color:#FAFAFA">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#projAccordion" href="#{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#projAccordion" href="#p_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
                 {{val.title}}
                 </a>
               </div>
-              <div id="{{val.id}}" class="accordion-body collapse in">
+              <div id="p_{{val.id}}" class="accordion-body collapse in">
                 <div class="accordion-inner" style="font-size:12px; background-color:white">
                   <div style="color:grey; display:inline">Project Objective: </div>{{val.description}} </br>
                   <div style="color:grey; display:inline">Technologies Exposure: </div>{{val.exposure}} </br>
@@ -236,11 +236,11 @@
                   <div class="accordion" id="recruitTeamAccordion">
                     <div class="accordion-group" ng-repeat="(key,val) in team_recruit"><!-- repeat number of teams recruiting -->
                       <div class="accordion-heading" style="background-color:#FAFAFA">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#recruitTeamAccordion" href="#{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#recruitTeamAccordion" href="#t_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
                           {{val.name}}<!-- team name -->
                         </a>
                       </div>
-                      <div id="{{val.id}}" class="accordion-body collapse in"><!-- team id -->
+                      <div id="t_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
                         <div class="accordion-inner" style="font-size:12px; background-color:white">
                           <div style="color:grey; display:inline">Team members: </div> {{val.members}} <br>
                           <div style="color:grey; display:inline">Area of interest: </div> {{val.aoi}} <br>
@@ -281,11 +281,11 @@
               <div class="accordion" id="studentDetailAccordion">
                 <div class="accordion-group" ng-repeat="(key,val) in val.students"><!-- repeat number of teams recruiting -->
                   <div class="accordion-heading" style="background-color:#FAFAFA">
-                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#studentDetailAccordion" href="#{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#studentDetailAccordion" href="#s_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
                       {{val.full_name}}
                     </a>
                   </div>
-                  <div id="{{val.id}}" class="accordion-body collapse in"><!-- team id -->
+                  <div id="s_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
                     <div class="accordion-inner" style="font-size:12px; background-color:white">
                       <div style="color:grey; display:inline">Email: </div> {{val.email}} <br>
                       <div style="color:grey; display:inline">Year of Admission: </div> {{val.yoa}} <br>
@@ -294,7 +294,7 @@
                       <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
                       <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
                       <div align="right">
-                        <form ng-submit="" ng-hide="noTeam"><!-- i want to join -->
+                        <form ng-submit="" ng-show="noTeam"><!-- i want to join -->
                           <button type="submit" class="btn btn-mini">I would like to join!</button>
                         </form>
                       </div>
@@ -302,14 +302,7 @@
                   </div>
                 </div>
               </div><!-- end of inner student detail accordion -->
-            <div ng-repeat="(key,val) in val.students"><!-- students of current academic yr without team -->
-              {{val.full_name}}<!-- student name --></br>
-              {{val.email}}
-              <form ng-submit="" ng-show="noTeam"><!-- invite student to team -->
-                <button class="btn_right_side" type="submit" class="btn btn-mini">Invite</button>
-              </form>
-              <hr>
-            </div>      
+    
                     <!-- <table width="400px">
                     <tr>
                     <td style="padding-bottom:7px" onmouseover="document.getElementById('studentinfo').style.visibility = 'visible'"; onmouseout="document.getElementById('studentinfo').style.visibility = 'hidden'";>
