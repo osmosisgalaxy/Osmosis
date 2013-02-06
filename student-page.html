@@ -303,7 +303,34 @@
                       </div>
                       <div id="t_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
                         <div class="accordion-inner" style="font-size:12px; background-color:white">
-                          <div style="color:grey; display:inline">Team members: </div> {{val.members}} <br>
+                          <div style="color:grey; display:inline">Team members: </div><br>
+
+                          <!-- Start of team member detail accordion -->
+                          <div class="accordion" id="memberDetailAccordion">
+                            <div class="accordion-group" ng-repeat="(key,val) in val.member"><!-- repeat number of teams recruiting -->
+                              <div class="accordion-heading" style="background-color:#FAFAFA">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#memberDetailAccordion" href="#tm_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                                  {{val.full_name}}
+                                </a>
+                              </div>
+                              <div id="tm_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
+                                <div class="accordion-inner" style="font-size:12px; background-color:white">
+                                  <div style="color:grey; display:inline">Email: </div> {{val.email}} <br>
+                                  <div style="color:grey; display:inline">Year of Admission: </div> {{val.yoa}} <br>
+                                  <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
+                                  <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
+                                  <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
+                                  <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
+                                  <div align="right">
+                                    <form ng-submit=""><!-- remove team member-->
+                                      <button type="submit" class="btn btn-mini">Remove</button>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div><!-- end of team member detail accordion -->
+
                           <div style="color:grey; display:inline">Area of interest: </div> {{val.aoi}} <br>
                           <div style="color:grey; display:inline">FYP term: </div> {{val.fyp}} <br>
                           <div align="right">
