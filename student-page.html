@@ -183,9 +183,8 @@
               </div>
               <div id="createTeam" class="accordion-body collapse in">
                 <div class="accordion-inner" style="font-size:12px; background-color:white">
-                  <div ng-hide="noTeam">
-                    Hi! You do not have a team currently.<br>
-                    Click on the button below to create one! <br><br>
+                  <div ng-hide="gotTeam">
+                    You do not have a team currently.<br><br>
                     <form ng-submit=""><!-- create team-->
                       Team Name : <input type="text" ng-model="teamName">
                       <!-- <i class="icon-hand-right"></i>&nbsp<a href="#myModal" role="button" class="btn btn-mini" data-toggle="modal"> Create Team</a> -->
@@ -193,31 +192,93 @@
 
                     </form>
                   </div>
-                  <div ng-show="noTeam">
-                    {{}}<!-- team name -->
+                  <div ng-show="gotTeam">
+                    {{stud_team.name}}<!-- team name -->
                     Team Members:</br>
-                    <div ng-repeat=""><!-- team member -->
-                      {{}}<!-- member name-->
-    				          <form ng-submit=""><!-- remove team member-->
-                        <button class="btn_right_side" type="submit" class="btn btn-mini">Remove</button>
-                      </form>
-                    </div>
+
+                    <!-- Start of team member detail accordion -->
+                    <div class="accordion" id="memberDetailAccordion">
+                      <div class="accordion-group" ng-repeat="(key,val) in stud_team.member"><!-- repeat number of teams recruiting -->
+                        <div class="accordion-heading" style="background-color:#FAFAFA">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#memberDetailAccordion" href="#m_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                            {{val.full_name}}
+                          </a>
+                        </div>
+                        <div id="m_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
+                          <div class="accordion-inner" style="font-size:12px; background-color:white">
+                            <div style="color:grey; display:inline">Email: </div> {{val.email}} <br>
+                            <div style="color:grey; display:inline">Year of Admission: </div> {{val.yoa}} <br>
+                            <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
+                            <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
+                            <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
+                            <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
+                            <div align="right">
+                              <form ng-submit=""><!-- remove team member-->
+                                <button type="submit" class="btn btn-mini">Remove</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!-- end of team member detail accordion -->
+
                     <hr>
                     Pending Invitation:</br>
-                    <div ng-repeat=""><!-- pending list -->
-                      {{}}<!-- pending name-->
-                      <form ng-submit=""><!-- remove pending-->
-                        <button class="btn_right_side" type="submit" class="btn btn-mini">Cancel Invite</button>
-                      </form>
-                    </div>
+
+                    <!-- Start of pending accordion -->
+                    <div class="accordion" id="pendingAccordion">
+                      <div class="accordion-group" ng-repeat="(key,val) in stud_team.pending"><!-- repeat number of teams recruiting -->
+                        <div class="accordion-heading" style="background-color:#FAFAFA">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#pendingAccordion" href="#p_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                            {{val.full_name}}
+                          </a>
+                        </div>
+                        <div id="p_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
+                          <div class="accordion-inner" style="font-size:12px; background-color:white">
+                            <div style="color:grey; display:inline">Email: </div> {{val.email}} <br>
+                            <div style="color:grey; display:inline">Year of Admission: </div> {{val.yoa}} <br>
+                            <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
+                            <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
+                            <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
+                            <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
+                            <div align="right">
+                              <form ng-submit="">
+                                <button type="submit" class="btn btn-mini">Cancel Invitation</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!-- end of pending accordion -->
+
                     <hr>
                     Interested Students:</br>
-                    <div ng-repeat=""><!-- interested list -->
-                      {{}}<!-- interested name-->
-                      <form ng-submit=""><!-- reject interested-->
-                        <button class="btn_right_side" type="submit" class="btn btn-mini">Reject</button>
-                      </form>
-                    </div>
+
+                    <!-- Start of interested accordion -->
+                    <div class="accordion" id="interestedAccordion">
+                      <div class="accordion-group" ng-repeat="(key,val) in stud_team.recruiting"><!-- repeat number of teams recruiting -->
+                        <div class="accordion-heading" style="background-color:#FAFAFA">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#interestedAccordion" href="#i_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                            {{val.full_name}}
+                          </a>
+                        </div>
+                        <div id="i_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
+                          <div class="accordion-inner" style="font-size:12px; background-color:white">
+                            <div style="color:grey; display:inline">Email: </div> {{val.email}} <br>
+                            <div style="color:grey; display:inline">Year of Admission: </div> {{val.yoa}} <br>
+                            <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
+                            <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
+                            <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
+                            <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
+                            <div align="right">
+                              <form ng-submit="">
+                                <button type="submit" class="btn btn-mini">Reject</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!-- end of interested accordion -->
                   </div>
                 </div>
               </div>
@@ -246,8 +307,8 @@
                           <div style="color:grey; display:inline">Area of interest: </div> {{val.aoi}} <br>
                           <div style="color:grey; display:inline">FYP term: </div> {{val.fyp}} <br>
                           <div align="right">
-                            <form ng-submit="" ng-hide="noTeam"><!-- i want to join -->
-                              <button type="submit" class="btn btn-mini">I would like to join!</button>
+                            <form ng-submit="" ng-hide="gotTeam"><!-- i want to join -->
+                              <button type="submit" class="btn btn-mini">Invite</button>
                             </form>
                           </div>
                         </div>
@@ -259,11 +320,6 @@
               </div><!-- end of recruit team accordion -->
             </div><!-- End of TEAM -->
           </div><!-- .span4 -->
-
-
-
-
-
 
   <div class="span4">
     <!-- Start of STUDENTS WITHOUT TEAM -->
@@ -294,8 +350,8 @@
                       <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
                       <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
                       <div align="right">
-                        <form ng-submit="" ng-show="noTeam"><!-- i want to join -->
-                          <button type="submit" class="btn btn-mini">I would like to join!</button>
+                        <form ng-submit="" ng-show="gotTeam"><!-- i want to join -->
+                          <button type="submit" class="btn btn-mini">Invite!</button>
                         </form>
                       </div>
                     </div>

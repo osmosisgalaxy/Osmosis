@@ -92,7 +92,7 @@ function StudentCtrl($scope,$resource){
     {},
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
     );
-
+  $scope.gotTeam = false;
   $scope.avail_proj;
   $scope.stud_info;
   $scope.stud_team;
@@ -115,7 +115,10 @@ function StudentCtrl($scope,$resource){
 
   $scope.getStudTeam = function(){
     $scope.Model.send({'method':"get_user_team"}, function(response){
-      $scope.stud_team = response.team;
+      if(response != null){
+        $scope.stud_team = response;
+        $scope.gotTeam = true;
+      }
     });
   };
 
@@ -128,6 +131,16 @@ function StudentCtrl($scope,$resource){
   $scope.getStudFinding = function(){
     $scope.Model.send({'method':"get_available_stud"}, function(response){
       $scope.stud_finding = response.students;
+    });
+  };
+
+  $scope.createTeam = function(){
+    var data = {'method':"createTeam",
+      't_name': $scope.teamName};
+
+    $scope.Model.send(data, function(response){
+      $scope.stud_finding = response.students;
+      $scope.gotTeam = true;
     });
   };
 
