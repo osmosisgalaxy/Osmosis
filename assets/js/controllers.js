@@ -115,7 +115,7 @@ function StudentCtrl($scope,$resource){
 
   $scope.getStudTeam = function(){
     $scope.Model.send({'method':"get_user_team"}, function(response){
-      if(response != null){
+      if(response.teamid != null){
         $scope.stud_team = response;
         $scope.gotTeam = true;
       }
