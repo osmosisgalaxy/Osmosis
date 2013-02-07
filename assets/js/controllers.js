@@ -149,7 +149,7 @@ function StudentCtrl($scope,$resource){
   $scope.enableEditor = function() {
     $scope.editorEnabled = true;
     $scope.team_info_backup = angular.copy($scope.stud_team);
-    
+
   };
 
   $scope.disableEditor = function() {
@@ -163,7 +163,8 @@ function StudentCtrl($scope,$resource){
                 'name': $scope.stud_team.name,
                 'aoi': "{" + $scope.stud_team.aoi + "}",
                 'fyp': $scope.stud_team.fyp,
-                'searching': $scope.stud_team.searching};
+                'searching': $scope.stud_team.searching,
+                };
     $scope.Model.send(data, function(response){
       $scope.editorEnabled = false;
     });
