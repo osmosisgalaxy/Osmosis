@@ -92,6 +92,8 @@ function StudentCtrl($scope,$resource){
     {},
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
     );
+  $scope.editorEnabled = false;
+  $scope.team_info_backup;
   $scope.gotTeam = false;
   $scope.avail_proj;
   $scope.stud_info;
@@ -141,6 +143,28 @@ function StudentCtrl($scope,$resource){
     $scope.Model.send(data, function(response){
       $scope.stud_finding = response.students;
       $scope.gotTeam = true;
+    });
+  };
+
+  $scope.enableEditor = function() {
+    $scope.editorEnabled = true;
+    $scope.team_info_backup = angular.copy($scope.stud_team);
+  };
+
+  $scope.disableEditor = function() {
+    $scope.editorEnabled = false;
+    $scope.stud_team = angular.copy($scope.team_info_backup);
+  };
+
+  $scope.saveTeamInfo = function() {
+    var data = {'method':"update_team",
+                'team_id': proj_id,
+                'name': project.title,
+                'exposure': project.description,
+                'aoi': "{" + project.exposure + "}",
+                'searching': project.poc;
+    $scope.Model.send(data, function(response){
+      $scope.editorEnabled = false;
     });
   };
 

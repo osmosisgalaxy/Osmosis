@@ -193,7 +193,52 @@
                     </form>
                   </div>
                   <div ng-show="gotTeam">
-                    {{stud_team.name}}<!-- team name -->
+                    <strong>Team Name:</strong><br/>
+                      <div ng-hide="editorEnabled">
+                        {{stud_team.name}}
+                      </div>
+                      <div ng-show="editorEnabled">
+                        <input type="text" class="input-xlarge" ng-model="stud_team.name" ng-show="editorEnabled" required>
+                      </div>
+                    <br/>
+                    <strong>Area of Interest:</strong><br/>
+                      <div ng-hide="editorEnabled">
+                        {{stud_team.aoi}}
+                      </div>
+                      <div ng-show="editorEnabled">
+                        <input type="text" class="input-xlarge" ng-model="stud_team.aoi" ng-show="editorEnabled">
+                      </div>
+                    <br/>
+                    <strong>FYP Year:</strong><br/>
+                      <div ng-hide="editorEnabled">
+                        {{stud_team.fyp}}
+                      </div>
+                      <div ng-show="editorEnabled">
+                        <input type="text" class="input-xlarge" ng-model="stud_team.fyp" ng-show="editorEnabled" required>
+                      </div>
+                    <br/>
+                    <strong>Recruiting:</strong><br/>
+                      <div ng-hide="editorEnabled">
+                        {{stud_team.searching}}
+                      </div>
+                      <div ng-show="editorEnabled">
+                        <input type="radio" ng-model="stud_team.searching" ng-show="editorEnabled" value="yes">Yes
+                        <input type="radio" ng-model="stud_team.searching" ng-show="editorEnabled" value="no">No
+                      </div>
+                    <br/>
+                    <div ng-hide="editorEnabled">
+                      <form ng-submit="enableEditor()">
+                        <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Edit</button>
+                      </form>
+                    </div>
+                    <div ng-show="editorEnabled">
+                      <form ng-submit="saveTeamInfo">
+                        <button class="btn_left_side" type="submit" ng-show="editorEnabled">Save</button>
+                      </form>
+                      <form ng-submit="disableEditor()">
+                        <button class="btn_left_side" type="submit" ng-show="editorEnabled">Cancel</button>
+                      </form>
+                    </div>
                     Team Members:</br>
 
                     <!-- Start of team member detail accordion -->
@@ -330,7 +375,7 @@
                           <div style="color:grey; display:inline">FYP term: </div> {{val.fyp}} <br>
                           <div align="right">
                             <form ng-submit="" ng-hide="gotTeam"><!-- i want to join -->
-                              <button type="submit" class="btn btn-mini">Invite</button>
+                              <button type="submit" class="btn btn-mini">Request to Join</button>
                             </form>
                           </div>
                         </div>
