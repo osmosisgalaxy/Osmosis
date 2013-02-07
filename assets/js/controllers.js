@@ -159,7 +159,7 @@ function StudentCtrl($scope,$resource){
 
   $scope.saveTeamInfo = function() {
     var data = {'method':"update_team",
-                'team_id': $scope.stud_team.teamid,
+                'teamid': $scope.stud_team.teamid,
                 'name': $scope.stud_team.name,
                 'aoi': "{" + $scope.stud_team.aoi + "}",
                 'fyp': $scope.stud_team.fyp,
