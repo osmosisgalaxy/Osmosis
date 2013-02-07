@@ -162,7 +162,7 @@ function StudentCtrl($scope,$resource){
                 'name': project.title,
                 'exposure': project.description,
                 'aoi': "{" + project.exposure + "}",
-                'searching': project.poc;
+                'searching': project.poc};
     $scope.Model.send(data, function(response){
       $scope.editorEnabled = false;
     });
