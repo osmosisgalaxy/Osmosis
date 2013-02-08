@@ -171,7 +171,7 @@ function StudentCtrl($scope,$resource){
   };
 
   $scope.inviteStudent = function(stud_id){
-    var form = $document.getElementById("s_" + stud_id)
+    var form = document.getElementById("s_" + stud_id)
     var data = {'method':"invite_student",
                 'teamid': $scope.stud_team.teamid,
                 'studentid': stud_id,
