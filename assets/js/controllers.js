@@ -173,10 +173,11 @@ function StudentCtrl($scope,$resource){
   $scope.inviteStudent = function(stud_id){
     var id = "s_" + stud_id
     var form = document.getElementById(id)
+    var message = form.getElementById("inviteMessage")
     var data = {'method':"invite_student",
                 'teamid': $scope.stud_team.teamid,
                 'studentid': stud_id,
-                'message': form.inviteMessage
+                'message': message
                 };
     $scope.Model.send(data, function(response){
       $scope.stud_team = response;
