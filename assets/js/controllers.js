@@ -170,10 +170,10 @@ function StudentCtrl($scope,$resource){
     });
   };
 
-  $scope.inviteStudent = function(){
+  $scope.inviteStudent = function(stud_id){
     var data = {'method':"invite_student",
                 'teamid': $scope.stud_team.teamid,
-                'studentid': $scope.stud_team.name,
+                'studentid': stud_id,
                 'message': $scope.inviteMessage
                 };
     $scope.Model.send(data, function(response){
