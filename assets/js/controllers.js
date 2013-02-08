@@ -170,6 +170,17 @@ function StudentCtrl($scope,$resource){
     });
   };
 
+  $scope.inviteStudent = function(){
+    var data = {'method':"invite_student",
+                'teamid': $scope.stud_team.teamid,
+                'studentid': $scope.stud_team.name,
+                'message': $scope.inviteMessage
+                };
+    $scope.Model.send(data, function(response){
+      $scope.stud_team = response;
+    });
+  };
+
   $scope.getStudInfo();
   $scope.getAvailProj();
   $scope.getStudTeam();
@@ -243,7 +254,7 @@ function ClientCtrl($scope,$resource){
                 'proj_id': proj_id,
                 'ptitle': project.title,
                 'pdescription': project.description,
-                'pexposure': "{" + project.exposure + "}",
+                'pexposure': project.exposure,
                 'ppoc': project.poc,
                 'pemail': project.email,
                 'pcontact': project.contact};

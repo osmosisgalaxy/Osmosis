@@ -376,6 +376,7 @@
                           <div align="right">
                             <form ng-submit="" ng-hide="gotTeam"><!-- i want to join -->
                               <button type="submit" class="btn btn-mini">Request to Join</button>
+                              <input type="text" ng-model="requestMessage" placeholder="Message to Team">
                             </form>
                           </div>
                         </div>
@@ -417,8 +418,9 @@
                       <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
                       <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
                       <div align="right">
-                        <form ng-submit="" ng-show="gotTeam"><!-- i want to join -->
+                        <form ng-submit="inviteStudent()" ng-show="gotTeam"><!-- i want to join -->
                           <button type="submit" class="btn btn-mini">Invite!</button>
+                          <input type="text" ng-model="inviteMessage" placeholder="Message to Student">
                         </form>
                       </div>
                     </div>
