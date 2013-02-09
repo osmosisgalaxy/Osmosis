@@ -272,7 +272,7 @@
 
                     <!-- Start of pending accordion -->
                     <div class="accordion" id="pendingAccordion">
-                      <div class="accordion-group" ng-repeat="(key,val) in stud_team.pending"><!-- repeat number of teams recruiting -->
+                      <div class="accordion-group" ng-repeat="(key,val) in stud_team.recruiting"><!--repeat number of team recruiting-->
                         <div class="accordion-heading" style="background-color:#FAFAFA">
                           <a class="accordion-toggle" data-toggle="collapse" data-parent="#pendingAccordion" href="#p_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
                             {{val.full_name}}
@@ -301,7 +301,7 @@
 
                     <!-- Start of interested accordion -->
                     <div class="accordion" id="interestedAccordion">
-                      <div class="accordion-group" ng-repeat="(key,val) in stud_team.recruiting"><!-- repeat number of teams recruiting -->
+                      <div class="accordion-group" ng-repeat="(key,val) in stud_team.pending"><!-- repeat number of teams recruiting -->
                         <div class="accordion-heading" style="background-color:#FAFAFA">
                           <a class="accordion-toggle" data-toggle="collapse" data-parent="#interestedAccordion" href="#i_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
                             {{val.full_name}}
