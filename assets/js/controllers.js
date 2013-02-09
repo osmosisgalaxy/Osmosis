@@ -180,6 +180,7 @@ function StudentCtrl($scope,$resource){
                 };
     $scope.Model.send(data, function(response){
       $scope.stud_team = response;
+      $scope.getStudFinding();
     });
   };
 
