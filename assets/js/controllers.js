@@ -184,6 +184,98 @@ function StudentCtrl($scope,$resource){
     });
   };
 
+  $scope.cancelInvitation = function(stud_id){
+    var id = "p_" + stud_id + "_cancelInvitation"
+    var message = document.getElementById(id).value
+    var data = {'method':"cancel_invitation",
+                'teamid': $scope.stud_team.teamid,
+                'studentid': stud_id,
+                'message': message
+                };
+    $scope.Model.send(data, function(response){
+      $scope.stud_team = response;
+      $scope.getStudFinding();
+    });
+  };
+
+  $scope.rejectRequest = function(stud_id){
+    var id = "i_" + stud_id + "_rejectRequest"
+    var message = document.getElementById(id).value
+    var data = {'method':"reject_request",
+                'teamid': $scope.stud_team.teamid,
+                'studentid': stud_id,
+                'message': message
+                };
+    $scope.Model.send(data, function(response){
+      $scope.stud_team = response;
+      $scope.getStudFinding();
+    });
+  };
+
+  $scope.acceptRequest = function(stud_id){
+    var id = "i_" + stud_id + "_acceptRequest"
+    var message = document.getElementById(id).value
+    var data = {'method':"accept_request",
+                'teamid': $scope.stud_team.teamid,
+                'studentid': stud_id
+                };
+    $scope.Model.send(data, function(response){
+      $scope.stud_team = response;
+      $scope.getStudFinding();
+    });
+  };
+
+  $scope.requestJoinTeam = function(team_id){
+    var id = "t_" + team_id + "_requestMessage"
+    var message = document.getElementById(id).value
+    var data = {'method':"request_join_team",
+                'teamid': team_id,
+                'message': message
+                };
+    $scope.Model.send(data, function(response){
+      $scope.stud_team = response;
+      $scope.getTeamRecruit();
+    });
+  };
+
+  $scope.cancelRequest = function(team_id){
+    var id = "t_" + team_id + "_cancelRequest"
+    var message = document.getElementById(id).value
+    var data = {'method':"cancel_request",
+                'teamid': team_id,
+                'message': message
+                };
+    $scope.Model.send(data, function(response){
+      $scope.stud_team = response;
+      $scope.getTeamRecruit();
+    });
+  };
+
+  $scope.rejectInvitation = function(team_id){
+    var id = "t_" + team_id + "_rejectInvitation"
+    var message = document.getElementById(id).value
+    var data = {'method':"reject_invitation",
+                'teamid': team_id,
+                'message': message
+                };
+    $scope.Model.send(data, function(response){
+      $scope.stud_team = response;
+      $scope.getTeamRecruit();
+    });
+  };
+
+  $scope.acceptInvitation = function(team_id){
+    var id = "t_" + team_id + "_acceptInvitation"
+    var message = document.getElementById(id).value
+    var data = {'method':"accept_invitation",
+                'teamid': team_id
+                };
+    $scope.Model.send(data, function(response){
+      $scope.stud_team = response;
+      $scope.getTeamRecruit();
+    });
+  };
+
   $scope.getStudInfo();
   $scope.getAvailProj();
   $scope.getStudTeam();

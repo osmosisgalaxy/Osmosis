@@ -287,7 +287,8 @@
                             <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
                             <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
                             <div align="right">
-                              <form ng-submit="">
+                              <form ng-submit="cancelInvitation('{{val.id}}')">
+                                <input type="text" ng-model="p_{{val.id}}_cancelInvitation" placeholder="Reason for Cancel">
                                 <button type="submit" class="btn btn-mini">Cancel Invitation</button>
                               </form>
                             </div>
@@ -316,8 +317,14 @@
                             <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
                             <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
                             <div align="right">
-                              <form ng-submit="">
+                              <form ng-submit="rejectRequest('{{val.id}}')">
+                                <input type="text" ng-model="p_{{val.id}}_rejectRequest" placeholder="Reason for Reject">
                                 <button type="submit" class="btn btn-mini">Reject</button>
+                              </form>
+                            </div><br>
+                            <div align="right">
+                              <form ng-submit="acceptRequest('{{val.id}}')">
+                                <button type="submit" class="btn btn-mini">Accept</button>
                               </form>
                             </div>
                           </div>
@@ -376,7 +383,7 @@
                           <div align="right">
                             <form ng-submit="" ng-hide="gotTeam"><!-- i want to join -->
                               <button type="submit" class="btn btn-mini">Request to Join</button>
-                              <input type="text" ng-model="requestMessage" placeholder="Message to Team">
+                              <input type="text" ng-model="t_{{val.id}}_requestMessage" placeholder="Message to Team">
                             </form>
                           </div>
                         </div>
@@ -403,7 +410,7 @@
           <div class="accordion-inner" style="font-size:12px; background-color:white">
             <!-- Start of inner student detail accordion -->
               <div class="accordion" id="studentDetailAccordion">
-                <div class="accordion-group" ng-repeat="(key,val) in val.students"><!-- repeat number of teams recruiting -->
+                <div class="accordion-group" ng-repeat="(key,val) in val.students">
                   <div class="accordion-heading" style="background-color:#FAFAFA">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#studentDetailAccordion" href="#s_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
                       {{val.full_name}}
