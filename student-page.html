@@ -288,7 +288,7 @@
                             <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
                             <div align="right">
                               <form ng-submit="cancelInvitation('{{val.id}}')">
-                                <input type="text" ng-model="p_{{val.id}}_cancelInvitation" placeholder="Reason for Cancel">
+                                <input type="text" id="p_val.id_cancelInvitation" placeholder="Reason for Cancel">
                                 <button type="submit" class="btn btn-mini">Cancel Invitation</button>
                               </form>
                             </div>
@@ -318,7 +318,7 @@
                             <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
                             <div align="right">
                               <form ng-submit="rejectRequest('{{val.id}}')">
-                                <input type="text" ng-model="p_{{val.id}}_rejectRequest" placeholder="Reason for Reject">
+                                <input type="text" id="p_val.id_rejectRequest" placeholder="Reason for Reject">
                                 <button type="submit" class="btn btn-mini">Reject</button>
                               </form>
                             </div><br>
@@ -383,7 +383,7 @@
                           <div align="right">
                             <form ng-submit="" ng-hide="gotTeam"><!-- i want to join -->
                               <button type="submit" class="btn btn-mini">Request to Join</button>
-                              <input type="text" ng-model="t_{{val.id}}_requestMessage" placeholder="Message to Team">
+                              <input type="text" id="t_val.id_requestMessage" placeholder="Message to Team">
                             </form>
                           </div>
                         </div>
@@ -427,7 +427,7 @@
                       <div align="right">
                         <form ng-submit="inviteStudent('{{val.id}}')" ng-show="gotTeam"><!-- i want to join -->
                           <button type="submit" class="btn btn-mini">Invite!</button>
-                          <input type="text" id="s_{{val.id}}_inviteMessage" placeholder="Message to Student">
+                          <input type="text" id="s_val.id_inviteMessage" placeholder="Message to Student">
                         </form>
                       </div>
                     </div>
