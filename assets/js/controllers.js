@@ -150,6 +150,20 @@ function StudentCtrl($scope,$resource){
     });
   };
 
+  $scope.deleteTeam = function(){
+    var data = {'method':"deleteTeam",
+      'team_id': $scope.stud_team["teamid"]};
+
+    $scope.Model.send(data, function(response){
+      $scope.gotTeam = false;
+      if(response.teamid != null){
+        $scope.stud_team = response;
+        $scope.gotTeam = true;
+      }
+      $scope.getStudFinding();
+    });
+  };
+
   $scope.enableEditor = function() {
     $scope.editorEnabled = true;
     $scope.team_info_backup = angular.copy($scope.stud_team);
