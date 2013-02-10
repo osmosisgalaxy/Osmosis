@@ -151,7 +151,7 @@ function StudentCtrl($scope,$resource){
   };
 
   $scope.deleteTeam = function(){
-    var data = {'method':"deleteTeam",
+    var data = {'method':"delete_Team",
       'team_id': $scope.stud_team["teamid"]};
 
     $scope.Model.send(data, function(response){
