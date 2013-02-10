@@ -101,6 +101,7 @@ function StudentCtrl($scope,$resource){
   $scope.team_recruit;
   $scope.stud_finding;
   $scope.stud_year;
+  $scope.canDeleteTeam = false;
 
   //get student info
   $scope.getStudInfo = function(){
@@ -120,6 +121,9 @@ function StudentCtrl($scope,$resource){
       if(response.teamid != null){
         $scope.stud_team = response;
         $scope.gotTeam = true;
+      }
+      if(response.isLeader == "true"){
+        $scope.canDeleteTeam = true;
       }
     });
   };
