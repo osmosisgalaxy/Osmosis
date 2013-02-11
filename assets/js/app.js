@@ -3,7 +3,33 @@
 //var testing = window.location.search.replace("?testing=", "");
 //var testing = 'true';
 
-var myApp = angular.module('myApp', ['ngResource']);
+var myApp = angular.module('myApp', ['ngResource'])
+
+.config(function ($httpProvider) {
+        $httpProvider.responseInterceptors.push('myHttpInterceptor');
+        var spinnerFunction = function (data, headersGetter) {
+            alert('start spinner');
+            return data;
+        };
+        $httpProvider.defaults.transformRequest.push(spinnerFunction);
+    })
+// register the interceptor as a service, intercepts ALL angular ajax http calls
+    .factory('myHttpInterceptor', function ($q, $window) {
+        return function (promise) {
+            return promise.then(function (response) {
+                // do something on success
+                // todo hide the spinner
+                alert('stop spinner');
+                return response;
+
+            }, function (response) {
+                // do something on error
+                // todo hide the spinner
+                alert('stop spinner');
+                return $q.reject(response);
+            });
+        };
+    });
 
 //All of the overrides for testing the controllers.
 //This is used to simulate the backend. 
