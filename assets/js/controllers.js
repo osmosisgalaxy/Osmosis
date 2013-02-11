@@ -254,8 +254,6 @@ function StudentCtrl($scope,$resource){
   };
 
   $scope.acceptRequest = function(stud_id){
-    var id = "i_" + stud_id + "_acceptRequest"
-    var message = document.getElementById(id).value
     var data = {'method':"accept_request",
                 'teamid': $scope.stud_team.teamid,
                 'studentid': stud_id
