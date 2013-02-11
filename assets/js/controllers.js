@@ -259,7 +259,7 @@ function StudentCtrl($scope,$resource){
   };
 
   $scope.cancelRequest = function(team_id){
-    var id = "t_" + team_id + "_cancelRequest"
+    var id = "srm_" + team_id + "_cancelMessage"
     var message = document.getElementById(id).value
     var data = {'method':"cancel_request",
                 'teamid': team_id,
