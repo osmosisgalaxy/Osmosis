@@ -31,6 +31,20 @@
         height: 500px;
         overflow: auto;
       }
+
+      .loading_screen {
+        display:    none;
+        position:   fixed;
+        z-index:    1000;
+        top:        0;
+        left:       0;
+        height:     100%;
+        width:      100%;
+        background: rgba( 255, 255, 255, .8 ) 
+                    url('/assets/img/loader.gif') 
+                    50% 50% 
+                    no-repeat;
+      }
      
     </style>
     
@@ -48,6 +62,7 @@
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
    </head>
 <body ng-controller="StudentCtrl">
+  <div class="loading_screen"></div>
 	  	  <!-----------  Start of navigation bar  ------------>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">

@@ -68,6 +68,20 @@
       .btn_left_side {
         float: left;
       }
+
+      .loading_screen {
+        display:    none;
+        position:   fixed;
+        z-index:    1000;
+        top:        0;
+        left:       0;
+        height:     100%;
+        width:      100%;
+        background: rgba( 255, 255, 255, .8 ) 
+                    url('/assets/img/loader.gif') 
+                    50% 50% 
+                    no-repeat;
+      }
     </style>
 
 
@@ -85,7 +99,7 @@
   </head>
 
   <body ng-controller="ClientCtrl">
-
+    <div class="loading_screen"></div>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
