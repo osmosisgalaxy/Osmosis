@@ -145,9 +145,9 @@ function StudentCtrl($scope,$resource){
       't_name': $scope.teamName};
 
     $scope.Model.send(data, function(response){
-      $scope.stud_finding = response.students;
       $scope.stud_team = response;
       $scope.gotTeam = true;
+      $scope.getStudFinding();
     });
   };
 
@@ -157,8 +157,8 @@ function StudentCtrl($scope,$resource){
 
     $scope.Model.send(data, function(response){
       $scope.gotTeam = false;
+      $scope.stud_team = response;
       if(response.teamid != null){
-        $scope.stud_team = response;
         $scope.gotTeam = true;
       }
       $scope.getStudFinding();
