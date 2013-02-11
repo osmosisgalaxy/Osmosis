@@ -325,13 +325,20 @@
                       </div>
                     <br/>
                     <div ng-hide="editorEnabled">
-                      <form ng-submit="enableEditor()">
-                        <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Edit</button>
-                      </form>
+                      <div ng-show="isLeader">
+                        <form ng-submit="enableEditor()">
+                          <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Edit</button>
+                        </form>
+                      </div>
                     </div>
-                    <div ng-show="canDeleteTeam">
+                    <div ng-show="isLeader">
                       <form ng-submit="deleteTeam()">
                         <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Delete Team</button>
+                      </form>
+                    </div>
+                    <div ng-hide="isLeader">
+                      <form ng-submit="hideTeam()">
+                        <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Leave Team</button>
                       </form>
                     </div>
                     <div ng-show="editorEnabled">
@@ -360,9 +367,9 @@
                             <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
                             <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
                             <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
-                            <div align="right">
-                              <form ng-submit=""><!-- remove team member-->
-                                <button type="submit" class="btn btn-mini">Remove</button>
+                            <div align="right" ng-show="isLeader">
+                              <form ng-submit="expelMember('{{val.id}}')"><!-- remove team member-->
+                                <button type="submit" class="btn btn-mini">Expel</button>
                               </form>
                             </div>
                           </div>
@@ -389,7 +396,7 @@
                             <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
                             <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
                             <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
-                            <div align="right">
+                            <div align="right" ng-show="isLeader">
                               <form ng-submit="cancelInvitation('{{val.id}}')">
                                 <input type="text" id="p_{{val.id}}_cancelInvitation" placeholder="Reason for Cancel">
                                 <button type="submit" class="btn btn-mini">Cancel Invitation</button>
@@ -419,7 +426,7 @@
                             <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
                             <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
                             <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
-                            <div align="right">
+                            <div align="right" ng-show="isLeader">
                               <form ng-submit="rejectRequest('{{val.id}}')">
                                 <input type="text" id="p_{{val.id}}_rejectRequest" placeholder="Reason for Reject">
                                 <button type="submit" class="btn btn-mini">Reject</button>

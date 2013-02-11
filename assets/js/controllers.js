@@ -101,7 +101,7 @@ function StudentCtrl($scope,$resource){
   $scope.team_recruit;
   $scope.stud_finding;
   $scope.stud_year;
-  $scope.canDeleteTeam = false;
+  $scope.isLeader = false;
 
   //get student info
   $scope.getStudInfo = function(){
@@ -123,7 +123,7 @@ function StudentCtrl($scope,$resource){
         $scope.gotTeam = true;
       }
       if(response.isLeader == "true"){
-        $scope.canDeleteTeam = true;
+        $scope.isLeader = true;
       }
     });
   };
@@ -163,6 +163,26 @@ function StudentCtrl($scope,$resource){
         $scope.gotTeam = true;
       }
       $scope.getStudFinding();
+    });
+  };
+
+  $scope.expelMember = function(stud_id){
+    var data = {'method':"expel_member",
+      'team_id': $scope.stud_team["teamid"],
+      'stud_id': stud_id};
+
+    $scope.Model.send(data, function(response){
+      $scope.stud_team = response;
+      $scope.getStudFinding();
+    });
+  };
+
+  $scope.leaveTeam = function(){
+    var data = {'method':"leave_team"};
+
+    $scope.Model.send(data, function(response){
+      $scope.stud_team = response;
+      $scope.getTeamRecruit();
     });
   };
 
@@ -294,7 +314,7 @@ function StudentCtrl($scope,$resource){
         $scope.gotTeam = true;
       }
       if(response.isLeader == "true"){
-        $scope.canDeleteTeam = true;
+        $scope.isLeader = true;
       }
       $scope.getTeamRecruit();
     });
