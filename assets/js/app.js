@@ -8,7 +8,7 @@ var myApp = angular.module('myApp', ['ngResource'])
 .config(function ($httpProvider) {
         $httpProvider.responseInterceptors.push('myHttpInterceptor');
         var spinnerFunction = function (data, headersGetter) {
-            $('.loading').show();
+            $('#loading').show();
             return data;
         };
         $httpProvider.defaults.transformRequest.push(spinnerFunction);
@@ -19,13 +19,13 @@ var myApp = angular.module('myApp', ['ngResource'])
             return promise.then(function (response) {
                 // do something on success
                 // todo hide the spinner
-                $('.loading').hide();
+                $('#loading').hide();
                 return response;
 
             }, function (response) {
                 // do something on error
                 // todo hide the spinner
-                $('.loading').hide();
+                $('#loading').hide();
                 return $q.reject(response);
             });
         };
