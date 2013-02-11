@@ -9,6 +9,7 @@ var myApp = angular.module('myApp', ['ngResource'])
         $httpProvider.responseInterceptors.push('myHttpInterceptor');
         var spinnerFunction = function (data, headersGetter) {
             $('#loading').show();
+            alert("start");
             return data;
         };
         $httpProvider.defaults.transformRequest.push(spinnerFunction);
