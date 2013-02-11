@@ -189,9 +189,62 @@
                       Team Name : <input type="text" ng-model="teamName">
                       <!-- <i class="icon-hand-right"></i>&nbsp<a href="#myModal" role="button" class="btn btn-mini" data-toggle="modal"> Create Team</a> -->
                       <button type="submit" class="btn btn-small">Create Team</button>
-
                     </form>
-                  </div>
+                    <hr>
+                    Invitations:
+                    <!-- Start of team member detail accordion -->
+                    <div class="accordion" id="teamInvitationAccordion">
+                      <div class="accordion-group" ng-repeat="(key,val) in stud_team.invitation"><!-- repeat number of teams recruiting -->
+                        <div class="accordion-heading" style="background-color:#FAFAFA">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#teamInvitationAccordion" href="#si_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                            {{val.name}}
+                          </a>
+                        </div>
+                        <div id="si_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
+                          <div style="color:grey; display:inline">Team members: </div><br>
+                          <!-- Start of team member detail accordion -->
+                          <div class="accordion" id="invitationMemberDetailAccordion">
+                            <div class="accordion-group" ng-repeat="(key,val) in val.member"><!-- repeat number of teams recruiting -->
+                              <div class="accordion-heading" style="background-color:#FAFAFA">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#invitationMemberDetailAccordion" href="#sim_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                                  {{val.full_name}}
+                                </a>
+                              </div>
+                              <div id="sim_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
+                                <div class="accordion-inner" style="font-size:12px; background-color:white">
+                                  <div style="color:grey; display:inline">Email: </div> {{val.email}} <br>
+                                  <div style="color:grey; display:inline">Year of Admission: </div> {{val.yoa}} <br>
+                                  <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
+                                  <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
+                                  <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
+                                  <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
+                                </div>
+                              </div>
+                            </div>
+                          </div><!-- end of team member detail accordion -->
+
+                          <div style="color:grey; display:inline">Area of interest: </div> {{val.aoi}} <br>
+                          <div style="color:grey; display:inline">FYP term: </div> {{val.fyp}} <br>
+                          <div align="right">
+                            <form ng-submit="acceptInvitation('{{val.id}}')">
+                              <button type="submit" class="btn btn-mini">Accept</button>
+                            </form><br>
+                            <form ng-submit="rejectInvitation('{{val.id}}')">
+                              <button type="submit" class="btn btn-mini">Reject</button>
+                              <input type="text" id="sim_{{val.id}}_rejectMessage" placeholder="Message to Team">
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><!-- end of no team accordion -->
+
+
+
+
+
+
+
                   <div ng-show="gotTeam">
                     <strong>Team Name:</strong><br/>
                       <div ng-hide="editorEnabled">
