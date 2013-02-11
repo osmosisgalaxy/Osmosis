@@ -118,8 +118,8 @@ function StudentCtrl($scope,$resource){
 
   $scope.getStudTeam = function(){
     $scope.Model.send({'method':"get_user_team"}, function(response){
+      $scope.stud_team = response;
       if(response.teamid != null){
-        $scope.stud_team = response;
         $scope.gotTeam = true;
       }
       if(response.isLeader == "true"){
@@ -148,6 +148,7 @@ function StudentCtrl($scope,$resource){
       $scope.stud_team = response;
       $scope.gotTeam = true;
       $scope.getStudFinding();
+      $scope.teamName = "";
     });
   };
 
