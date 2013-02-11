@@ -219,7 +219,7 @@ function StudentCtrl($scope,$resource){
   };
 
   $scope.rejectRequest = function(stud_id){
-    var id = "i_" + stud_id + "_rejectRequest"
+    var id = "p_" + stud_id + "_rejectRequest"
     var message = document.getElementById(id).value
     var data = {'method':"reject_request",
                 'teamid': $scope.stud_team.teamid,
