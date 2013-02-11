@@ -183,7 +183,7 @@
               </div>
               <div id="collapse1" class="accordion-body collapse in">
                 <div class="accordion-inner" style="font-size:12px; background-color:white">
-                  <div ng-hide="gotTeam">
+                  <div ng-hide="gotTeam"><!-- start of no team accordion -->
                     You do not have a team currently.<br><br>
                     <form ng-submit="createTeam()"><!-- create team-->
                       Team Name : <input type="text" ng-model="teamName">
@@ -191,8 +191,8 @@
                       <button type="submit" class="btn btn-small">Create Team</button>
                     </form>
                     <hr>
-                    Invitations:
-                    <!-- Start of team member detail accordion -->
+                    Invitations from Teams:
+                    <!-- Start of INVITATION accordion -->
                     <div class="accordion" id="teamInvitationAccordion">
                       <div class="accordion-group" ng-repeat="(key,val) in stud_team.invitation"><!-- repeat number of teams recruiting -->
                         <div class="accordion-heading" style="background-color:#FAFAFA">
@@ -202,7 +202,7 @@
                         </div>
                         <div id="si_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
                           <div style="color:grey; display:inline">Team members: </div><br>
-                          <!-- Start of team member detail accordion -->
+                          <!-- Start of INVITATION TEAM MEMBER accordion -->
                           <div class="accordion" id="invitationMemberDetailAccordion">
                             <div class="accordion-group" ng-repeat="(key,val) in val.member"><!-- repeat number of teams recruiting -->
                               <div class="accordion-heading" style="background-color:#FAFAFA">
@@ -221,7 +221,7 @@
                                 </div>
                               </div>
                             </div>
-                          </div><!-- end of team member detail accordion -->
+                          </div><!-- end of INVITATION TEAM MEMBER accordion -->
 
                           <div style="color:grey; display:inline">Area of interest: </div> {{val.aoi}} <br>
                           <div style="color:grey; display:inline">FYP term: </div> {{val.fyp}} <br>
@@ -236,7 +236,52 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div><!-- end of INVITATION accordion -->
+
+                    <hr>
+                    Requests to Teams:
+                    <!-- Start of REQUEST accordion -->
+                    <div class="accordion" id="teamRequestAccordion">
+                      <div class="accordion-group" ng-repeat="(key,val) in stud_team.request"><!-- repeat number of teams recruiting -->
+                        <div class="accordion-heading" style="background-color:#FAFAFA">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#teamRequestAccordion" href="#sr_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                            {{val.name}}
+                          </a>
+                        </div>
+                        <div id="sr_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
+                          <div style="color:grey; display:inline">Team members: </div><br>
+                          <!-- Start of REQUEST TEAM MEMBER accordion -->
+                          <div class="accordion" id="requestMemberDetailAccordion">
+                            <div class="accordion-group" ng-repeat="(key,val) in val.member"><!-- repeat number of teams recruiting -->
+                              <div class="accordion-heading" style="background-color:#FAFAFA">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#requestMemberDetailAccordion" href="#srm_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                                  {{val.full_name}}
+                                </a>
+                              </div>
+                              <div id="srm_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
+                                <div class="accordion-inner" style="font-size:12px; background-color:white">
+                                  <div style="color:grey; display:inline">Email: </div> {{val.email}} <br>
+                                  <div style="color:grey; display:inline">Year of Admission: </div> {{val.yoa}} <br>
+                                  <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
+                                  <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
+                                  <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
+                                  <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
+                                </div>
+                              </div>
+                            </div>
+                          </div><!-- end of REQUEST TEAM MEMBER accordion -->
+
+                          <div style="color:grey; display:inline">Area of interest: </div> {{val.aoi}} <br>
+                          <div style="color:grey; display:inline">FYP term: </div> {{val.fyp}} <br>
+                          <div align="right">
+                            <form ng-submit="cancelRequest('{{val.id}}')">
+                              <button type="submit" class="btn btn-mini">Cancel</button>
+                              <input type="text" id="srm_{{val.id}}_cancelMessage" placeholder="Message to Team">
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!-- end of REQUEST accordion -->
                   </div><!-- end of no team accordion -->
 
 
