@@ -272,7 +272,7 @@ function StudentCtrl($scope,$resource){
   };
 
   $scope.rejectInvitation = function(team_id){
-    var id = "t_" + team_id + "_rejectInvitation"
+    var id = "sim_" + team_id + "_rejectMessage"
     var message = document.getElementById(id).value
     var data = {'method':"reject_invitation",
                 'teamid': team_id,
@@ -285,8 +285,6 @@ function StudentCtrl($scope,$resource){
   };
 
   $scope.acceptInvitation = function(team_id){
-    var id = "t_" + team_id + "_acceptInvitation"
-    var message = document.getElementById(id).value
     var data = {'method':"accept_invitation",
                 'teamid': team_id
                 };
