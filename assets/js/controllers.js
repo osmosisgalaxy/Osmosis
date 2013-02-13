@@ -166,6 +166,7 @@ function StudentCtrl($scope,$resource){
       $scope.gotTeam = true;
       $scope.getStudFinding();
       $scope.teamName = "";
+      $scope.isLeader = true;
     });
   };
 
