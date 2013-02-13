@@ -67,7 +67,7 @@ myApp.factory('mySharedServices', function($rootScope,$resource){
 /* Controllers */
 
 function LoginCtrl($scope,$resource){
-  $scope.Model = $resource("http://galaxyosmosis.appspot.com/link",
+  $scope.Model = $resource("http://osmosisgal.appspot.com/link",
     {},
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
     );
@@ -88,7 +88,7 @@ function LoginCtrl($scope,$resource){
 }
 
 function StudentCtrl($scope,$resource){
-  $scope.Model = $resource("http://galaxyosmosis.appspot.com/:method",
+  $scope.Model = $resource("http://osmosisgal.appspot.com/:method",
     {},
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
     );
@@ -348,7 +348,7 @@ function StudentCtrl($scope,$resource){
 }
 
 function ClientCtrl($scope,$resource){
-  $scope.Model = $resource("http://galaxyosmosis.appspot.com/:method",
+  $scope.Model = $resource("http://osmosisgal.appspot.com/:method",
     {},
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
     );
