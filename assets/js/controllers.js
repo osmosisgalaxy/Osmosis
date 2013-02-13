@@ -102,6 +102,23 @@ function StudentCtrl($scope,$resource){
   $scope.stud_finding;
   $scope.stud_year;
   $scope.isLeader = false;
+  $scope.isLogin = false;
+
+  $scope.checkLogin = function(){
+    $scope.Model.send({'method':"check_login"},function(response){
+      if (response.result == "true" && response.user_type == "std"){
+        $scope.isLogin = true;
+        $scope.getStudInfo();
+        $scope.getAvailProj();
+        $scope.getStudTeam();
+        $scope.getStudFinding();
+        $scope.getTeamRecruit();
+      }
+      else{
+        window.location = "http://osmosisgalaxy.github.com/Osmosis/login.html";
+      }
+    });
+  };
 
   //get student info
   $scope.getStudInfo = function(){
@@ -319,11 +336,7 @@ function StudentCtrl($scope,$resource){
     });
   };
 
-  $scope.getStudInfo();
-  $scope.getAvailProj();
-  $scope.getStudTeam();
-  $scope.getStudFinding();
-  $scope.getTeamRecruit();
+  $scope.checkLogin();
 }
 
 function ClientCtrl($scope,$resource){
@@ -336,6 +349,20 @@ function ClientCtrl($scope,$resource){
   $scope.client_proj;
   $scope.proj_backup;
   $scope.proj_key;
+
+  $scope.isLogin = false;
+
+  $scope.checkLogin = function(){
+    $scope.Model.send({'method':"check_login"},function(response){
+      if (response.result == "true" && response.user_type == "cpr"){
+        $scope.isLogin = true;
+        $scope.getClientProj();
+      }
+      else{
+        window.location = "http://osmosisgalaxy.github.com/Osmosis/login.html";
+      }
+    });
+  };
 
   $scope.getClientProj = function(){
     $scope.Model.send({'method':"get_cpr_proj"}, function(response){
@@ -422,9 +449,7 @@ function ClientCtrl($scope,$resource){
     });
   };
 
-  $scope.getClientProj();
-
-
+  $scope.checkLogin();
 }
 
 
