@@ -238,6 +238,7 @@ function StudentCtrl($scope,$resource){
                 };
     $scope.Model.send(data, function(response){
       $scope.stud_team = response;
+      $scope.getStudTeam();
       $scope.getStudFinding();
     });
   };
@@ -252,6 +253,7 @@ function StudentCtrl($scope,$resource){
                 };
     $scope.Model.send(data, function(response){
       $scope.stud_team = response;
+      $scope.getStudTeam();
       $scope.getStudFinding();
     });
   };
@@ -266,6 +268,7 @@ function StudentCtrl($scope,$resource){
                 };
     $scope.Model.send(data, function(response){
       $scope.stud_team = response;
+      $scope.getStudTeam();
       $scope.getStudFinding();
     });
   };
@@ -277,6 +280,7 @@ function StudentCtrl($scope,$resource){
                 };
     $scope.Model.send(data, function(response){
       $scope.stud_team = response;
+      $scope.getStudTeam();
       $scope.getStudFinding();
     });
   };
@@ -290,6 +294,7 @@ function StudentCtrl($scope,$resource){
                 };
     $scope.Model.send(data, function(response){
       $scope.stud_team = response;
+      $scope.getStudTeam();
       $scope.getTeamRecruit();
     });
   };
@@ -303,6 +308,7 @@ function StudentCtrl($scope,$resource){
                 };
     $scope.Model.send(data, function(response){
       $scope.stud_team = response;
+      $scope.getStudTeam();
       $scope.getTeamRecruit();
     });
   };
@@ -316,6 +322,7 @@ function StudentCtrl($scope,$resource){
                 };
     $scope.Model.send(data, function(response){
       $scope.stud_team = response;
+      $scope.getStudTeam();
       $scope.getTeamRecruit();
     });
   };
@@ -332,6 +339,7 @@ function StudentCtrl($scope,$resource){
       if(response.isLeader == "true"){
         $scope.isLeader = true;
       }
+      $scope.getStudTeam();
       $scope.getTeamRecruit();
     });
   };
