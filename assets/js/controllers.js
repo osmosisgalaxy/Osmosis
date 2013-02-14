@@ -194,7 +194,6 @@ function StudentCtrl($scope,$resource){
     $scope.Model.send(data, function(response){
       $scope.stud_team = response;
       $scope.getStudFinding();
-      $scope.getTeamRecruit();
     });
   };
 
@@ -203,7 +202,6 @@ function StudentCtrl($scope,$resource){
 
     $scope.Model.send(data, function(response){
       $scope.stud_team = response;
-      $scope.getStudFinding();
       $scope.getTeamRecruit();
       $scope.gotTeam = false;
     });
@@ -227,6 +225,8 @@ function StudentCtrl($scope,$resource){
                 'aoi': "{" + $scope.stud_team.aoi + "}",
                 'fyp': $scope.stud_team.fyp,
                 'searching': $scope.stud_team.searching,
+                'wiki':$scope.stud_team.wiki,
+                'position':$scope.stud_team.position
                 };
     $scope.Model.send(data, function(response){
       $scope.editorEnabled = false;
@@ -245,7 +245,6 @@ function StudentCtrl($scope,$resource){
       $scope.stud_team = response;
       $scope.getStudTeam();
       $scope.getStudFinding();
-      $scope.getTeamRecruit();
     });
   };
 
