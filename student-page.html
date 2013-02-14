@@ -513,7 +513,7 @@
                           <div style="color:grey; display:inline">Area of interest: </div> {{val.aoi}} <br>
                           <div style="color:grey; display:inline">FYP term: </div> {{val.fyp}} <br>
                           <div align="right">
-                            <form ng-submit="requestJoinTeam('{{val.id}}')" ng-hide="{{val.show_button}}"><!-- i want to join -->
+                            <form ng-submit="requestJoinTeam('{{val.id}}')" ng-show="{{val.show_button}}"><!-- i want to join -->
                               <button type="submit" class="btn btn-mini">Request to Join</button>
                               <input type="text" id="t_{{val.id}}_requestMessage" placeholder="Message to Team">
                             </form>
