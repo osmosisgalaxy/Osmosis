@@ -108,8 +108,8 @@ function StudentCtrl($scope,$resource){
     $scope.Model.send({'method':"check_login"},function(response){
       if (response.result == "true" && response.user_type == "std"){
         $scope.isLogin = true;
-        $scope.getStudInfo();
         $scope.getAvailProj();
+        $scope.getStudInfo();
         $scope.getStudTeam();
         $scope.getStudFinding();
         $scope.getTeamRecruit();
@@ -167,6 +167,7 @@ function StudentCtrl($scope,$resource){
       $scope.getStudFinding();
       $scope.teamName = "";
       $scope.isLeader = true;
+      $scope.getTeamRecruit();
     });
   };
 
@@ -181,6 +182,7 @@ function StudentCtrl($scope,$resource){
         $scope.gotTeam = true;
       }
       $scope.getStudFinding();
+      $scope.getTeamRecruit();
     });
   };
 
@@ -192,6 +194,7 @@ function StudentCtrl($scope,$resource){
     $scope.Model.send(data, function(response){
       $scope.stud_team = response;
       $scope.getStudFinding();
+      $scope.getTeamRecruit();
     });
   };
 
@@ -200,6 +203,7 @@ function StudentCtrl($scope,$resource){
 
     $scope.Model.send(data, function(response){
       $scope.stud_team = response;
+      $scope.getStudFinding();
       $scope.getTeamRecruit();
       $scope.gotTeam = false;
     });
@@ -241,6 +245,7 @@ function StudentCtrl($scope,$resource){
       $scope.stud_team = response;
       $scope.getStudTeam();
       $scope.getStudFinding();
+      $scope.getTeamRecruit();
     });
   };
 
@@ -256,6 +261,7 @@ function StudentCtrl($scope,$resource){
       $scope.stud_team = response;
       $scope.getStudTeam();
       $scope.getStudFinding();
+      $scope.getTeamRecruit();
     });
   };
 
@@ -271,6 +277,7 @@ function StudentCtrl($scope,$resource){
       $scope.stud_team = response;
       $scope.getStudTeam();
       $scope.getStudFinding();
+      $scope.getTeamRecruit();
     });
   };
 
@@ -283,6 +290,7 @@ function StudentCtrl($scope,$resource){
       $scope.stud_team = response;
       $scope.getStudTeam();
       $scope.getStudFinding();
+      $scope.getTeamRecruit();
     });
   };
 
@@ -297,6 +305,7 @@ function StudentCtrl($scope,$resource){
       $scope.stud_team = response;
       $scope.getStudTeam();
       $scope.getTeamRecruit();
+      $scope.getStudFinding();
     });
   };
 
@@ -311,6 +320,7 @@ function StudentCtrl($scope,$resource){
       $scope.stud_team = response;
       $scope.getStudTeam();
       $scope.getTeamRecruit();
+      $scope.getStudFinding();
     });
   };
 
