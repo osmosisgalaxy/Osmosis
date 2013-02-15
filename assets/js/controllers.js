@@ -399,6 +399,7 @@ function ClientCtrl($scope,$resource){
     'exposure': "{" + $scope.technologiesExposure + "}",
     'poc':$scope.contactPerson,
     'email':$scope.contactEmail,
+    'company':$scope.company,
     'contact':$scope.contactNumber};
 
     $scope.Model.send(data, function(response){

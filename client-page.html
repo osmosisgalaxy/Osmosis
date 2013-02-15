@@ -34,8 +34,10 @@
       body {
         padding-top: 60px;
         padding-bottom: 40px;
+        background-image: url(assets/img/greyWoodBackground.jpg) ;
+        background-repeat: inherit;
       }
-
+      
       #pro{
         position:relative;
         top:25px; 
@@ -50,41 +52,7 @@
         position:relative;
         right:-900px;
       }
-      #welcome_msg{
-        position:relative;
-        top: 5px;
-        float:right;
-        color:grey;
-      }
-      
-      #plus_sign{
-        position:relative;
-        top: -5px;
-        left:-10px;
-        color:red;
-      }
-      
-      #notify_btn{
-        position:relative;
-        top: 0px;
-        left:10px;
-      }
-      
-      #notify_badge{
-        position:relative;
-        top: -5px;
-        left:-90px;
-      }
-      
-      #logo_img{
-        position:relative;
-        top: 10px;
-        left: 0px;
-      }
-
-      .btn_left_side {
-        float: left;
-      }
+ 
 
       #loadingscreen {
         display:    none;
@@ -102,21 +70,13 @@
     </style>
 
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
   </head>
 
-  <body ng-controller="ClientCtrl" ng-show="isLogin">
+  <body ng-controller="ClientCtrl">
     <div id="loadingscreen"></div>
+  <!-----------  Start of navigation bar  ------------>
+
+
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -125,29 +85,32 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <img src="assets/img/OsmosisLogo.png" width=9% id="logo_img">
-          <div id="welcome_msg">Welcome, {{name}} | <a href="index-for-log-out.html" >Logout</a></div>
+          <img src="assets/img/OsmosisLogo.png" width=9.5% style=" position:relative;  top: 20px">
+          <div style="position:relative; top: 5px; float:right; color:grey">Welcome, 
+          	<a href="#" id="profile_popover" rel="popover" data-content="Skills:skill Area of Interest:area_of_interest" data-original-title="Profile">name</a> | <a href="index-for-log-out.html">Logout</a>
           <br>
-          <br>
-          <ul class="nav" >
-            <li class="active"><a href="#" id="tabcolor"><i class="icon-home icon-white"></i> HOME</a></li>
-            <li><a href="#about" >PROFILE</a></li>
-            <li><a href="#contact">PROJECT CATALOG</a></li>
-            <li><a href="#contact">TEAM CATALOG</a></li>
-            <li><a href="#contact">FAQ</a></li>
-          </ul>
-          <div align="right">
-          <button class="btn btn-small btn-warning" type="button" id="notify_btn"><b>Notification</b></button><span class="badge badge-important" id="notify_badge">1</span>
-          <button class="btn btn-small btn-primary" type="button">Create Proposal</button>
-          <i class="icon-white icon-plus" id="plus_sign"></i><button class="btn btn-small btn-primary" type="button">Create Project</button>
-          <i class="icon-white icon-plus" id="plus_sign"></i><button class="btn btn-small btn-primary" type="button">Create Team</button>
-          <i class="icon-white icon-plus" id="plus_sign"></i>
           </div>
-         </div>
-      </div>
-    </div>
+          <br>
+         
+            <ul class="nav" style="position:relative; left:110px">
+              <li class="active"><a href="#link"><i class="icon-home"></i> HOME</a></li>
+              <li><a href="#link"><i class="icon-book"></i> PROJECT</a></li>
+              <li><a href="#link"><i class="icon-book"></i> TEAM</a></li>
+              
+              
+            </ul>
+            
+            
+            </div><!-- /.right -->
+            
+         </div><!-- /.container -->
+      </div><!-- /.navbar-inner -->
+    </div><!-- /.navbar navbar-inverse navbar-fixed-top -->
+ 
+    <!-----------  End of navigation bar  ------------>
 
-    <br/><br/><br/>
+
+    <br/><br/>
     
 
     <div class="container-fluid">
@@ -157,58 +120,91 @@
           <div class = "row-fluid">
             <form class="form-horizontal" ng-submit="createProj()" id="createForm">  
               <fieldset>
-
-                <legend>Create a Project</legend>
+	              <ul class="inline">
+                  <li>
+                  	<h3><b>Create a Project</b></h3>
+                  </li>
+                  <li>
+	                <button class="btn btn-small" type="submit">Generate Sample Project</button>
+                 </li>
+                 </ul>
+                <hr style="position:relative; top:-10px; border-color:#BDBDBD">
                 <div class="control-group">  
-                  <label class="control-label" for="projectName">Project Name*</label>
+                  <label class="control-label" for="projectName" style="font-weight:bold">Project Name</label>
                   <div class="controls">
-                    <input type="text" class="input-xlarge" id="projectName" ng-model="projectName" required>
+                    <input type="text" class="input-xxlarge" id="projectName" ng-model="projectName" style="font-size:85%"required>
                   </div>
                   <br/> 
                 <div class="control-group">  
-                  <label class="control-label" for="projectObjective">Project Scope*</label>
-                  <div class="controls">  
-                    <textarea class="input-xlarge" ng-model="projectObjective" id="projectObjective" rows="3"></textarea>
-                     <img src="assets/img/info.png" class="tooltipStudent" data-original-title="Skills"
+                  <label class="control-label" for="projectObjective" style="font-weight:bold">Project Scope<br/>
+                  <img src="assets/img/info.png" class="tooltipStudent" data-original-title="Skills"
                           title="Over <font color='#00FF00'><strong>85%</strong></font>
-                      of students surveyed have rated this field as <font color='#00FFFF'><strong>important</strong></font> for them when making a decision to take up a project">
+                      of students surveyed have rated this field as <font color='#00FFFF'><strong>important</strong></font> for them when making a decision to take up a project"></label>
+                  <div class="controls">  
+                    <textarea class="input-xxlarge" ng-model="projectObjective" id="projectObjective" rows="12" style="resize:vertical; font-size:85%"></textarea>
+                    
                   </div>
                 </div>
-                <div class="control-group">  
-                  <label class="control-label" for="technicalRequirements">Technologies exposure*</label>
+                <div class="control-group"> 
+                 
+                  <label class="control-label" for="technicalRequirements" style="font-weight:bold">Technologies Exposure<br/>                     
+                  <img src="assets/img/info.png" class="tooltipStudent" data-original-title="Skills"
+                         title="Around <font color='#FFA500'><strong>63%</strong></font> of students surveyed are interested in the amount of technical exposure a project is able to provide them"></label>
+                  
                   <div class="controls">
-                    <textarea class="input-xlarge" ng-model="technologiesExposure" id="technologiesExposure" rows="3"></textarea>
-                    <img src="assets/img/info.png" class="tooltipStudent" data-original-title="Skills"
-                         title="Around <font color='#FFA500'><strong>63%</strong></font> of students surveyed are interested in the amount of technical exposure a project is able to provide them">
+                    <textarea class="input-xxlarge" ng-model="technologiesExposure" id="technologiesExposure" rows="3" style="resize:vertical; font-size:85%"></textarea>
+
                   </div>
                 </div>
                <div class="control-group">  
-                <label class="control-label" for="contactPerson">Contact Person*</label>  
+                <label class="control-label" for="contactPerson" style="font-weight:bold">Company Name</label>  
                 <div class="controls">  
-                  <input type="text" class="input-xlarge" ng-model="contactPerson" id="contactPerson" required>
+                  <input type="text" class="input-xlarge" ng-model="companyName" id="companyName" style="font-size:85%" required>
+                </div>
+                </div>                
+               <div class="control-group">  
+                <label class="control-label" for="contactPerson" style="font-weight:bold">Contact Person</label>  
+                <div class="controls">  
+                  <input type="text" class="input-xlarge" ng-model="contactPerson" id="contactPerson" style="font-size:85%" required>
                 </div>
                 </div> 
                 <br/>
                 <div class="control-group">  
-                  <label class="control-label" for="contactEmail">Contact Email*</label>  
-                  <div class="controls">  
-                    <input type="text" class="input-xlarge" ng-model="contactEmail" id="contactEmail" required>
-                    <img src="assets/img/info.png" class="tooltipStudent" data-original-title="Skills"
+                  <label class="control-label" for="contactEmail" style="font-weight:bold">Contact Email<br/>                  
+                  <img src="assets/img/info.png" class="tooltipStudent" data-original-title="Skills"
                             title="More than <font color='#00FF00'><strong>93%</strong></font> of students will contact potential sponsors through email">
+</label>  
+                  <div class="controls">  
+                    <input type="text" class="input-xlarge" ng-model="contactEmail" id="contactEmail" style="font-size:85%" required>
                   </div>
                   <br/>
                 </div>
                 <div class="control-group">  
-                  <label class="control-label" for="keyLearningPoints">Contact Number</label>  
+                  <label class="control-label" for="keyLearningPoints" style="font-weight:bold">Contact Number<br/>                   
+                  <img src="assets/img/info.png" class="tooltipStudent" data-original-title="Skills"
+                         title=" <font color='#FFA500'><strong>69%</strong></font> of students surveyed will contact you through the contact number provided"></label>  
                   <div class="controls">  
-                    <input type="text" class="input-xlarge" ng-model="contactNumber" id="contactNumber">
-                    <img src="assets/img/info.png" class="tooltipStudent" data-original-title="Skills"
-                         title=" <font color='#FFA500'><strong>69%</strong></font> of students surveyed will contact you through the contact number provided">
+                    <input type="text" class="input-xlarge" ng-model="contactNumber" id="contactNumber" style="font-size:85%">
+
                   </div>
                 </div>
-                <div class="form-actions">  
-                  <button type="submit" class="btn btn-primary">Create</button>  
-                  <button ng-click="reset()" class="btn">Reset</button>  
+                 <div class="control-group">  
+                 <label class="control-label" for="keyLearningPoints" style="font-weight:bold">Display to students?<br/>  </label> 
+	                 <div class="controls"> 
+	                 
+		                 <label class="checkbox">
+						 <input type="checkbox" id="inlineCheckbox1" value="option1" style="font-weight:bold"> Yes
+						 </label>
+	                  
+	                 </div>
+                  </div>
+
+
+				
+                <div class="form-actions" align="right">  
+                	<button ng-click="reset()" class="btn">Reset</button>  
+                	<button type="submit" class="btn btn-primary">Create</button>  
+                  
                 </div>  <!-- form actions -->
               </fieldset>  
             </form>  
@@ -217,16 +213,28 @@
           
     <div class="span5">
       <!--Sidebar content-->
-      <br/><br/><br/>
-        <div class="accordion" id="mainAccordion">
+      
+      <div class="well" style="overflow: auto; height: 850px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#9A9A9A">
+      
+<div class="tabbable">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#pane1" data-toggle="tab" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">My Projects</a></li>
+    <li><a href="#pane2" data-toggle="tab" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">How to create a project?</a></li>
+    <li><a href="#pane3" data-toggle="tab" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">About IS480</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="pane1" class="tab-pane active">
+
+      
+          <div class="accordion" id="mainAccordion">
           <div class="accordion-group" ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List-->
-            <div class="accordion-heading">
+            <div class="accordion-heading" style="background-color:#EFF8FB">
               <a class="accordion-toggle" data-toggle="collapse" data-parent="#mainAccordion" href="#{{val.id}}" ng-click="disableEditor()">
               {{val.title}}
               </a>
             </div>
             <div id="{{val.id}}" class="accordion-body collapse">
-              <div class="accordion-inner">
+              <div class="accordion-inner" style="font-size:12px; background-color:white">
 
                 <strong>Project Objective:</strong><br/> 
                   <div ng-hide="editorEnabled">
@@ -270,35 +278,64 @@
                 <br/><br/>
 
                 <div ng-hide="editorEnabled">
+	             <ul class="inline">
+                  <li>
                   <form ng-submit="removeProj({{val.id}},{{key}})">
-                    <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Remove</button>
+                    <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Remove</button>
                   </form>
+                  </li>
+	              <li>
                   <form ng-submit="enableEditor({{key}})">
-                    <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Edit</button>
+                    <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Edit</button>
                   </form>
+	              </li>
+	              <li>
                   <form ng-submit="copyToForm({{key}})">
-                    <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Copy</button>
+                    <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Copy</button>
                   </form>
+	              </li>
+	             </ul>
                 </div>
                 <div ng-show="editorEnabled">
                   <form ng-submit="saveProj({{key}},{{val.id}})">
-                    <button class="btn_left_side" type="submit" ng-show="editorEnabled">Save</button>
+                    <button class="btn btn-small" type="submit" ng-show="editorEnabled">Save</button>
                   </form>
                   <form ng-submit="disableEditor()">
-                    <button class="btn_left_side" type="submit" ng-show="editorEnabled">Cancel</button>
+                    <button class="btn btn-small" type="submit" ng-show="editorEnabled">Cancel</button>
                   </form>
                 </div>
               </div>
             </div>
-          </div><!--For Every Project in Project List-->
-        </div>
+          </div><!--For Every Project in Project List--> 
+          </div>   
+      
+      
+    </div>
+    <div id="pane2" class="tab-pane">
+	    <div class="well" style="overflow: auto; height: 750px; background-color:#FAFAFA">
+		    <h4>Pane 2 Content</h4>
+		      <p> and so on ...</p>
+	    </div>
+    </div>
+    <div id="pane3" class="tab-pane">
+	    <div class="well" style="overflow: auto; height: 750px; background-color:#FAFAFA">
+		    <h4>Pane 3 Content</h4>
+		      <p> and so on ...</p>
+	    </div>
+    </div>
+    
+  </div><!-- /.tab-content -->
+</div><!-- /.tabbable -->
+      
+
+       
     </div>
   </div>
 </div>      
 
 <footer>
-  <p>* denotes compulsory field</p>
-  <p>&copy; Company 2012</p>
+
+  <p>&copy; Osmosis </p>
 </footer>
 
     <!-- Le javascript
