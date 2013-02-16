@@ -377,8 +377,8 @@ function ClientCtrl($scope,$resource){
     'company': "Sample Co.",
     'poc': "Sam Pearl",
     'email': "sam.pearl@sample.com",
-    'number': "72673275",
-  }
+    'number': "72673275"
+  };
 
   $scope.checkLogin = function(){
     $scope.Model.send({'method':"check_login"},function(response){
