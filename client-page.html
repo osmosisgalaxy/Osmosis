@@ -118,14 +118,14 @@
         <div class="span7">
           <!--Body content-->
           <div class = "row-fluid">
-            <form class="form-horizontal" ng-submit="createProj()" id="createForm">  
+            <form class="form-horizontal" id="createForm">  
               <fieldset>
 	              <ul class="inline">
                   <li>
                   	<h3><b>Create a Project</b></h3>
                   </li>
                   <li>
-	                <button class="btn btn-small" ng-submit="genSampleProj()">Generate Sample Project</button>
+	                <button class="btn btn-small" ng-click="genSampleProj()">Generate Sample Project</button>
                  </li>
                  </ul>
                 <hr style="position:relative; top:-10px; border-color:#BDBDBD">
@@ -203,7 +203,7 @@
 
                 <div class="form-actions" align="right">  
                 	<button ng-click="reset()" class="btn">Reset</button>  
-                	<button type="submit" class="btn btn-primary">Create</button>
+                	<button ng-click="createProj()" class="btn btn-primary">Create</button>
                 </div>  <!-- form actions -->
               </fieldset>  
             </form>  
