@@ -370,6 +370,16 @@ function ClientCtrl($scope,$resource){
 
   $scope.isLogin = false;
 
+  $scope.sample_proj = {
+    'name': "My Sample Project: Building an Interactive Webpage",
+    'description': "This project requires student to work on building a interactive webpage where users no longer need to think and understand how to use the webpage, but rather the elements of the webpage will guide the user along such as tutorials and basic validation of forms.",
+    'exposure': "Javascript,CSS,Java,JQuery,AJAX,Angularjs",
+    'company': "Sample Co.",
+    'poc': "Sam Pearl",
+    'email': "sam.pearl@sample.com",
+    'number': "72673275",
+  }
+
   $scope.checkLogin = function(){
     $scope.Model.send({'method':"check_login"},function(response){
       if (response.result == "true" && response.user_type == "cpr"){
@@ -413,6 +423,7 @@ function ClientCtrl($scope,$resource){
     $scope.projectName = project.title;
     $scope.projectObjective = project.description;
     $scope.technologiesExposure = project.exposure;
+    $scope.companyName = project.company;
     $scope.contactPerson = project.poc;
     $scope.contactEmail = project.email;
     $scope.contactNumber = project.contact;
@@ -439,6 +450,7 @@ function ClientCtrl($scope,$resource){
                 'ptitle': project.title,
                 'pdescription': project.description,
                 'pexposure': project.exposure,
+                'pcompany': project.company,
                 'ppoc': project.poc,
                 'pemail': project.email,
                 'pcontact': project.contact};
@@ -452,6 +464,7 @@ function ClientCtrl($scope,$resource){
     $scope.projectName = "";
     $scope.projectObjective = "";
     $scope.technologiesExposure ="";
+    $scope.companyName = "";
     $scope.contactPerson = "";
     $scope.contactEmail = "";
     $scope.contactNumber = "";
@@ -466,6 +479,17 @@ function ClientCtrl($scope,$resource){
         $('#mainAccordion').load();
       }
     });
+  };
+
+  $scope.genSampleProj = function(){
+    $scope.projectName = $scope.sample_proj.name;
+    $scope.projectObjective = $scope.sample_proj.description;
+    $scope.technologiesExposure = $scope.sample_proj.exposure;
+    $scope.companyName = $scope.sample_proj.company;
+    $scope.contactPerson = $scope.sample_proj.poc;
+    $scope.contactEmail = $scope.sample_proj.email;
+    $scope.contactNumber = $scope.sample_proj.number; 
+
   };
 
   $scope.checkLogin();

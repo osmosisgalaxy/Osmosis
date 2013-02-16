@@ -10,6 +10,24 @@ html {
 	background: #4c4c4c;
 	color: #802A2A;
 }
+
+
+/*client-info*/
+.client-info {
+    border-radius: 5px;
+    border: 2px solid #000;
+    background: #4c4c4c;
+    color: #fff;
+}
+
+/* Use this next selector to style things like font-size and line-height: */
+.client-info .tooltipster-content {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 8px 10px;
+
+}
 /*student-info*/
 .student-info {
 	border-radius: 5px;

@@ -129,244 +129,202 @@
                  </li>
                  </ul>
                 <hr style="position:relative; top:-10px; border-color:#BDBDBD">
+
                 <div class="control-group">  
                   <label class="control-label" for="projectName" style="font-weight:bold">Project Name</label>
                   <div class="controls">
                     <input type="text" class="input-xxlarge" id="projectName" ng-model="projectName" style="font-size:85%"required>
                   </div>
-                  <br/> 
+                </div>
+                <br/>
+
                 <div class="control-group">  
                   <label class="control-label" for="projectObjective" style="font-weight:bold">Project Scope<br/>
-                  <img src="assets/img/info.png" class="tooltipStudent" data-original-title="Skills"
+                  <img src="assets/img/info.png" class="tooltipClient" data-original-title="Skills"
                           title="Over <font color='#00FF00'><strong>85%</strong></font>
                       of students surveyed have rated this field as <font color='#00FFFF'><strong>important</strong></font> for them when making a decision to take up a project"></label>
                   <div class="controls">  
                     <textarea class="input-xxlarge" ng-model="projectObjective" id="projectObjective" rows="12" style="resize:vertical; font-size:85%"></textarea>
-                    
-                  </div>
+                                      </div>
                 </div>
+
                 <div class="control-group"> 
-                 
                   <label class="control-label" for="technicalRequirements" style="font-weight:bold">Technologies Exposure<br/>                     
-                  <img src="assets/img/info.png" class="tooltipStudent" data-original-title="Skills"
+                  <img src="assets/img/info.png" class="tooltipClient" data-original-title="Skills"
                          title="Around <font color='#FFA500'><strong>63%</strong></font> of students surveyed are interested in the amount of technical exposure a project is able to provide them"></label>
-                  
                   <div class="controls">
                     <textarea class="input-xxlarge" ng-model="technologiesExposure" id="technologiesExposure" rows="3" style="resize:vertical; font-size:85%"></textarea>
-
                   </div>
                 </div>
-               <div class="control-group">  
-                <label class="control-label" for="contactPerson" style="font-weight:bold">Company Name</label>  
-                <div class="controls">  
-                  <input type="text" class="input-xlarge" ng-model="companyName" id="companyName" style="font-size:85%" required>
+
+                <div class="control-group">  
+                  <label class="control-label" for="contactPerson" style="font-weight:bold">Company Name</label>  
+                  <div class="controls">  
+                    <input type="text" class="input-xlarge" ng-model="companyName" id="companyName" style="font-size:85%" required>
+                  </div>
                 </div>
-                </div>                
-               <div class="control-group">  
-                <label class="control-label" for="contactPerson" style="font-weight:bold">Contact Person</label>  
-                <div class="controls">  
-                  <input type="text" class="input-xlarge" ng-model="contactPerson" id="contactPerson" style="font-size:85%" required>
-                </div>
+
+                <div class="control-group">  
+                  <label class="control-label" for="contactPerson" style="font-weight:bold">Contact Person</label>  
+                  <div class="controls">  
+                    <input type="text" class="input-xlarge" ng-model="contactPerson" id="contactPerson" style="font-size:85%" required>
+                  </div>
                 </div> 
                 <br/>
+
                 <div class="control-group">  
                   <label class="control-label" for="contactEmail" style="font-weight:bold">Contact Email<br/>                  
-                  <img src="assets/img/info.png" class="tooltipStudent" data-original-title="Skills"
-                            title="More than <font color='#00FF00'><strong>93%</strong></font> of students will contact potential sponsors through email">
-</label>  
+                  <img src="assets/img/info.png" class="tooltipClient" data-original-title="Skills"
+                            title="More than <font color='#00FF00'><strong>93%</strong></font> of students will contact potential sponsors through email"></label>  
                   <div class="controls">  
                     <input type="text" class="input-xlarge" ng-model="contactEmail" id="contactEmail" style="font-size:85%" required>
                   </div>
                   <br/>
                 </div>
+
                 <div class="control-group">  
                   <label class="control-label" for="keyLearningPoints" style="font-weight:bold">Contact Number<br/>                   
-                  <img src="assets/img/info.png" class="tooltipStudent" data-original-title="Skills"
+                  <img src="assets/img/info.png" class="tooltipClient" data-original-title="Skills"
                          title=" <font color='#FFA500'><strong>69%</strong></font> of students surveyed will contact you through the contact number provided"></label>  
                   <div class="controls">  
                     <input type="text" class="input-xlarge" ng-model="contactNumber" id="contactNumber" style="font-size:85%">
-
                   </div>
                 </div>
-                 <div class="control-group">  
-                 <label class="control-label" for="keyLearningPoints" style="font-weight:bold">Display to students?<br/>  </label> 
-	                 <div class="controls"> 
-	                 
-		                 <label class="checkbox">
-						 <input type="checkbox" id="inlineCheckbox1" value="option1" style="font-weight:bold"> Yes
-						 </label>
-	                  
-	                 </div>
+
+                <div class="control-group">  
+                  <label class="control-label" for="keyLearningPoints" style="font-weight:bold">Display to students?<br/>  </label> 
+                  <div class="controls"> 
+  	                 
+                    <label class="checkbox">
+        						  <input type="checkbox" id="inlineCheckbox1" value="option1" style="font-weight:bold"> Yes
+        						</label>
                   </div>
+                </div>
 
-
-				
                 <div class="form-actions" align="right">  
                 	<button ng-click="reset()" class="btn">Reset</button>  
-                	<button type="submit" class="btn btn-primary">Create</button>  
-                  
+                	<button type="submit" class="btn btn-primary">Create</button>
                 </div>  <!-- form actions -->
               </fieldset>  
             </form>  
           </div>
         </div>
           
-    <div class="span5">
-      <!--Sidebar content-->
+        <div class="span5">
+        <!--Sidebar content-->
       
-      <div class="well" style="overflow: auto; height: 850px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#9A9A9A">
+          <div class="well" style="overflow: auto; height: 850px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#9A9A9A">
       
-<div class="tabbable">
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#pane1" data-toggle="tab" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">My Projects</a></li>
-    <li><a href="#pane2" data-toggle="tab" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">How to create a project?</a></li>
-    <li><a href="#pane3" data-toggle="tab" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">About IS480</a></li>
-  </ul>
-  <div class="tab-content">
-    <div id="pane1" class="tab-pane active">
+            <div class="tabbable">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#pane1" data-toggle="tab" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">My Projects</a></li>
+                <li><a href="#pane2" data-toggle="tab" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">How to create a project?</a></li>
+                <li><a href="#pane3" data-toggle="tab" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">About IS480</a></li>
+              </ul>
+              <div class="tab-content">
+                <div id="pane1" class="tab-pane active">
+                  <div class="accordion" id="mainAccordion">
+                    <div class="accordion-group" ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List-->
+                      <div class="accordion-heading" style="background-color:#EFF8FB">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#mainAccordion" href="#{{val.id}}" ng-click="disableEditor()">
+                        {{val.title}}
+                        </a>
+                      </div>
+                      <div id="{{val.id}}" class="accordion-body collapse">
+                        <div class="accordion-inner" style="font-size:12px; background-color:white">
 
-      
-          <div class="accordion" id="mainAccordion">
-          <div class="accordion-group" ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List-->
-            <div class="accordion-heading" style="background-color:#EFF8FB">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#mainAccordion" href="#{{val.id}}" ng-click="disableEditor()">
-              {{val.title}}
-              </a>
-            </div>
-            <div id="{{val.id}}" class="accordion-body collapse">
-              <div class="accordion-inner" style="font-size:12px; background-color:white">
+                          <strong>Project Objective:</strong><br/> 
+                            <div ng-hide="editorEnabled">
+                              {{val.description}}
+                            </div>
+                            <div ng-show="editorEnabled">
+                              <input type="text" class="input-xlarge" ng-model="val.description" ng-show="editorEnabled">
+                            </div>
+                          <br/>
+                          <strong>Technologies Exposure:</strong><br/>
+                            <div ng-hide="editorEnabled">
+                              {{val.exposure}}
+                            </div>
+                            <div ng-show="editorEnabled">
+                              <input type="text" class="input-xlarge" ng-model="val.exposure" ng-show="editorEnabled">
+                            </div>
+                          <br/>
+                          <strong>Contact Person:</strong><br/>
+                            <div ng-hide="editorEnabled">
+                              {{val.poc}}
+                            </div>
+                            <div ng-show="editorEnabled">
+                              <input type="text" class="input-xlarge" ng-model="val.poc" ng-show="editorEnabled" required>
+                            </div>
+                          <br/>
+                          <strong>Contact Email:</strong><br/>
+                            <div ng-hide="editorEnabled">
+                              {{val.email}}
+                            </div>
+                            <div ng-show="editorEnabled">
+                              <input type="text" class="input-xlarge" ng-model="val.email" ng-show="editorEnabled" required>
+                            </div>
+                          <br/>
+                          <strong>Contact Number:</strong><br/>
+                            <div ng-hide="editorEnabled">
+                              {{val.contact}}
+                            </div>
+                            <div ng-show="editorEnabled">
+                              <input type="text" class="input-xlarge" ng-model="val.contact" ng-show="editorEnabled">
+                            </div>
+                          <br/><br/>
 
-                <strong>Project Objective:</strong><br/> 
-                  <div ng-hide="editorEnabled">
-                    {{val.description}}
-                  </div>
-                  <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="val.description" ng-show="editorEnabled">
-                  </div>
-                <br/>
-                <strong>Technologies Exposure:</strong><br/>
-                  <div ng-hide="editorEnabled">
-                    {{val.exposure}}
-                  </div>
-                  <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="val.exposure" ng-show="editorEnabled">
-                  </div>
-                <br/>
-                <strong>Contact Person:</strong><br/>
-                  <div ng-hide="editorEnabled">
-                    {{val.poc}}
-                  </div>
-                  <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="val.poc" ng-show="editorEnabled" required>
-                  </div>
-                <br/>
-                <strong>Contact Email:</strong><br/>
-                  <div ng-hide="editorEnabled">
-                    {{val.email}}
-                  </div>
-                  <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="val.email" ng-show="editorEnabled" required>
-                  </div>
-                <br/>
-                <strong>Contact Number:</strong><br/>
-                  <div ng-hide="editorEnabled">
-                    {{val.contact}}
-                  </div>
-                  <div ng-show="editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="val.contact" ng-show="editorEnabled">
-                  </div>
-                <br/><br/>
+                          <div ng-hide="editorEnabled">
+          	             <ul class="inline">
+                            <li>
+                            <form ng-submit="removeProj({{val.id}},{{key}})">
+                              <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Remove</button>
+                            </form>
+                            </li>
+          	              <li>
+                            <form ng-submit="enableEditor({{key}})">
+                              <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Edit</button>
+                            </form>
+          	              </li>
+          	              <li>
+                            <form ng-submit="copyToForm({{key}})">
+                              <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Copy</button>
+                            </form>
+          	              </li>
+          	             </ul>
+                          </div>
+                          <div ng-show="editorEnabled">
+                            <button class="btn btn-small" type="submit" ng-show="editorEnabled" ng-click="saveProj({{key}},{{val.id}})">Save</button>
 
-                <div ng-hide="editorEnabled">
-	             <ul class="inline">
-                  <li>
-                  <form ng-submit="removeProj({{val.id}},{{key}})">
-                    <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Remove</button>
-                  </form>
-                  </li>
-	              <li>
-                  <form ng-submit="enableEditor({{key}})">
-                    <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Edit</button>
-                  </form>
-	              </li>
-	              <li>
-                  <form ng-submit="copyToForm({{key}})">
-                    <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Copy</button>
-                  </form>
-	              </li>
-	             </ul>
-                </div>
-                <div ng-show="editorEnabled">
-                  <form ng-submit="saveProj({{key}},{{val.id}})">
-                    <button class="btn btn-small" type="submit" ng-show="editorEnabled">Save</button>
-                  </form>
-                  <form ng-submit="disableEditor()">
-                    <button class="btn btn-small" type="submit" ng-show="editorEnabled">Cancel</button>
-                  </form>
+                            <button class="btn btn-small" type="submit" ng-show="editorEnabled" ng-click="disableEditor()">Cancel</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!--For Every Project in Project List--> 
+                  </div>
                 </div>
               </div>
-            </div>
-          </div><!--For Every Project in Project List--> 
-          </div>   
-      
-      
-    </div>
-    <div id="pane2" class="tab-pane">
-	    <div class="well" style="overflow: auto; height: 750px; background-color:#FAFAFA">
-		    <h4>Pane 2 Content</h4>
-		      <p> and so on ...</p>
-	    </div>
-    </div>
-    <div id="pane3" class="tab-pane">
-	    <div class="well" style="overflow: auto; height: 750px; background-color:#FAFAFA">
-		    <h4>Pane 3 Content</h4>
-		      <p> and so on ...</p>
-	    </div>
-    </div>
-    
-  </div><!-- /.tab-content -->
-</div><!-- /.tabbable -->
-      
+              <div id="pane2" class="tab-pane">
+                <div class="well" style="overflow: auto; height: 750px; background-color:#FAFAFA">
+            	    <h4>Pane 2 Content</h4>
+            	      <p> and so on ...</p>
+                </div>
+              </div>
+              <div id="pane3" class="tab-pane">
+                <div class="well" style="overflow: auto; height: 750px; background-color:#FAFAFA">
+            	    <h4>Pane 3 Content</h4>
+            	      <p> and so on ...</p>
+                </div>
+              </div>
+            </div><!-- /.tab-content -->
+          </div><!-- /.tabbable -->
+        </div>
+      </div>
+    </div>      
 
-       
-    </div>
-  </div>
-</div>      
-
-<footer>
-
-  <p>&copy; Osmosis </p>
-</footer>
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!--
-<script src="assets/js/angular/angular.min.js"></script>
-<script src="assets/js/angular/angular-resource.min.js"></script>
-<script src="assets/js/app.js"></script>
-<script src="assets/js/controllers.js"></script>
-<script src="assets/js/jquery-1.9.0.min.js" type="text/javascript"></script>
-<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-
-
-<script src="assets/js/google-code-prettify/prettify.js" type="text/javascript"></script>
-<script src="assets/js/docs.js" type="text/javascript"></script>
-<script src="assets/js/demo.js" type="text/javascript"></script>
-<script src="assets/js/bootstrap/bootstrap-transition.js"></script>
-<script src="assets/js/bootstrap/bootstrap-alert.js"></script>
-<script src="assets/js/bootstrap/bootstrap-modal.js"></script>
-<script src="assets/js/bootstrap/bootstrap-dropdown.js"></script>
-<script src="assets/js/bootstrap/bootstrap-scrollspy.js"></script>
-<script src="assets/js/bootstrap/bootstrap-tab.js"></script>
-<script src="assets/js/bootstrap/bootstrap-tooltip.js"></script>
-<script src="assets/js/bootstrap/bootstrap-popover.js"></script>
-<script src="assets/js/bootstrap/bootstrap-button.js"></script>
-<script src="assets/js/bootstrap/bootstrap-collapse.js"></script>
-<script src="assets/js/bootstrap/bootstrap-carousel.js"></script>
-<script src="assets/js/bootstrap/bootstrap-typeahead.js"></script>
-    <!-- tooltip -->
-
+    <footer>
+      <p>&copy; Osmosis </p>
+    </footer>
 
     <script src="assets/js/angular/angular.min.js"></script>
     <script src="assets/js/angular/angular-resource.min.js"></script>
@@ -394,20 +352,19 @@
         });
 
         $(document).ready(function() {
-            $('.tooltipStudent').tooltipster({
+            $('.tooltipClient').tooltipster({
                 animation: 'fall',
-                theme: '.student-info',
+                theme: '.client-info',
                 fixedWidth: 200,
                 position: 'right'
             });
         });
     </script>
 
-
     <!--close all accordion-->
     <script type="text/javascript">
-    $('.accordion-body').collapse("hide");
-</script>
+      $('.accordion-body').collapse("hide");
+    </script>
     <script src="assets/js/docs.js" type="text/javascript"></script>
     <script src="assets/js/demo.js" type="text/javascript"></script>
     <script src="assets/js/google-code-prettify/prettify.js" type="text/javascript"></script>
