@@ -106,56 +106,7 @@
     
     
     
-<!-- Modal -->
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Create Team</h3>
-  </div>
-  <div class="modal-body">
-             <div class="control-group">  
-                  
-                  <label class="control-label" for="projectName">Team Name*</label>  
-                  <div class="controls">  
-                    <input type="text" class="input-xlarge" id="projectName" ng-model="projectName" required>
-                  </div>
 
-             </div>    
-    
-                <div class="control-group">  
-                  <label class="control-label" for="technicalRequirements">Area of technology exposed*</label>  
-                  <div class="controls">  
-                    <textarea class="input-xlarge" ng-model="technologiesExposure" id="technologiesExposure" rows="3"></textarea>  
-                  </div>  
-                </div>    
-    
-             <div class="control-group">  
-                  
-                  <label class="control-label" for="projectName">Sourcing for*</label>  
-                  <div class="controls">  
-                    <input type="text" class="input-xlarge" id="sourcingFor" ng-model="sourcingFor" required>
-                  </div>
-
-             </div> 
-             
-             <div class="control-group">  
-                  
-                  <label class="control-label" for="projectName">Wiki page*</label>  
-                  <div class="controls">  
-                    <input type="text" class="input-xlarge" id="wikiPage" ng-model="wikiPage" required>
-                  </div>
-
-             </div>                  
-    
-    
-    
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Save changes</button>
-  </div>
-</div>     
-<!-- End Modal -->	  
 	  
 	<br>
 	<br>  
@@ -165,28 +116,59 @@
      
      
     	<div class='span4'>
-	    <!-- Start of PROJECTS AVAILABLE -->   
-        <h3>Projects Available</h3>
-        <div id='projAvailable'>
-  				<div class="accordion" id="projAccordion">
-            <div class="accordion-group" ng-repeat="(key,val) in avail_proj">                     
-              <div class="accordion-heading" style="background-color:#FAFAFA">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#projAccordion" href="#p_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-                {{val.title}}
-                </a>
-              </div>
-              <div id="p_{{val.id}}" class="accordion-body collapse in">
-                <div class="accordion-inner" style="font-size:12px; background-color:white">
-                  <div style="color:grey; display:inline">Project Objective: </div>{{val.description}} </br>
-                  <div style="color:grey; display:inline">Technologies Exposure: </div>{{val.exposure}} </br>
-                  <div style="color:grey; display:inline">Contact Person: </div> {{val.poc}} </br>
-                  <div style="color:grey; display:inline">Contact Email: </div>  <a href="mailto:{{val.email}}">{{val.email}}</a> </br>
-                  <div style="color:grey; display:inline">Contact Number: </div> {{val.contact}} </br>
-                </div>
-              </div>
-            </div><!-- .accordion-group -->
-          </div><!-- end of first accordion -->
-        </div>
+	    <!-- Start of Teams recruiting -->   
+        <h3>Teams Recruiting</h3>
+            <!-- Start of recruit team accordion -->
+                               
+
+                  <!-- Start of inner recruit teams accordion -->
+                  <div class="accordion" id="recruitTeamAccordion">
+                    <div class="accordion-group" ng-repeat="(key,val) in team_recruit"><!-- repeat number of teams recruiting -->
+                      <div class="accordion-heading" style="background-color:#FAFAFA">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#recruitTeamAccordion" href="#t_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                          {{val.name}}<!-- team name -->
+                        </a>
+                      </div>
+                      <div id="t_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
+                        <div class="accordion-inner" style="font-size:12px; background-color:white">
+                          <div style="color:grey; display:inline">Team members: </div><br>
+
+                          <!-- Start of team member detail accordion -->
+                          <div class="accordion" id="memberDetailAccordion">
+                            <div class="accordion-group" ng-repeat="(key,val) in val.member"><!-- repeat number of teams recruiting -->
+                              <div class="accordion-heading" style="background-color:#FAFAFA">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#memberDetailAccordion" href="#tm_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                                  {{val.full_name}}
+                                </a>
+                              </div>
+                              <div id="tm_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
+                                <div class="accordion-inner" style="font-size:12px; background-color:white">
+                                  <div style="color:grey; display:inline">Email: </div> {{val.email}} <br>
+                                  <div style="color:grey; display:inline">Year of Admission: </div> {{val.yoa}} <br>
+                                  <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
+                                  <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
+                                  <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
+                                </div>
+                              </div>
+                            </div>
+                          </div><!-- end of team member detail accordion -->
+
+                          <div style="color:grey; display:inline">Area of interest: </div> {{val.aoi}} <br>
+                          <div style="color:grey; display:inline">FYP term: </div> {{val.fyp}} <br>
+                          <div style="color:grey; display:inline">Wikipage: </div> {{val.wiki}} <br>
+                          <div style="color:grey; display:inline">Sourcing for: </div> {{val.position}} <br>
+                          <div align="right">
+                            <form ng-submit="requestJoinTeam('{{val.id}}')" ng-show="val.show_button"><!-- i want to join -->
+                              <button type="submit" class="btn btn-mini">Request to Join</button>
+                              <input type="text" id="t_{{val.id}}_requestMessage" placeholder="Message to Team">
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><!-- end of inner recruit teams accordion -->		  							
+	
+              <!-- end of recruit team accordion -->
 		  <!-- End of PROJECTS AVAILABLE --> 
       </div>
 
@@ -194,7 +176,7 @@
 
 	 
 		<div class="span4">
-			<h3>Team</h3>
+			<h3>My Team</h3>
 		      <div class="accordion" id="teamAccordion"><!-- Start of TEAM -->
       			<!-- Start of my team accordion -->
             <div class="accordion-group">                     
@@ -483,64 +465,7 @@
               </div>
             </div>
             <!-- end of my team accordion -->
-            <!-- Start of recruit team accordion -->
-            <div class="accordion-group">                     
-              <div class="accordion-heading" style="background-color:#FAFAFA">
-	              <a class="accordion-toggle" data-toggle="collapse" data-parent="#teamAccordion" href="#collapse2" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-                  Teams Recruiting
-                </a>
-              </div>
-              <div id="collapse2" class="accordion-body collapse in">
-                <div class="accordion-inner" style="font-size:12px; background-color:white">
-                  <!-- Start of inner recruit teams accordion -->
-                  <div class="accordion" id="recruitTeamAccordion">
-                    <div class="accordion-group" ng-repeat="(key,val) in team_recruit"><!-- repeat number of teams recruiting -->
-                      <div class="accordion-heading" style="background-color:#FAFAFA">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#recruitTeamAccordion" href="#t_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
-                          {{val.name}}<!-- team name -->
-                        </a>
-                      </div>
-                      <div id="t_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
-                        <div class="accordion-inner" style="font-size:12px; background-color:white">
-                          <div style="color:grey; display:inline">Team members: </div><br>
 
-                          <!-- Start of team member detail accordion -->
-                          <div class="accordion" id="memberDetailAccordion">
-                            <div class="accordion-group" ng-repeat="(key,val) in val.member"><!-- repeat number of teams recruiting -->
-                              <div class="accordion-heading" style="background-color:#FAFAFA">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#memberDetailAccordion" href="#tm_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
-                                  {{val.full_name}}
-                                </a>
-                              </div>
-                              <div id="tm_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
-                                <div class="accordion-inner" style="font-size:12px; background-color:white">
-                                  <div style="color:grey; display:inline">Email: </div> {{val.email}} <br>
-                                  <div style="color:grey; display:inline">Year of Admission: </div> {{val.yoa}} <br>
-                                  <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
-                                  <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
-                                  <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
-                                </div>
-                              </div>
-                            </div>
-                          </div><!-- end of team member detail accordion -->
-
-                          <div style="color:grey; display:inline">Area of interest: </div> {{val.aoi}} <br>
-                          <div style="color:grey; display:inline">FYP term: </div> {{val.fyp}} <br>
-                          <div style="color:grey; display:inline">Wikipage: </div> {{val.wiki}} <br>
-                          <div style="color:grey; display:inline">Sourcing for: </div> {{val.position}} <br>
-                          <div align="right">
-                            <form ng-submit="requestJoinTeam('{{val.id}}')" ng-show="val.show_button"><!-- i want to join -->
-                              <button type="submit" class="btn btn-mini">Request to Join</button>
-                              <input type="text" id="t_{{val.id}}_requestMessage" placeholder="Message to Team">
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div><!-- end of inner recruit teams accordion -->		  							
-					       </div>
-					     </div>
-              </div><!-- end of recruit team accordion -->
             </div><!-- End of TEAM -->
           </div><!-- .span4 -->
 

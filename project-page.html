@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Osmosis Student Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      
+     page-header {
+	     	font-size:100pt;
+      }
+      
+      }
+
+      .btn_right_side {
+        float: right;
+      }
+
+      #projAvailable{
+        height: 500px;
+        overflow: auto;
+      }
+
+      #loadingscreen {
+        display:    none;
+        position:   fixed;
+        z-index:    1000;
+        top:        0;
+        left:       0;
+        height:     100%;
+        width:      100%;
+        background: rgba( 255, 255, 255, .8 ) 
+                    url('http://osmosisgalaxy.github.com/Osmosis/assets/img/loader.gif') 
+                    50% 50% 
+                    no-repeat;
+      }
+     
+    </style>
+    
+    <script type="text/javascript">
+    function showInnerHtml(){
+        var contents=document.getElementById("formArea");
+        alert(contents);
+    }
+  
+    $(function ()  
+      { $("#profile_popover").popover({placement:'bottom'});
+	  
+    }); 
+    </script>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+   </head>
+   
+<body ng-controller="StudentCtrl">
+  <div id="loadingscreen"></div>
+  <script>
+    $('#loadingscreen').show();
+  </script>
+	  	  <!-----------  Start of navigation bar  ------------>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <img src="assets/img/OsmosisLogo.png" width=9.5% style=" position:relative;  top: 10px;">
+          <div style="position:relative; top: 5px; float:right; color:grey">Welcome, 
+          	<!-- <a href="#" id="profile_popover" rel="popover" data-content="Skills:{{skill}} Area of Interest:{{area_of_interest}}" data-original-title="Profile"> -->
+            {{stud_info.email}}
+          <!-- </a> | 
+            <a href="index-for-log-out.html" >Logout</a> -->
+          <br>
+          <a href="#link" style="float:right">FAQ</a></div>
+          <br>
+          <br>
+         
+            <ul class="nav">
+              <li class="active"><a href="#link">MY PROJECTS</a></li>
+              <li><a href="#link"><i class="icon-book"></i> PROJECT</a></li>
+              <li><a href="#link"><i class="icon-book"></i> TEAM</a></li>
+              
+              
+            </ul>
+            
+            
+            </div><!-- /.right -->
+            
+         </div><!-- /.container -->
+      </div><!-- /.navbar-inner -->
+    </div><!-- /.navbar navbar-inverse navbar-fixed-top -->
+ 
+    <!-----------  End of navigation bar  ------------>
+    
+    
+    
+	<br>
+	<br>  
+	<br>
+	  
+	<div class="container-fluid">
+     <div class="offset5"><h3>Projects Available</h3></div>
+     
+     
+    	<div class='span8 offset2'>
+    	
+    	 <!-- Start of PROJECTS AVAILABLE -->   
+        
+        <div id='projAvailable'>
+  				<div class="accordion" id="projAccordion">
+            <div class="accordion-group" ng-repeat="(key,val) in avail_proj">                     
+              <div class="accordion-heading" style="background-color:#FAFAFA">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#projAccordion" href="#p_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                {{val.title}}
+                </a>
+              </div>
+              <div id="p_{{val.id}}" class="accordion-body collapse in">
+                <div class="accordion-inner" style="font-size:12px; background-color:white">
+                  <div style="color:grey; display:inline">Project Objective: </div>{{val.description}} </br>
+                  <div style="color:grey; display:inline">Technologies Exposure: </div>{{val.exposure}} </br>
+                  <div style="color:grey; display:inline">Contact Person: </div> {{val.poc}} </br>
+                  <div style="color:grey; display:inline">Contact Email: </div>  <a href="mailto:{{val.email}}">{{val.email}}</a> </br>
+                  <div style="color:grey; display:inline">Contact Number: </div> {{val.contact}} </br>
+                </div>
+              </div>
+            </div><!-- .accordion-group -->
+          </div><!-- end of first accordion -->
+                 </div>
+		  <!-- End of PROJECTS AVAILABLE --> 
+		  
+
+      </div>
+
+
+	</div>
+	
+</div><!-- .container-fluid -->
+
+
+      
+
+
+
+
+
+
+	<!-- FOOTER -->
+      
+      <div class='span12'>
+      <footer>
+        <p style="font-size:smaller">&copy; 2013 Osmosis &middot; <a href="#">Privacy</a> &middot; <a href="http://smusg.asia.qualtrics.com/SE/?SID=SV_4ON5xzcvPnxxORf">Post UAT Survey</a></p>
+      </footer>
+      </div><!-- /.span12 -->
+	  
+  
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--<script src="test/lib/angular/angular-mocks.js"></script>-->
+    <script src="assets/js/angular/angular.min.js"></script>
+    <script src="assets/js/angular/angular-resource.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/controllers.js"></script>
+
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-transition.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-alert.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-modal.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-dropdown.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-scrollspy.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-tab.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-tooltip.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-popover.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-button.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-collapse.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-carousel.js"></script>
+    <script src="assets/js/bootstrap/bootstrap-typeahead.js"></script>
+    <script type="text/javascript">
+      $('.accordion-body').collapse("hide");
+      $('#createTeam').collapse("show");
+    </script>
+  </body>
+</html>
+
