@@ -367,6 +367,7 @@ function ClientCtrl($scope,$resource){
   $scope.client_proj;
   $scope.proj_backup;
   $scope.proj_key;
+  $scope.display_name = "Anonymous";
 
   $scope.isLogin = false;
 
@@ -384,6 +385,9 @@ function ClientCtrl($scope,$resource){
     $scope.Model.send({'method':"check_login"},function(response){
       if (response.result == "true" && response.user_type == "cpr"){
         $scope.isLogin = true;
+        if (response.user_profile.full_name != null){
+          $scope.display_name = response.user_profile.full_name;
+        }
         $scope.getClientProj();
       }
       else{
