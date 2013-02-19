@@ -15,6 +15,7 @@
       body {
         padding-top: 60px;
         padding-bottom: 40px;
+        background-image: url(assets/img/greyWoodBackground.jpg);
       }
       
      page-header {
@@ -77,39 +78,26 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <img src="assets/img/OsmosisLogo.png" width=9.5% style=" position:relative;  top: 10px;">
-          <div style="position:relative; top: 5px; float:right; color:grey">Welcome, 
-          	<!-- <a href="#" id="profile_popover" rel="popover" data-content="Skills:{{skill}} Area of Interest:{{area_of_interest}}" data-original-title="Profile"> -->
-            {{stud_info.email}}
-          <!-- </a> | 
-            <a href="index-for-log-out.html" >Logout</a> -->
-          <br>
-          <a href="#link" style="float:right">FAQ</a></div>
-          <br>
-          <br>
-         
-            <ul class="nav">
-              <li class="active"><a href="#link">MY PROJECTS</a></li>
-              <li><a href="#link"><i class="icon-book"></i> PROJECT</a></li>
-              <li><a href="#link"><i class="icon-book"></i> TEAM</a></li>
-              
-              
-            </ul>
-            
-            
-            </div><!-- /.right -->
-            
-         </div><!-- /.container -->
+          	<img src="assets/img/OsmosisLogo.png" width=9.5% style=" position:relative;  top: 20px">
+	          <div style="position:relative; top: 5px; float:right; color:grey">Welcome, 
+	          	<!-- <a href="#" id="profile_popover" rel="popover" data-content="Skills:{{skill}} Area of Interest:{{area_of_interest}}" data-original-title="Profile"> -->
+	            {{stud_info.email}}
+	          <!-- </a> | 
+	            <a href="index-for-log-out.html" >Logout</a> -->
+	            <br>
+	          </div>
+	         	<br>
+	         <ul class="nav" style="position:relative; left:110px">
+	            <li class="active"><a href="student-page.html"><i class="icon-home"></i> HOME</a></li>
+	            <li><a href="project-page.html"><i class="icon-book"></i> PROJECT</a></li>
+	            <li><a href="#link"><i class="icon-book"></i> TEAM</a></li>
+	         </ul>
+        </div><!-- /.container -->
       </div><!-- /.navbar-inner -->
     </div><!-- /.navbar navbar-inverse navbar-fixed-top -->
- 
     <!-----------  End of navigation bar  ------------>
-    
-    
-    
+             
 
-	  
-	<br>
 	<br>  
 	  
 	<div class="container-fluid">
@@ -119,9 +107,11 @@
     	<div class='span4'>
 	    <!-- Start of Teams recruiting -->   
         <h3>Teams Recruiting</h3>
-            <!-- Start of recruit team accordion -->
-                               
-
+            
+		<!-- Start of well -->                               
+		<div class="well" style="overflow: auto; height: 500px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#C0C0C0">
+		
+			<!-- Start of recruit team accordion -->
                   <!-- Start of inner recruit teams accordion -->
                   <div class="accordion" id="recruitTeamAccordion">
                     <div class="accordion-group" ng-repeat="(key,val) in team_recruit"><!-- repeat number of teams recruiting -->
@@ -170,6 +160,9 @@
                   </div><!-- end of inner recruit teams accordion -->		  							
 	
               <!-- end of recruit team accordion -->
+              
+          </div><!-- end of well -->	
+          
 		  <!-- End of PROJECTS AVAILABLE --> 
       </div>
 
@@ -178,6 +171,10 @@
 	 
 		<div class="span4">
 			<h3>My Team</h3>
+			
+			<!-- Start of well -->                               
+			<div class="well" style="overflow: auto; height: 500px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#C0C0C0">
+			
 		      <div class="accordion" id="teamAccordion"><!-- Start of TEAM -->
       			<!-- Start of my team accordion -->
             <div class="accordion-group">                     
@@ -466,6 +463,8 @@
               </div>
             </div>
             <!-- end of my team accordion -->
+            
+            </div><!-- end of well -->
 
             </div><!-- End of TEAM -->
           </div><!-- .span4 -->
@@ -473,6 +472,10 @@
   <div class="span4">
     <!-- Start of STUDENTS WITHOUT TEAM -->
     <h3>Students Without Team</h3>
+    
+    <!-- Start of well -->                               
+	<div class="well" style="overflow: auto; height: 500px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#C0C0C0">
+    
 	 	<div class="accordion" id="studentNoTeamAccordion" >
       <div class="accordion-group" ng-repeat="(key,val) in stud_finding"><!-- academic years   -->          
 	      <div class="accordion-heading" style="background-color:#FAFAFA">
@@ -537,6 +540,7 @@
 				</div>
       </div><!-- .accordion-group -->
 		</div>
+	</div><!-- end of well -->
 		<!-- End of STUDENTS WITHOUT TEAM -->
 	</div>
 	

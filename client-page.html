@@ -73,7 +73,7 @@
 
   </head>
 
-  <body ng-controller="ClientCtrl">
+  <body ng-controller="ClientCtrl" ng-show="isLogin">
     <!-----------  Start of navigation bar  ------------>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -98,7 +98,7 @@
       </div><!-- /.navbar-inner -->
     </div><!-- /.navbar navbar-inverse navbar-fixed-top -->
     <!-----------  End of navigation bar  ------------>
-    <br/><br/>
+    <br/>
     
     <div class="container-fluid">
       <div class="row-fluid">
@@ -108,7 +108,7 @@
             <form class="form-horizontal" id="createForm">  
               <fieldset>
 	              <h3><b>Create a Project</b></h3><button class="btn btn-small" ng-click="genSampleProj()" style="float:right; position:relative; top:-35px">Generate Sample Project</button>
-                    <div class="well" style="font-size:90%">
+                    <div class="well" style="font-size:90%; background:rgba(243,243,243,0.8); margin:0px; border-color:#BDBDBD">
                   		Thank you for using Osmosis! <br>
 						To post a project to our SMU-SIS students, it only takes you less than 5 minutes to fill up the form below! <br>
 						Get ready to dwell into the experience of working with our SMU-SIS Final Year Project team, with a total dedicated project time of 1000-hour. 
@@ -126,7 +126,6 @@
                     <input type="text" class="input-xxlarge" id="projectName" ng-model="projectName" style="font-size:85%"required>
                   </div>
                 </div>
-                <br/>
 
                 <div class="control-group">  
                   <label class="control-label" for="projectObjective" style="font-weight:bold">Project Scope<br/></label>
@@ -158,14 +157,12 @@
                     <input type="text" class="input-xlarge" ng-model="contactPerson" id="contactPerson" style="font-size:85%" required>
                   </div>
                 </div> 
-                <br/>
 
                 <div class="control-group">  
                   <label class="control-label" for="contactEmail" style="font-weight:bold">Contact Email<br/> </label>  
                   <div class="controls">  
                     <input type="text" class="input-xlarge tooltipClient1" ng-model="contactEmail" id="contactEmail" style="font-size:85%" data-original-title="Skills" title="More than <font color='#00FF00'><strong>93%</strong></font> of students will contact potential sponsors through email" required>
                   </div>
-                  <br/>
                 </div>
 
                 <div class="control-group">  
@@ -197,8 +194,8 @@
           
         <div class="span5">
         <!--Sidebar content-->
-      
-          <div class="well" style="overflow: auto; height: 850px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#9A9A9A">
+      <br>
+          <div class="well" style="overflow: auto; height: 930px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#9A9A9A">
       
             <div class="tabbable">
               <ul class="nav nav-tabs">
@@ -288,59 +285,70 @@
                   </div>
                 </div>
                 <div id="pane2" class="tab-pane">
-                  <div class="well" style="overflow: auto; height: 750px; background-color:#FAFAFA">
-              	      <p> SMU-SIS FYP (Singapore Management University, School of Information System, Final Year Project) is a compulsory module that all 3rd and 4th year students have to complete. Students form a team of 4-6 to experience a semester of part-time project team working with a real-life sponsor. 
+                
+                  <div class="well" style="overflow: auto; height: 880px; background-color:#FBF8EF">
+              	     <div style="font-size:120%; font-weight:bold; display:inline">IS480 or FYP </div> 
+              	     <div style="display:inline; font-size:85%">(Final Year Project) is a compulsory module that all 3rd and 4th year SMU-SIS (Singapore Management University, School of Information System) students have to complete. Students form a team of 4-6 to experience a semester of part-time project team working with a real-life sponsor. 
+						<br><br>
+						Through FYP, it provides opportunity for SIS student to:
+							<ul>
+									<li>Develop an IT system that satisfies a list of functional and quality requirements with a team.</li>
+									<li>Experience an iterative software development lifecycle using a methodology such as agile RUP or eXtreme programming.</li>
+									<li>Build the additional depth required to become a Business IT professional.</li>
+									<li>Manage a real life project</li>
+							</ul>
+						<br>
+						Essentially, the student applies what they learn at SIS to build an IT system in a team project. 
+						<br><br>
+						Visit the <a href="#">IS480 mainpage</a> for more information.
+						<br>
+						Click <a href="#">here</a> to view the course design document. 
+					</div>
+					<br><br>
 
-Through FYP, it provides opportunity for SIS student to:
-Develop an IT system that satisfies a list of functional and quality requirements with a team.
-Experience an iterative software development lifecycle using a methodology such as agile RUP or eXtreme programming.
-Build the additional depth required to become a Business IT professional.
-Manage a real life project
-
-Essentially, the student applies what they learn at SIS to build an IT system in a team project. Visit the IS480 mainpage for more information.
-Click here to view the course design document. 
-</p>
-
-<p style="font-weight:bold">Important Dates</p>
-<table class="table table-bordered">
-  <tr class="success">
-    <td>Term 1</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Start</td>
-    <td>20 May 2013</td>
-  </tr>
-  <tr>
-    <td>Proposal</td>
-    <td>20 Jun 2013</td>
-  </tr>
-  <tr>
-    <td>Acceptance</td>
-    <td>13-16 Aug 2013</td>
-  </tr>
-  <tr>
-    <td>Registration</td>
-    <td>21 Aug 2013</td>
-  </tr>
-  <tr>
-    <td>Midterm</td>
-    <td>1-4 Oct 2013</td>
-  </tr>
-  <tr>
-    <td>Poster</td>
-    <td>12 Nov 2013</td>
-  </tr>
-  <tr>
-    <td>Final</td>
-    <td>29 Nov - 5 Dec 2013</td>
-  </tr>
-  <tr>
-    <td>Poster Day</td>
-    <td>7 Dec 2013</td>
-  </tr>
-</table>
-
+				<div style="font-size:85%">
+			
+					<p style="font-size:100%; font-weight:bold">Important Dates</p>
+					<table class="table table-bordered table-condensed" cellpadding="0px" style="cellpadding:'0px'; width:50%">
+					  <tr class="success">
+					    <td colspan="2"><b>Term 1</b></td>
+					  </tr>
+					  <tr>
+					    <td bgcolor="white">Start</td>
+					    <td bgcolor="white">20 May 2013</td>
+					  </tr>
+					  <tr>
+					    <td bgcolor="white">Proposal</td>
+					    <td bgcolor="white">20 Jun 2013</td>
+					  </tr>
+					  <tr>
+					    <td bgcolor="white">Acceptance</td>
+					    <td bgcolor="white">13-16 Aug 2013</td>
+					  </tr>
+					  <tr>
+					    <td bgcolor="white">Registration</td>
+					    <td bgcolor="white">21 Aug 2013</td>
+					  </tr>
+					  <tr>
+					    <td bgcolor="white">Midterm</td>
+					    <td bgcolor="white">1-4 Oct 2013</td>
+					  </tr>
+					  <tr>
+					    <td bgcolor="white">Poster</td>
+					    <td bgcolor="white">12 Nov 2013</td>
+					  </tr>
+					  <tr>
+					    <td bgcolor="white">Final</td>
+					    <td bgcolor="white">29 Nov-5 Dec 2013</td>
+					  </tr>
+					  <tr>
+					    <td bgcolor="white">Poster Day</td>
+					    <td bgcolor="white">7 Dec 2013</td>
+					  </tr>
+					</table>
+					
+			
+				</div>
 
                   </div>
                 </div>
