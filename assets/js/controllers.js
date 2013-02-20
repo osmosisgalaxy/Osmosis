@@ -103,6 +103,7 @@ function StudentCtrl($scope,$resource){
   $scope.stud_year;
   $scope.isLeader = false;
   $scope.isLogin = false;
+  $scope.home_link = "student-page.html";
 
   $scope.checkLogin = function(){
     $scope.Model.send({'method':"check_login"},function(response){
@@ -368,6 +369,7 @@ function ClientCtrl($scope,$resource){
   $scope.proj_backup;
   $scope.proj_key;
   $scope.display_name = "Anonymous";
+  $scope.home_link = "student-page.html";
 
   $scope.isLogin = false;
 
