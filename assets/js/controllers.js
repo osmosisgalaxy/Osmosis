@@ -71,8 +71,8 @@ function LoginCtrl($scope,$resource){
     {},
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
     );
-    $scope.student_url;
-    $scope.corporate_url;
+    $scope.student_url = "#";
+    $scope.corporate_url = "#";
     $scope.nickname;
     $scope.getLink = function(){
 
