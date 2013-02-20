@@ -489,13 +489,21 @@ function ClientCtrl($scope,$resource){
   };
 
   $scope.genSampleProj = function(){
-    $scope.projectName = $scope.sample_proj.name;
-    $scope.projectObjective = $scope.sample_proj.description;
-    $scope.technologiesExposure = $scope.sample_proj.exposure;
-    $scope.companyName = $scope.sample_proj.company;
-    $scope.contactPerson = $scope.sample_proj.poc;
-    $scope.contactEmail = $scope.sample_proj.email;
-    $scope.contactNumber = $scope.sample_proj.number; 
+
+    var data = {'method':"get_random_project"};
+
+    $scope.Model.send(data, function(response){
+      if (response.result){
+        $scope.projectName = $scope.sample_proj.title;
+        $scope.projectObjective = $scope.sample_proj.description;
+        $scope.technologiesExposure = $scope.sample_proj.exposure;
+        $scope.companyName = $scope.sample_proj.company;
+        $scope.contactPerson = $scope.sample_proj.poc;
+        $scope.contactEmail = $scope.sample_proj.email;
+        $scope.contactNumber = $scope.sample_proj.number; 
+      }
+    });
+    
 
   };
 
