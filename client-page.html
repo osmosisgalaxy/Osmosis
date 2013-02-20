@@ -57,12 +57,17 @@
         position:   absolute;
         top:        0;
         right:       0;
+        z-index:    999;
         height:     100%;
         width:      100%;
         background: rgba( 255, 255, 255, .8 ) 
                     url('http://osmosisgalaxy.github.com/Osmosis/assets/img/loader.gif') 
                     50% 50% 
                     no-repeat;
+      }
+
+      .navbar{
+        z-index: 0;
       }
     </style>
     <div id="loadingscreen"></div>
@@ -90,8 +95,8 @@
           <br>
           <ul class="nav" style="position:relative; left:110px">
             <li class="active"><a href="#link"><i class="icon-home"></i> HOME</a></li>
-            <li><a href="#link"><i class="icon-book"></i> PROJECT</a></li>
-            <li><a href="#link"><i class="icon-book"></i> TEAM</a></li>
+            <li><a href="project-page.html"><i class="icon-book"></i> PROJECT</a></li>
+           <!--  <li><a href="#link"><i class="icon-book"></i> TEAM</a></li> -->
           </ul>
         </div><!-- /.container -->
       </div><!-- /.navbar-inner -->
