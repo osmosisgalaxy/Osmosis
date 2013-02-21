@@ -409,10 +409,12 @@ function ClientCtrl($scope,$resource){
     'poc':$scope.contactPerson,
     'email':$scope.contactEmail,
     'company':$scope.company,
-    'contact':$scope.contactNumber};
+    'contact':$scope.contactNumber,
+    'img':"http://i48.tinypic.com/2s01kxw.jpg",
+    'video':"http://goanimate.com/player/embed/06SjLQlMMr3M"};
 
     $scope.Model.send(data, function(response){
-      $scope.client_proj.push(data);
+      $scope.client_proj.push(response);
       $('#mainAccordion').load();
       return false;
     });
@@ -453,7 +455,9 @@ function ClientCtrl($scope,$resource){
                 'pcompany': project.company,
                 'ppoc': project.poc,
                 'pemail': project.email,
-                'pcontact': project.contact};
+                'pcontact': project.contact,
+                'pimg':project.img,
+                'pvideo':project.video};
     $scope.Model.send(data, function(response){
       $scope.proj_key = null;
       $scope.editorEnabled = false;

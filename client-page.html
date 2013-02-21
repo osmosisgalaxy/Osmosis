@@ -67,7 +67,7 @@
       }
 
       .navbar{
-        z-index: 0;
+        z-index: 998;
       }
     </style>
     <div id="loadingscreen"></div>
@@ -177,7 +177,7 @@
                   </div>
                 </div>
 
-                <div class="control-group">  
+                <!-- <div class="control-group">  
                   <label class="control-label" for="display" style="font-weight:bold">Display to students?<br/>  </label> 
                   <div class="controls"> 
   	                 
@@ -185,7 +185,7 @@
         						  <input type="checkbox" id="inlineCheckbox1" value="option1" style="font-weight:bold"> Yes
         						</label>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="form-actions" align="right">  
                 	<button ng-click="reset()" class="btn">Reset</button>  
@@ -217,7 +217,14 @@
                       </div>
                       <div id="{{val.id}}" class="accordion-body collapse">
                         <div class="accordion-inner" style="font-size:12px; background-color:white">
-
+                          <img src="{{val.img}}" style="width:20%;height:20%;"><br/>
+                            <div ng-hide="editorEnabled">
+                              {{val.img}}
+                            </div>
+                            <div ng-show="editorEnabled">
+                              <input type="text" class="input-xlarge" ng-model="val.img" ng-show="editorEnabled">
+                            </div>
+                          <br/>
                           <strong>Project Objective:</strong><br/> 
                             <div ng-hide="editorEnabled">
                               {{val.description}}
@@ -257,8 +264,12 @@
                             <div ng-show="editorEnabled">
                               <input type="text" class="input-xlarge" ng-model="val.contact" ng-show="editorEnabled">
                             </div>
+                          <br/>
+                          <iframe allowTransparency="true" scrolling="no" style:"width:100%;height:25%;" src="{{val.video}}" frameborder="0" allowfullscreen></iframe><br/>
+                            <div ng-show="editorEnabled">
+                              <input type="text" class="input-xlarge" ng-model="val.video" ng-show="editorEnabled">
+                            </div>
                           <br/><br/>
-
                           <div ng-hide="editorEnabled">
           	             <ul class="inline">
                             <li>
