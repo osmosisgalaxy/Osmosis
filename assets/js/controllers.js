@@ -109,8 +109,8 @@ function StudentCtrl($scope,$resource){
     $scope.Model.send({'method':"check_login"},function(response){
       if (response.result == "true" && response.user_type == "std"){
         $scope.isLogin = true;
+        $scope.stud_info = response.user_profile;
         $scope.getAvailProj();
-        $scope.getStudInfo();
         $scope.getStudTeam();
         $scope.getStudFinding();
         $scope.getTeamRecruit();
@@ -118,13 +118,6 @@ function StudentCtrl($scope,$resource){
       else{
         window.location = "http://osmosisgalaxy.github.com/Osmosis/login.html";
       }
-    });
-  };
-
-  //get student info
-  $scope.getStudInfo = function(){
-    $scope.Model.send({'method':"get_profile"},function(response){
-      $scope.stud_info = response.u_profile;
     });
   };
 
@@ -420,7 +413,7 @@ function ClientCtrl($scope,$resource){
 
     $scope.Model.send(data, function(response){
       $scope.client_proj.push(data);
-      $('#mainAccordion').load("client-page.html");
+      $('#mainAccordion').load();
       return false;
     });
   };
@@ -490,20 +483,6 @@ function ClientCtrl($scope,$resource){
 
   $scope.genSampleProj = function(){
 
-    // var data = {'method':"get_random_project"};
-
-    // $scope.Model.send(data, function(response){
-    //   if (response.proj){
-    //     $scope.sample_proj = response.proj
-    //     $scope.projectName = $scope.sample_proj.title;
-    //     $scope.projectObjective = $scope.sample_proj.description;
-    //     $scope.technologiesExposure = $scope.sample_proj.exposure;
-    //     $scope.companyName = $scope.sample_proj.company;
-    //     $scope.contactPerson = $scope.sample_proj.poc;
-    //     $scope.contactEmail = $scope.sample_proj.email;
-    //     $scope.contactNumber = $scope.sample_proj.number; 
-    //   }
-    // });
     $scope.projectName = $scope.sample_proj.name;
         $scope.projectObjective = $scope.sample_proj.description;
         $scope.technologiesExposure = $scope.sample_proj.exposure;
@@ -515,6 +494,35 @@ function ClientCtrl($scope,$resource){
   };
 
   $scope.checkLogin();
+}
+
+function ProjectCtrl($scope,$resource){
+  $scope.Model = $resource("http://osmosisgal.appspot.com/:method",
+    {},
+    {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
+    );
+
+  $scope.home_link;
+  $scope.isLogin = false;
+
+  $scope.checkLogin = function(){
+    $scope.Model.send({'method':"check_login"},function(response){
+      if (response.result == "true"){
+        $scope.isLogin = true;
+        if(response.user_type == "cpr"){
+          if (response.user_profile.full_name != null){
+            $scope.display_name = response.user_profile.full_name;
+          }
+        }
+        else{
+          $scope.display_name = response.user_profile.email;
+        }
+      }
+      else{
+        window.location = "http://osmosisgalaxy.github.com/Osmosis/login.html";
+      }
+    });
+  };
 }
 
 
