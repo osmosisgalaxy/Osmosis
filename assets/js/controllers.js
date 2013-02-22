@@ -421,7 +421,9 @@ function ClientCtrl($scope,$resource){
     'video':"http://goanimate.com/player/embed/06SjLQlMMr3M"};
 
     $scope.Model.send(data, function(response){
-      $scope.client_proj.push(response.proj);
+      var project = response.proj;
+      project.email = project.email.split(",");
+      $scope.client_proj.push(project);
       $('#mainAccordion').load();
       return false;
     });
