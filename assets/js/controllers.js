@@ -352,6 +352,11 @@ function StudentCtrl($scope,$resource){
 }
 
 function ClientCtrl($scope,$resource){
+
+  String.prototype.trim = function () {
+    return this.replace(/^\s*/, "").replace(/\s*$/, "");
+  };
+
   $scope.Model = $resource("http://osmosisgal.appspot.com/:method",
     {},
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
@@ -394,27 +399,29 @@ function ClientCtrl($scope,$resource){
   $scope.getClientProj = function(){
     $scope.Model.send({'method':"get_cpr_proj"}, function(response){
       var projects = response.proj;
+
       for(var i = 0; i < projects.length; i++){
-        projects[i].exposure = projects[i].exposure.substring(1,projects[i].exposure.length-1);
+        projects[i].email = projects[i].email.split(",");
       }
       $scope.client_proj = projects;
     });
   };
 
   $scope.createProj = function(){
+    var objective = $scope.projectObjective.replace(/\t/g,"-");
     var data = {'method':"create_proj",
     'title':$scope.projectName,
-    'description':$scope.projectObjective,
-    'exposure': "{" + $scope.technologiesExposure + "}",
+    'description': objective,
+    'exposure': $scope.technologiesExposure.trim(),
     'poc':$scope.contactPerson,
-    'email':$scope.contactEmail,
+    'email': $scope.contactEmail.trim(),
     'company':$scope.company,
     'contact':$scope.contactNumber,
     'img':"http://i48.tinypic.com/2s01kxw.jpg",
     'video':"http://goanimate.com/player/embed/06SjLQlMMr3M"};
 
     $scope.Model.send(data, function(response){
-      $scope.client_proj.push(response);
+      $scope.client_proj.push(response.proj);
       $('#mainAccordion').load();
       return false;
     });
@@ -435,6 +442,7 @@ function ClientCtrl($scope,$resource){
     $scope.editorEnabled = true;
     $scope.proj_key = key;
     $scope.proj_backup = angular.copy($scope.client_proj[key]);
+    $scope.client_proj[key].email = $scope.client_proj[key].email.join();
   };
 
   $scope.disableEditor = function() {
@@ -451,19 +459,24 @@ function ClientCtrl($scope,$resource){
                 'proj_id': proj_id,
                 'ptitle': project.title,
                 'pdescription': project.description,
-                'pexposure': project.exposure,
+                'pexposure': project.exposure.trim(),
                 'pcompany': project.company,
                 'ppoc': project.poc,
-                'pemail': project.email,
+                'pemail': project.email.trim(),
                 'pcontact': project.contact,
                 'pimg':project.img,
                 'pvideo':project.video};
     $scope.Model.send(data, function(response){
+      project.email = project.email.split(",");
       $scope.proj_key = null;
       $scope.editorEnabled = false;
     });
   };
   
+  $scope.reload_img_video = function(key){
+    $("#"+key).load();
+  };
+
 	$scope.reset = function() {
     $scope.projectName = "";
     $scope.projectObjective = "";
@@ -508,6 +521,18 @@ function ProjectCtrl($scope,$resource){
 
   $scope.home_link;
   $scope.isLogin = false;
+  $scope.avail_proj;
+
+  $scope.getAvailProj = function(){
+    $scope.Model.send({'method':"get_available_project"}, function(response){
+      var projects = response.proj;
+
+      for(var i = 0; i < projects.length; i++){
+        projects[i].email = projects[i].email.split(",");
+      }
+      $scope.avail_proj = projects;
+    });
+  };
 
   $scope.checkLogin = function(){
     $scope.Model.send({'method':"check_login"},function(response){
@@ -521,12 +546,15 @@ function ProjectCtrl($scope,$resource){
         else{
           $scope.display_name = response.user_profile.email;
         }
+        $scope.getAvailProj();
       }
       else{
         window.location = "http://osmosisgalaxy.github.com/Osmosis/login.html";
       }
     });
   };
+
+  $scope.checkLogin();
 }
 
 

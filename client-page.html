@@ -69,6 +69,22 @@
       .navbar{
         z-index: 998;
       }
+
+      .project_img{
+        display: block;
+        width: 80%;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .project_video{
+        display: block;
+        width: 80%;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
     </style>
     <div id="loadingscreen"></div>
     <script>
@@ -217,14 +233,27 @@
                       </div>
                       <div id="{{val.id}}" class="accordion-body collapse">
                         <div class="accordion-inner" style="font-size:12px; background-color:white">
-                          <img src="{{val.img}}" style="width:20%;height:20%;"><br/>
-                            <div ng-hide="editorEnabled">
-                              {{val.img}}
-                            </div>
-                            <div ng-show="editorEnabled">
-                              <input type="text" class="input-xlarge" ng-model="val.img" ng-show="editorEnabled">
-                            </div>
+
+                          <!-- IMAGE FOR PROJECT -->
+                          <img class="project_img" src="{{val.img}}" width="100%" height="100%">
+
+                          <!-- Link for image -->
+                          <div ng-show="editorEnabled">
+                            <strong>Image Link:</strong><br/>
+                            <input type="text" class="input-xlarge" ng-model="val.img" ng-show="editorEnabled" ng-change="reload_img_video({{val.id}})">
+                          </div>
                           <br/>
+
+                          <!-- VIDEO FOR PROJECT -->
+                          <iframe class="project_video"allowTransparency="true" scrolling="no" style:"width:100%;height:100%;" src="{{val.video}}" frameborder="0" allowfullscreen></iframe>
+
+                          <!-- link for video -->
+                          <div ng-show="editorEnabled">
+                            <strong>Video Link:</strong><br/>
+                            <input type="text" class="input-xlarge" ng-model="val.video" ng-show="editorEnabled" ng-change="reload_img_video({{val.id}})">
+                          </div>
+                          <br/>
+
                           <strong>Project Objective:</strong><br/> 
                             <div ng-hide="editorEnabled">
                               {{val.description}}
@@ -250,8 +279,8 @@
                             </div>
                           <br/>
                           <strong>Contact Email:</strong><br/>
-                            <div ng-hide="editorEnabled">
-                              {{val.email}}
+                            <div ng-hide="editorEnabled" ng-repeat="email in val.email">
+                              {{email}}
                             </div>
                             <div ng-show="editorEnabled">
                               <input type="text" class="input-xlarge" ng-model="val.email" ng-show="editorEnabled" required>
@@ -265,34 +294,30 @@
                               <input type="text" class="input-xlarge" ng-model="val.contact" ng-show="editorEnabled">
                             </div>
                           <br/>
-                          <iframe allowTransparency="true" scrolling="no" style:"width:100%;height:25%;" src="{{val.video}}" frameborder="0" allowfullscreen></iframe><br/>
-                            <div ng-show="editorEnabled">
-                              <input type="text" class="input-xlarge" ng-model="val.video" ng-show="editorEnabled">
-                            </div>
-                          <br/><br/>
+                          <br/>
                           <div ng-hide="editorEnabled">
           	             <ul class="inline">
                             <li>
-                            <form ng-submit="removeProj({{val.id}},{{key}})">
+                            <form ng-submit="removeProj(val.id,key)">
                               <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Remove</button>
                             </form>
                             </li>
           	              <li>
-                            <form ng-submit="enableEditor({{key}})">
+                            <form ng-submit="enableEditor(key)">
                               <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Edit</button>
                             </form>
           	              </li>
           	              <li>
-                            <form ng-submit="copyToForm({{key}})">
+                            <form ng-submit="copyToForm(key)">
                               <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Copy</button>
                             </form>
           	              </li>
           	             </ul>
                           </div>
                           <div ng-show="editorEnabled">
-                            <button class="btn btn-small" type="submit" ng-show="editorEnabled" ng-click="saveProj({{key}},{{val.id}})">Save</button>
+                            <button class="btn btn-small" ng-show="editorEnabled" ng-click="$parent.saveProj(key,val.id)">Save</button>
 
-                            <button class="btn btn-small" type="submit" ng-show="editorEnabled" ng-click="disableEditor()">Cancel</button>
+                            <button class="btn btn-small" ng-show="editorEnabled" ng-click="disableEditor()">Cancel</button>
                           </div>
                         </div>
                       </div>

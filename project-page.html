@@ -49,6 +49,21 @@
       .navbar{
         z-index: 998;
       }
+
+      .project_img{
+        display: block;
+        width: 50%;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .project_video{
+        display: block;
+        width: 50%;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+      }
      
     </style>
     
@@ -125,10 +140,14 @@
               </div>
               <div id="p_{{val.id}}" class="accordion-body collapse in">
                 <div class="accordion-inner" style="font-size:12px; background-color:white">
+                  <!-- IMAGE FOR PROJECT -->
+                  <img class="project_img" src="{{val.img}}" width="100%" height="100%">
+                  <!-- VIDEO FOR PROJECT -->
+                  <iframe class="project_video"allowTransparency="true" scrolling="no" style:"width:100%;height:100%;" src="{{val.video}}" frameborder="0" allowfullscreen></iframe>
                   <div style="color:grey; display:inline">Project Objective: </div>{{val.description}} </br></br>
                   <div style="color:grey; display:inline">Technologies Exposure: </div>{{val.exposure}} </br></br>
                   <div style="color:grey; display:inline">Contact Person: </div> {{val.poc}} </br></br>
-                  <div style="color:grey; display:inline">Contact Email: </div>  <a href="mailto:{{val.email}}">{{val.email}}</a> </br></br>
+                  <div style="color:grey; display:inline">Contact Email: </div>  <div ng-repeat="email in val.email"><a href="mailto:{{email}}">{{email}}</a> </div> </br></br>
                   <div style="color:grey; display:inline">Contact Number: </div> {{val.contact}} </br></br>
                 </div>
               </div>
