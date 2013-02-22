@@ -224,6 +224,7 @@ function StudentCtrl($scope,$resource){
                 };
     $scope.Model.send(data, function(response){
       $scope.editorEnabled = false;
+      alert("Team info updated!");
     });
   };
 
@@ -408,10 +409,9 @@ function ClientCtrl($scope,$resource){
   };
 
   $scope.createProj = function(){
-    var objective = $scope.projectObjective.replace(/\t/g,"-");
     var data = {'method':"create_proj",
     'title':$scope.projectName,
-    'description': objective,
+    'description': $scope.projectObjective,
     'exposure': $scope.technologiesExposure.trim(),
     'poc':$scope.contactPerson,
     'email': $scope.contactEmail.trim(),
@@ -425,6 +425,7 @@ function ClientCtrl($scope,$resource){
       project.email = project.email.split(",");
       $scope.client_proj.push(project);
       $('#mainAccordion').load();
+      alert("Project Created!");
       return false;
     });
   };
@@ -472,6 +473,7 @@ function ClientCtrl($scope,$resource){
       project.email = project.email.split(",");
       $scope.proj_key = null;
       $scope.editorEnabled = false;
+      alert("Project Info Updated!");
     });
   };
   
