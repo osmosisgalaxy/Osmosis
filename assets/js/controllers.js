@@ -87,6 +87,13 @@ function LoginCtrl($scope,$resource){
     $scope.getLink();
 }
 
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+//Student Ctrl
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 function StudentCtrl($scope,$resource){
   $scope.Model = $resource("http://osmosisgal.appspot.com/:method",
     {},
@@ -352,6 +359,13 @@ function StudentCtrl($scope,$resource){
   $scope.checkLogin();
 }
 
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+//Client Ctrl
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 function ClientCtrl($scope,$resource){
 
   String.prototype.trim = function () {
@@ -402,7 +416,9 @@ function ClientCtrl($scope,$resource){
       var projects = response.proj;
 
       for(var i = 0; i < projects.length; i++){
-        projects[i].email = projects[i].email.split(",");
+        if(projects[i].email != null){
+          projects[i].email = projects[i].email.split(",");
+        }
       }
       $scope.client_proj = projects;
     });
@@ -422,7 +438,9 @@ function ClientCtrl($scope,$resource){
 
     $scope.Model.send(data, function(response){
       var project = response.proj;
-      project.email = project.email.split(",");
+      if(project[i].email != null){
+        project.email = project.email.split(",");
+      }
       $scope.client_proj.push(project);
       $('#mainAccordion').load();
       alert("Project Created!");
@@ -470,7 +488,9 @@ function ClientCtrl($scope,$resource){
                 'pimg':project.img,
                 'pvideo':project.video};
     $scope.Model.send(data, function(response){
-      project.email = project.email.split(",");
+      if(project[i].email != null){
+        project.email = project.email.split(",");
+      }
       $scope.proj_key = null;
       $scope.editorEnabled = false;
       alert("Project Info Updated!");
@@ -516,25 +536,240 @@ function ClientCtrl($scope,$resource){
 
   $scope.checkLogin();
 }
-
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+//Project Ctrl
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 function ProjectCtrl($scope,$resource){
   $scope.Model = $resource("http://osmosisgal.appspot.com/:method",
     {},
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
     );
 
+  $scope.quickSort = function(){
+
+    function swap(array, indexA, indexB){
+      var temp = array[indexA];
+      array[indexA] = array[indexB];
+      array[indexB] = temp;
+    }
+
+    function partition(array, pivot, left, right) {
+ 
+      var storeIndex = left,
+          pivotValue = array[pivot][1];
+   
+      // put the pivot on the right
+      swap(array, pivot, right);
+   
+      // go through the rest
+      for(var v = left; v < right; v++) {
+   
+        // if the value is less than the pivot's
+        // value put it to the left of the pivot
+        // point and move the pivot point along one
+        if(array[v][1] > pivotValue) {
+          swap(array, v, storeIndex);
+          storeIndex++;
+        }
+      }
+   
+      // finally put the pivot in the correct place
+      swap(array, right, storeIndex);
+   
+      return storeIndex;
+    }
+
+    function sort(array, left, right) {
+ 
+      var pivot = null;
+   
+      if(typeof left !== 'number') {
+        left = 0;
+      }
+   
+      if(typeof right !== 'number') {
+        right = array.length - 1;
+      }
+   
+      // effectively set our base
+      // case here. When left == right
+      // we'll stop
+      if(left < right) {
+   
+        // pick a pivot between left and right
+        // and update it once we've partitioned
+        // the array to values < than or > than
+        // the pivot value
+        pivot     = left + Math.ceil((right - left) * 0.5);
+        newPivot  = partition(array, pivot, left, right);
+   
+        // recursively sort to the left and right
+        sort(array, left, newPivot - 1);
+        sort(array, newPivot + 1, right);
+      }
+    }
+    return {
+      sort: sort
+    };
+  };
+
   $scope.home_link;
   $scope.isLogin = false;
   $scope.avail_proj;
+  $scope.stud_team;
+  $scope.projects;
+
+  $scope.getStudTeam = function(){
+    $scope.Model.send({'method':"get_user_team"}, function(response){
+      $scope.stud_team = response;
+      $scope.rankProj();
+      $scope.avail_proj = proj;
+    });
+  };
+
+  $scope.rankProj = function(){
+    $scope.Model.send({'method':"get_profile"}, function(response){
+      if(response.user_type == "std"){
+        var projRank = [];
+        var toBeReturn = [];
+        var member = $scope.stud_team.member;
+        //check if student belong to a team
+        if (member != null){
+          //Collating weight average pts
+          //each project available
+          for (var p in $scope.avail_proj){
+            var temp_proj = $scope.avail_proj[p];
+            var skillHash = {};
+            var proj_exposure = [];
+            if(temp_proj.exposure != null){
+              proj_exposure = temp_proj.exposure.split(",");
+            }
+            //each member in current student team
+            for (var m in member){
+              var mem_skill = [];
+              if (member[m].skill != null){
+                mem_skill = member[m].skill.split(",");
+              }
+              //each skill of member
+              for (var s in mem_skill){
+                //see if skill of member matches any exposure in project
+                //do a count++
+                if (jQuery.inArray(mem_skill[s],proj_exposure) != -1){
+                  var count = skillHash(mem_skill[s]);
+                  if (count == null){count = 0;}
+                  count++;
+                  skillHash(mem_skill[s]) = count;
+                }
+              }
+              var mem_int = [];
+              if (m.aoi != null){
+                mem_int = m.aoi.split(",");
+              }
+              //each interest of member
+              for (var i in mem_int){
+                //see if interest of member matches any exposure in project
+                //do a count++
+                if (jQuery.inArray(mem_int[i],proj_exposure) != -1){
+                  var count = skillHash(mem_int[i]);
+                  if (count == null){count = 0;}
+                  count++;
+                  skillHash(mem_int[i]) = count;
+                }
+              }
+            }
+            //get all keys of hashmap, find sum of all weight
+            var skillHashKey = Object.keys(skillHash);
+            var totalMatchCount = 0;
+            for (var shk in skillHashKey){
+              totalMatchCount += skillHash(shk);
+            }
+            //find the average weight and put inside project rank
+            var avgWeight = 0;
+            if(totalMatchCount != 0 && skillHashKey.length != 0){
+              totalMatchCount / skillHashKey.length;
+            }
+            projRank.push([temp_proj,avgWeight]);
+          }
+        }
+        else{
+          //get student info
+          var stud_aoi = [];
+          var stud_skill = [];
+          var stud = $scope.stud_team.stud_info;
+          if (stud.aoi != null){
+            stud_aoi = stud.aoi.split(",");
+          }
+          if (stud.skill != null){
+            stud_skill = stud.skill.split(",");
+          }
+          for (var p in $scope.avail_proj){
+            var temp_proj = $scope.avail_proj[p];
+            var skillHash = {};
+            var proj_exposure = [];
+            if(temp_proj.exposure != null){
+              proj_exposure = temp_proj.exposure.split(",");
+            }
+            for (var s in stud_skill){
+              var temp_skill = stud_skill[s];
+              //see if skill of student matches any exposure in project
+              //do a count++
+              var num = jQuery.inArray(temp_skill,proj_exposure);
+              if (jQuery.inArray(temp_skill,proj_exposure) != -1){
+                var count = skillHash(temp_skill);
+                count++;
+                skillHash(temp_skill) = count;
+              }
+            }
+            //each interest of student
+              for (var i in stud_aoi){
+                var temp_aoi = stud_aoi[i];
+                //see if interest of student matches any exposure in project
+                //do a count++
+                var num = jQuery.inArray(temp_aoi,proj_exposure);
+                if (jQuery.inArray(temp_aoi,proj_exposure) != -1){
+                  var count = skillHash(temp_aoi);
+                  count++;
+                  skillHash(temp_aoi) = count;
+                }
+              }
+            //get all keys of hashmap, find sum of all weight
+            var skillHashKey = Object.keys(skillHash);
+            var totalMatchCount = 0;
+            for (var shk in skillHashKey){
+              totalMatchCount += skillHash(shk);
+            }
+            //find the average weight and put inside project rank
+            var avgWeight = 0;
+            if(totalMatchCount != 0 && skillHashKey.length != 0){
+              totalMatchCount / skillHashKey.length;
+            }
+            projRank.push([temp_proj,avgWeight]);
+          }
+        }
+        //$scope.quickSort(projRank);
+        for(var i = 0; i < projRank.length; i++){
+          toBeReturn[i] = projRank[i][0]
+        }
+        $scope.avail_proj = toBeReturn;
+      }
+    });
+  };
 
   $scope.getAvailProj = function(){
     $scope.Model.send({'method':"get_available_project"}, function(response){
-      var projects = response.proj;
+      $scope.projects = response.proj;
 
-      for(var i = 0; i < projects.length; i++){
-        projects[i].email = projects[i].email.split(",");
+      for(var i = 0; i < $scope.projects.length; i++){
+        if($scope.projects[i].email != null){
+          $scope.projects[i].email = $scope.projects[i].email.split(",");
+        }
       }
-      $scope.avail_proj = projects;
+      $scope.avail_proj = $scope.projects;
+      $scope.getStudTeam();
     });
   };
 
