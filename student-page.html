@@ -549,65 +549,48 @@
 	<div class="well" style="overflow: auto; height: 500px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#C0C0C0">
     
 	 	<div class="accordion" id="studentNoTeamAccordion" >
-      <div class="accordion-group" ng-repeat="(key,val) in stud_finding"><!-- academic years   -->          
+      <div class="accordion-group" ng-repeat="(key,val) in stud_finding_pag"><!-- academic years   -->          
 	      <div class="accordion-heading" style="background-color:#FAFAFA">
-	        <a class="accordion-toggle" data-toggle="collapse" data-parent="#studentNoTeamAccordion" href="#{{val.year}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- the year -->
-            Academic Year {{val.year}}<!-- the year -->
+	        <a ng-click="reset_page(key)" class="accordion-toggle" data-toggle="collapse" data-parent="#studentNoTeamAccordion" href="#{{key}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- the year -->
+            Academic Year {{key}}<!-- the year -->
           </a>
         </div>
-        <div id="{{val.year}}" class="accordion-body collapse in" ><!-- the year -->
+        <div id="{{key}}" class="accordion-body collapse in" ><!-- the year -->
           <div class="accordion-inner" style="font-size:12px; background-color:white">
             <!-- Start of inner student detail accordion -->
-              <div class="accordion" id="studentDetailAccordion">
-                <div class="accordion-group" ng-repeat="(key,val) in val.students">
-                  <div class="accordion-heading" style="background-color:#FAFAFA">
-                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#studentDetailAccordion" href="#s_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
-                      {{val.full_name}}
-                    </a>
-                  </div>
-                  <div id="s_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
-                    <div class="accordion-inner" style="font-size:12px; background-color:white">
-                      <div style="color:grey; display:inline">Email: </div> {{val.email}} <br>
-                      <div style="color:grey; display:inline">Year of Admission: </div> {{val.yoa}} <br>
-                      <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
-                      <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
-                      <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
-                      <div align="right">
-                        <form ng-submit="inviteStudent('{{val.id}}')" ng-show="gotTeam"><!-- i want to join -->
-                          <button type="submit" class="btn btn-mini">Invite!</button>
-                          <input type="text" id="s_{{val.id}}_inviteMessage" placeholder="Message to Student">
-                        </form>
+              <div class="accordion" id="studentDetailAccordion" >
+                <!-- <div ng-repeat="(key,val) in val"> -->
+                  <div class="accordion-group" ng-repeat="(key,val) in page_chosen">
+                    <div class="accordion-heading" style="background-color:#FAFAFA">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#studentDetailAccordion" href="#s_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                        {{val.full_name}}
+                      </a>
+                    </div>
+                    <div id="s_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
+                      <div class="accordion-inner" style="font-size:12px; background-color:white">
+                        <div style="color:grey; display:inline">Email: </div> {{val.email}} <br>
+                        <div style="color:grey; display:inline">Year of Admission: </div> {{val.yoa}} <br>
+                        <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
+                        <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
+                        <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
+                        <div align="right">
+                          <form ng-submit="inviteStudent('{{val.id}}')" ng-show="gotTeam"><!-- i want to join -->
+                            <button type="submit" class="btn btn-mini">Invite!</button>
+                            <input type="text" id="s_{{val.id}}_inviteMessage" placeholder="Message to Student">
+                          </form>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                <!-- </div> -->
               </div><!-- end of inner student detail accordion -->
-    
-                    <!-- <table width="400px">
-                    <tr>
-                    <td style="padding-bottom:7px" onmouseover="document.getElementById('studentinfo').style.visibility = 'visible'"; onmouseout="document.getElementById('studentinfo').style.visibility = 'hidden'";>
-	                    {{name1}}<div style="display:inline" id="studentinfo">Students info here!</div>
-	                    
-                    </td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    <tr>
-                    <td style="padding-bottom:7px">{{name2}}</td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    <tr>
-                    <td style="padding-bottom:7px">{{name3}}</td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    <tr>
-                    <td style="padding-bottom:7px">{{name4}}</td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    <tr>
-                    <td style="padding-bottom:7px">{{name5}}</td>
-                    <td><button type="submit" class="btn btn-mini" onclick="this.disabled=true">invite to team</button></td>
-                    </tr>
-                    </table> -->
+              <!-- Put pagination here, using the number to change the list -->
+              
+              <ul class="pager">
+                <li><a ng-click="previous_page(key)">Previous</a></li>
+                <li><a ng-click="next_page(key)">Next</a></li>
+              </ul>
+
           </div>
 				</div>
       </div><!-- .accordion-group -->

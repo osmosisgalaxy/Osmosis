@@ -113,6 +113,9 @@ function StudentCtrl($scope,$resource){
   $scope.isLeader = false;
   $scope.isLogin = false;
   $scope.home_link = "student-page.html";
+  $scope.stud_finding_pag = {};
+  $scope.currentpage = 0;
+  $scope.page_chosen = null;
 
   $scope.checkLogin = function(){
     $scope.Model.send({'method':"check_login"},function(response){
@@ -157,7 +160,77 @@ function StudentCtrl($scope,$resource){
   $scope.getStudFinding = function(){
     $scope.Model.send({'method':"get_available_stud"}, function(response){
       $scope.stud_finding = response.students;
+      $('#loadingscreen').show();
+      $scope.stud_pagination();
+      $('#loadingscreen').hide();
     });
+  };
+
+  //Turn stud findings into arrays"pages" of 10
+  $scope.stud_pagination = function(){
+    //for each year
+    for(var i in $scope.stud_finding){
+      //get all students out from the particular year
+      var students = $scope.stud_finding[i]["students"];
+      //used to group students in 10 and put into year_grp
+      var grp_of_ten = [];
+      //so called the "pages" of that year of students with each
+      //page maximum of 10 students
+      var year_grp = [];
+
+      //for each student in the year
+      for(var j in students){
+        //push the first student, because using modulus,
+        //anything 0 modulus will be 0
+        if(j == 0){
+          grp_of_ten.push(students[j]);
+        }
+        //keep pushing into grp_of_ten
+        else if((j % 10) != 0){
+          if(j != students.length - 1){
+            grp_of_ten.push(students[j]);
+          }
+          //if students are less than 10,
+          //straight away push into year_grp,
+          //and move on to next year
+          else{
+            grp_of_ten.push(students[j]);
+            year_grp.push(grp_of_ten);
+            grp_of_ten = [];
+          }
+        }
+        //grp_of_ten reach maximum of 10,
+        //move on to the "next page"
+        else{
+          year_grp.push(grp_of_ten);
+          grp_of_ten = [];
+          grp_of_ten.push(students[j]);
+        }
+      }
+      //using year as the hashkey, put the year_grp as value
+      $scope.stud_finding_pag[$scope.stud_finding[i]["year"]] = year_grp;
+      year_grp = [];
+    }
+  };
+
+  $scope.reset_page = function(key){
+    $scope.currentpage = 0;
+    $scope.page_chosen = $scope.stud_finding_pag[key][$scope.currentpage];
+  };
+
+  $scope.next_page = function(key){
+    if($scope.currentpage < $scope.stud_finding_pag[key].length - 1){
+      $scope.currentpage = $scope.currentpage + 1;
+      $scope.page_chosen = $scope.stud_finding_pag[key][$scope.currentpage];
+    }
+
+  };
+
+  $scope.previous_page = function(key){
+    if($scope.currentpage > 0){
+      $scope.currentpage = $scope.currentpage - 1;
+      $scope.page_chosen = $scope.stud_finding_pag[key][$scope.currentpage];
+    }
   };
 
   $scope.profile_enableEditor = function() {
