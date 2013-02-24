@@ -100,6 +100,8 @@ function StudentCtrl($scope,$resource){
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
     );
   $scope.editorEnabled = false;
+  $scope.p_editorEnabled = false;
+  $scope.stud_profile_backup;
   $scope.team_info_backup;
   $scope.gotTeam = false;
   $scope.avail_proj;
@@ -158,18 +160,62 @@ function StudentCtrl($scope,$resource){
     });
   };
 
-  $scope.createTeam = function(){
-    var data = {'method':"createTeam",
-      't_name': $scope.teamName};
+  $scope.profile_enableEditor = function() {
+    $scope.p_editorEnabled = true;
+    $scope.stud_profile_backup = angular.copy($scope.stud_info);
+  };
 
-    $scope.Model.send(data, function(response){
-      $scope.stud_team = response;
-      $scope.gotTeam = true;
-      $scope.getStudFinding();
-      $scope.teamName = "";
-      $scope.isLeader = true;
-      $scope.getTeamRecruit();
-    });
+  $scope.profile_disableEditor = function() {
+    $scope.p_editorEnabled = false;
+    $scope.stud_info = angular.copy($scope.stud_profile_backup);
+  };
+
+  $scope.saveStudInfo = function(){
+    if($scope.stud_info.full_name != null){
+      var aoi = "";
+      var skill = "";
+      if($scope.stud_info.aoi != null){
+        aoi = $scope.stud_info.aoi.trim();
+      }
+      if($scope.stud_info.skill != null){
+        skill = $scope.stud_info.skill.trim();
+      }
+      var data = {'method':"update_stud_profile",
+        'stud_aoi': aoi,
+        'stud_fyp': $scope.stud_info.fyp,
+        'stud_skill': skill,
+        'stud_full_name': $scope.stud_info.full_name};
+
+      $scope.Model.send(data, function(response){
+        $scope.stud_info = response.user_profile;
+        $scope.p_editorEnabled = false;
+        alert("Profile updated.");
+      });
+    }
+    else{
+      alert("Profile not updated. Please make sure [Full Name] is not a blank field.");
+    }
+  };
+
+  $scope.createTeam = function(){
+
+    if($scope.teamName != null){
+      var data = {'method':"createTeam",
+        't_name': $scope.teamName};
+
+      $scope.Model.send(data, function(response){
+        $scope.stud_team = response;
+        $scope.gotTeam = true;
+        $scope.getStudFinding();
+        $scope.teamName = "";
+        $scope.isLeader = true;
+        $scope.getTeamRecruit();
+        alert("Team created.");
+      });
+    }
+    else{
+      alert("Team not created. Please check for blank field.");
+    }
   };
 
   $scope.deleteTeam = function(){
@@ -220,19 +266,24 @@ function StudentCtrl($scope,$resource){
   };
 
   $scope.saveTeamInfo = function() {
-    var data = {'method':"update_team",
-                'teamid': $scope.stud_team.teamid,
-                'name': $scope.stud_team.name,
-                'aoi': "{" + $scope.stud_team.aoi + "}",
-                'fyp': $scope.stud_team.fyp,
-                'searching': $scope.stud_team.searching,
-                'wiki':$scope.stud_team.wiki,
-                'position':$scope.stud_team.position
-                };
-    $scope.Model.send(data, function(response){
-      $scope.editorEnabled = false;
-      alert("Team info updated!");
-    });
+    if($scope.stud_team.name != null){
+      var data = {'method':"update_team",
+                  'teamid': $scope.stud_team.teamid,
+                  'name': $scope.stud_team.name,
+                  'aoi': $scope.stud_team.aoi,
+                  'fyp': $scope.stud_team.fyp,
+                  'searching': $scope.stud_team.searching,
+                  'wiki':$scope.stud_team.wiki,
+                  'position':$scope.stud_team.position
+                  };
+      $scope.Model.send(data, function(response){
+        $scope.editorEnabled = false;
+        alert("Team info updated!");
+      });
+    }
+    else{
+      alert("Team info not updated. Please make sure Team Name is not blank.");
+    }
   };
 
   $scope.inviteStudent = function(stud_id){
@@ -369,7 +420,8 @@ function StudentCtrl($scope,$resource){
 function ClientCtrl($scope,$resource){
 
   String.prototype.trim = function () {
-    return this.replace(/^\s*/, "").replace(/\s*$/, "");
+    //return this.replace(/^\s*/, "").replace(/\s*$/, "");
+    return this.replace(/ /g,'');
   };
 
   $scope.Model = $resource("http://osmosisgal.appspot.com/:method",
@@ -378,6 +430,7 @@ function ClientCtrl($scope,$resource){
     );
 
   $scope.editorEnabled = false;
+  $scope.have_project = false;
   $scope.client_proj;
   $scope.proj_backup;
   $scope.proj_key;
@@ -414,34 +467,53 @@ function ClientCtrl($scope,$resource){
   $scope.getClientProj = function(){
     $scope.Model.send({'method':"get_cpr_proj"}, function(response){
       var projects = response.proj;
-
-      for(var i = 0; i < projects.length; i++){
-        if(projects[i].email != null){
-          projects[i].email = projects[i].email.split(",");
+      if(projects != null){
+        for(var i = 0; i < projects.length; i++){
+          if(projects[i].email != null){
+            projects[i].email = projects[i].email.split(",");
+          }
         }
+        $scope.have_project = true;
+        $scope.client_proj = projects;
       }
-      $scope.client_proj = projects;
     });
   };
 
   $scope.createProj = function(){
+    var tech = "";
+    var c_email = "";
+    if($scope.technologiesExposure != null){
+      tech = $scope.technologiesExposure.trim();
+    }
+    if($scope.contactEmail != null){
+      c_email = $scope.contactEmail.trim();
+    }
+    if($scope.projectName == null || $scope.projectObjective == null || 
+      $scope.technologiesExposure == null || $scope.contactPerson == null ||
+      $scope.contactEmail == null || $scope.companyName == null ||
+      $scope.contactNumber == null){
+
+      alert("Project cannot be created. Check for blank field.");
+      return false;
+    }
     var data = {'method':"create_proj",
     'title':$scope.projectName,
     'description': $scope.projectObjective,
-    'exposure': $scope.technologiesExposure.trim(),
+    'exposure': tech,
     'poc':$scope.contactPerson,
-    'email': $scope.contactEmail.trim(),
-    'company':$scope.company,
+    'email': c_email,
+    'company':$scope.companyName,
     'contact':$scope.contactNumber,
     'img':"http://i48.tinypic.com/2s01kxw.jpg",
     'video':"http://goanimate.com/player/embed/06SjLQlMMr3M"};
 
     $scope.Model.send(data, function(response){
       var project = response.proj;
-      if(project[i].email != null){
+      if(project.email != null){
         project.email = project.email.split(",");
       }
       $scope.client_proj.push(project);
+      $scope.have_project = true;
       $('#mainAccordion').load();
       alert("Project Created!");
       return false;
@@ -476,19 +548,27 @@ function ClientCtrl($scope,$resource){
 
   $scope.saveProj = function(key,proj_id) {
     var project = $scope.client_proj[key];
+    var tech = "";
+    var c_email = "";
+    if(project.exposure != null){
+      tech = project.exposure.trim();
+    }
+    if(project.email != null){
+      c_email = project.email.trim();
+    }
     var data = {'method':"update_proj",
                 'proj_id': proj_id,
                 'ptitle': project.title,
                 'pdescription': project.description,
-                'pexposure': project.exposure.trim(),
+                'pexposure': tech,
                 'pcompany': project.company,
                 'ppoc': project.poc,
-                'pemail': project.email.trim(),
+                'pemail': c_email,
                 'pcontact': project.contact,
                 'pimg':project.img,
                 'pvideo':project.video};
     $scope.Model.send(data, function(response){
-      if(project[i].email != null){
+      if(project.email != null){
         project.email = project.email.split(",");
       }
       $scope.proj_key = null;
@@ -517,6 +597,9 @@ function ClientCtrl($scope,$resource){
     $scope.Model.send(data, function(response){
       if (response.result){
         $scope.client_proj.splice(key,1);
+        if($scope.client_proj.length == 0){
+          $scope.have_project = false;
+        }
         $('#mainAccordion').load();
       }
     });
@@ -549,92 +632,84 @@ function ProjectCtrl($scope,$resource){
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
     );
 
-  $scope.quickSort = function(){
-
-    function swap(array, indexA, indexB){
-      var temp = array[indexA];
-      array[indexA] = array[indexB];
-      array[indexB] = temp;
+  $scope.quickSort = function(array, left, right){
+    var pivot = null;
+   
+    if(typeof left !== 'number') {
+      left = 0;
     }
-
-    function partition(array, pivot, left, right) {
  
-      var storeIndex = left,
-          pivotValue = array[pivot][1];
-   
-      // put the pivot on the right
-      swap(array, pivot, right);
-   
-      // go through the rest
-      for(var v = left; v < right; v++) {
-   
-        // if the value is less than the pivot's
-        // value put it to the left of the pivot
-        // point and move the pivot point along one
-        if(array[v][1] > pivotValue) {
-          swap(array, v, storeIndex);
-          storeIndex++;
-        }
-      }
-   
-      // finally put the pivot in the correct place
-      swap(array, right, storeIndex);
-   
-      return storeIndex;
+    if(typeof right !== 'number') {
+      right = array.length - 1;
     }
-
-    function sort(array, left, right) {
  
-      var pivot = null;
-   
-      if(typeof left !== 'number') {
-        left = 0;
-      }
-   
-      if(typeof right !== 'number') {
-        right = array.length - 1;
-      }
-   
-      // effectively set our base
-      // case here. When left == right
-      // we'll stop
-      if(left < right) {
-   
-        // pick a pivot between left and right
-        // and update it once we've partitioned
-        // the array to values < than or > than
-        // the pivot value
-        pivot     = left + Math.ceil((right - left) * 0.5);
-        newPivot  = partition(array, pivot, left, right);
-   
-        // recursively sort to the left and right
-        sort(array, left, newPivot - 1);
-        sort(array, newPivot + 1, right);
-      }
+    // effectively set our base
+    // case here. When left == right
+    // we'll stop
+    if(left < right) {
+ 
+      // pick a pivot between left and right
+      // and update it once we've partitioned
+      // the array to values < than or > than
+      // the pivot value
+      pivot     = left + Math.ceil((right - left) * 0.5);
+      var newPivot  = $scope.partition(array, pivot, left, right);
+ 
+      // recursively sort to the left and right
+      $scope.quickSort(array, left, newPivot - 1);
+      $scope.quickSort(array, newPivot + 1, right);
     }
-    return {
-      sort: sort
-    };
   };
 
+  $scope.partition = function(array, pivot, left, right){
+    var storeIndex = left,
+        pivotValue = array[pivot][1];
+ 
+    // put the pivot on the right
+    $scope.swap(array, pivot, right);
+ 
+    // go through the rest
+    for(var v = left; v < right; v++) {
+ 
+      // if the value is less than the pivot's
+      // value put it to the left of the pivot
+      // point and move the pivot point along one
+      if(array[v][1] > pivotValue) {
+        $scope.swap(array, v, storeIndex);
+        storeIndex++;
+      }
+    }
+ 
+    // finally put the pivot in the correct place
+    $scope.swap(array, right, storeIndex);
+ 
+    return storeIndex;
+  };
+
+  $scope.swap = function(array, indexA, indexB){
+    var temp = array[indexA];
+    array[indexA] = array[indexB];
+    array[indexB] = temp;
+  };
+
+  $scope.user_info;
   $scope.home_link;
   $scope.isLogin = false;
   $scope.avail_proj;
   $scope.stud_team;
   $scope.projects;
+  $scope.projRank = [];
 
   $scope.getStudTeam = function(){
     $scope.Model.send({'method':"get_user_team"}, function(response){
       $scope.stud_team = response;
       $scope.rankProj();
-      $scope.avail_proj = proj;
     });
   };
 
   $scope.rankProj = function(){
     $scope.Model.send({'method':"get_profile"}, function(response){
       if(response.user_type == "std"){
-        var projRank = [];
         var toBeReturn = [];
         var member = $scope.stud_team.member;
         //check if student belong to a team
@@ -659,10 +734,10 @@ function ProjectCtrl($scope,$resource){
                 //see if skill of member matches any exposure in project
                 //do a count++
                 if (jQuery.inArray(mem_skill[s],proj_exposure) != -1){
-                  var count = skillHash(mem_skill[s]);
+                  var count = skillHash[mem_skill[s]];
                   if (count == null){count = 0;}
                   count++;
-                  skillHash(mem_skill[s]) = count;
+                  skillHash[mem_skill[s]] = count;
                 }
               }
               var mem_int = [];
@@ -674,10 +749,10 @@ function ProjectCtrl($scope,$resource){
                 //see if interest of member matches any exposure in project
                 //do a count++
                 if (jQuery.inArray(mem_int[i],proj_exposure) != -1){
-                  var count = skillHash(mem_int[i]);
+                  var count = skillHash[mem_int[i]];
                   if (count == null){count = 0;}
                   count++;
-                  skillHash(mem_int[i]) = count;
+                  skillHash[mem_int[i]] = count;
                 }
               }
             }
@@ -685,14 +760,14 @@ function ProjectCtrl($scope,$resource){
             var skillHashKey = Object.keys(skillHash);
             var totalMatchCount = 0;
             for (var shk in skillHashKey){
-              totalMatchCount += skillHash(shk);
+              totalMatchCount += skillHash[skillHashKey[shk]];
             }
             //find the average weight and put inside project rank
             var avgWeight = 0;
             if(totalMatchCount != 0 && skillHashKey.length != 0){
-              totalMatchCount / skillHashKey.length;
+              avgWeight = totalMatchCount / skillHashKey.length;
             }
-            projRank.push([temp_proj,avgWeight]);
+            $scope.projRank.push([temp_proj,avgWeight]);
           }
         }
         else{
@@ -719,9 +794,10 @@ function ProjectCtrl($scope,$resource){
               //do a count++
               var num = jQuery.inArray(temp_skill,proj_exposure);
               if (jQuery.inArray(temp_skill,proj_exposure) != -1){
-                var count = skillHash(temp_skill);
+                var count = skillHash[temp_skill];
+                if (count == null){count = 0;}
                 count++;
-                skillHash(temp_skill) = count;
+                skillHash[temp_skill] = count;
               }
             }
             //each interest of student
@@ -731,28 +807,29 @@ function ProjectCtrl($scope,$resource){
                 //do a count++
                 var num = jQuery.inArray(temp_aoi,proj_exposure);
                 if (jQuery.inArray(temp_aoi,proj_exposure) != -1){
-                  var count = skillHash(temp_aoi);
+                  var count = skillHash[temp_aoi];
+                  if (count == null){count = 0;}
                   count++;
-                  skillHash(temp_aoi) = count;
+                  skillHash[temp_aoi] = count;
                 }
               }
             //get all keys of hashmap, find sum of all weight
             var skillHashKey = Object.keys(skillHash);
             var totalMatchCount = 0;
             for (var shk in skillHashKey){
-              totalMatchCount += skillHash(shk);
+              totalMatchCount += skillHash[skillHashKey[shk]];
             }
             //find the average weight and put inside project rank
             var avgWeight = 0;
             if(totalMatchCount != 0 && skillHashKey.length != 0){
-              totalMatchCount / skillHashKey.length;
+              avgWeight = totalMatchCount / skillHashKey.length;
             }
-            projRank.push([temp_proj,avgWeight]);
+            $scope.projRank.push([temp_proj,avgWeight]);
           }
         }
-        //$scope.quickSort(projRank);
-        for(var i = 0; i < projRank.length; i++){
-          toBeReturn[i] = projRank[i][0]
+        $scope.quickSort($scope.projRank);
+        for(var i = 0; i < $scope.projRank.length; i++){
+          toBeReturn[i] = $scope.projRank[i][0]
         }
         $scope.avail_proj = toBeReturn;
       }
@@ -769,20 +846,25 @@ function ProjectCtrl($scope,$resource){
         }
       }
       $scope.avail_proj = $scope.projects;
-      $scope.getStudTeam();
+      if($scope.user_info.user_type == "std"){
+        $scope.getStudTeam();
+      }
     });
   };
 
   $scope.checkLogin = function(){
     $scope.Model.send({'method':"check_login"},function(response){
       if (response.result == "true"){
+        $scope.user_info = response;
         $scope.isLogin = true;
         if(response.user_type == "cpr"){
+          $scope.home_link = "client-page.html"
           if (response.user_profile.full_name != null){
             $scope.display_name = response.user_profile.full_name;
           }
         }
         else{
+          $scope.home_link = "student-page.html"
           $scope.display_name = response.user_profile.email;
         }
         $scope.getAvailProj();

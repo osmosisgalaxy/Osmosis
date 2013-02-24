@@ -174,10 +174,78 @@
 
 	 
 		<div class="span4">
+      <h3>My Profile</h3><!-- Start of student profile -->
+      <!-- <div class="well" style="overflow: auto; height: 100px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#C0C0C0"> -->
+        <div class="accordion" id="myProfileAccordion">
+          <div class="accordion-group">
+            <div class="accordion-heading" style="background-color:#FAFAFA">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#myProfileAccordion" href="#profile_acc" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                  {{stud_info.full_name}}
+              </a>
+            </div>
+            <div id="profile_acc" class="accordion-body collapse in">
+              <div class="accordion-inner" style="font-size:12px; background-color:white">
+                <strong>Full Name:</strong><br/>
+                  <div ng-hide="p_editorEnabled">
+                    {{stud_info.full_name}}
+                  </div>
+                  <div ng-show="p_editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="stud_info.full_name" ng-show="p_editorEnabled" required>
+                  </div>
+                <br/>
+                <strong>Year of Admission:</strong><br/>
+                    {{stud_info.yoa}}
+                <br/><br/>
+                <strong>Email:</strong><br/>
+                    {{stud_info.email}}
+                <br/><br/>
+                <strong>Skill:</strong><br/>
+                  <div ng-hide="p_editorEnabled">
+                    {{stud_info.skill}}
+                  </div>
+                  <div ng-show="p_editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="stud_info.skill" ng-show="p_editorEnabled">
+                  </div>
+                <br/>
+                <strong>Area of Interest:</strong><br/>
+                  <div ng-hide="p_editorEnabled">
+                    {{stud_info.aoi}}
+                  </div>
+                  <div ng-show="p_editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="stud_info.aoi" ng-show="p_editorEnabled" required>
+                  </div>
+                <br/>
+                <strong>Intended FYP Year:</strong><br/>
+                  <div ng-hide="p_editorEnabled">
+                    {{stud_info.fyp}}
+                  </div>
+                  <div ng-show="p_editorEnabled">
+                    <input type="text" class="input-xlarge" ng-model="stud_info.fyp" ng-show="p_editorEnabled">
+                  </div>
+                <br/>
+                <div ng-hide="p_editorEnabled">
+                  <form ng-submit="profile_enableEditor()">
+                    <button class="btn_left_side" type="submit" ng-hide="p_editorEnabled">Edit</button>
+                  </form>
+                </div>
+                <div ng-show="p_editorEnabled">
+                  <form ng-submit="saveStudInfo()">
+                    <button class="btn_left_side" type="submit" ng-show="p_editorEnabled">Save</button>
+                  </form>
+                  <form ng-submit="profile_disableEditor()">
+                    <button class="btn_left_side" type="submit" ng-show="p_editorEnabled">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- </div> --><!-- End of student profile -->
+
 			<h3>My Team</h3>
 			
 			<!-- Start of well -->                               
-			<div class="well" style="overflow: auto; height: 500px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#C0C0C0">
+			<div class="well" style="overflow: auto; height: 392px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#C0C0C0">
 			
 		      <div class="accordion" id="teamAccordion"><!-- Start of TEAM -->
       			<!-- Start of my team accordion -->

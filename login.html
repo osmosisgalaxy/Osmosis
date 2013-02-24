@@ -3,6 +3,10 @@
   <head>
     	
     <meta charset="utf-8">
+
+    <!-- this is for all java script -->
+    <script src="assets/js/jquery-1.9.0.min.js" type="text/javascript"></script>
+    <script src="assets/js/jquery.tooltipster.min.js"></script>
     
     <!-- Le styles -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -22,15 +26,7 @@
         }
     </style>
 
-    <script type="text/javascript">
-
-      $('.carousel').carousel({
-        interval: 1500
-        pause
-      })
-
-    </script>
-    
+    <div id="loadingscreen"></div>
   </head>
 
   <body ng-controller="LoginCtrl">
@@ -43,7 +39,6 @@
   
   <div class='span12'>
   <div class="navbar navbar-inverse navbar-fixed-top">
-      <div id="loadingscreen"></div>
       <div class="navbar-inner">
         <div class="container">
           <img src="assets/img/OsmosisLogo.png" width=9% align="left" style="position:relative;top: 10px">
@@ -108,7 +103,10 @@
     <script>
       !function ($) {
         $(function(){
-          $('#myCarousel').carousel()
+          $('#myCarousel').carousel({
+            interval: 5000,
+            pause: "hover",
+          })
         })
       }(window.jQuery)
     </script>

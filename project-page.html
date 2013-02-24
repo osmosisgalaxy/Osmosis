@@ -106,8 +106,8 @@
 	         	<br>
 	         <ul class="nav" style="position:relative; left:110px">
 	            <li><a href="{{home_link}}"><i class="icon-home"></i> HOME</a></li>
-	            <li class="active"><a href="project-page.html"><i class="icon-book"></i> PROJECT</a></li>
-	            <li><a href="#link"><i class="icon-book"></i> TEAM</a></li>
+	            <li class="active"><a href="#"><i class="icon-book"></i> PROJECT</a></li>
+	            <!-- <li><a href="#link"><i class="icon-book"></i> TEAM</a></li> -->
 	         </ul>
         </div><!-- /.container -->
       </div><!-- /.navbar-inner -->
@@ -132,23 +132,23 @@
         
         <div id='projAvailable'>
   				<div class="accordion" id="projAccordion">
-            <div class="accordion-group" ng-repeat="(key,val) in avail_proj">                     
+            <div class="accordion-group" ng-repeat="(key,val) in projRank">                     
               <div class="accordion-heading" style="background-color:#FAFAFA">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#projAccordion" href="#p_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-                {{val.title}}
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#projAccordion" href="#p_{{val[0].id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                <div align="center">{{val[0].title}} [Weightage Points:{{val[1]}}]</div>
                 </a>
               </div>
-              <div id="p_{{val.id}}" class="accordion-body collapse in">
+              <div id="p_{{val[0].id}}" class="accordion-body collapse in">
                 <div class="accordion-inner" style="font-size:12px; background-color:white">
                   <!-- IMAGE FOR PROJECT -->
-                  <img class="project_img" src="{{val.img}}" width="100%" height="100%">
+                  <img class="project_img" src="{{val[0].img}}" width="100%" height="100%">
                   <!-- VIDEO FOR PROJECT -->
-                  <iframe class="project_video"allowTransparency="true" scrolling="no" style:"width:100%;height:100%;" src="{{val.video}}" frameborder="0" allowfullscreen></iframe>
-                  <div style="color:grey; display:inline">Project Objective: </div>{{val.description}} </br></br>
-                  <div style="color:grey; display:inline">Technologies Exposure: </div>{{val.exposure}} </br></br>
-                  <div style="color:grey; display:inline">Contact Person: </div> {{val.poc}} </br></br>
-                  <div style="color:grey; display:inline">Contact Email: </div>  <div ng-repeat="email in val.email"><a href="mailto:{{email}}">{{email}}</a> </div> </br></br>
-                  <div style="color:grey; display:inline">Contact Number: </div> {{val.contact}} </br></br>
+                  <iframe class="project_video"allowTransparency="true" scrolling="no" style:"width:100%;height:100%;" src="{{val[0].video}}" frameborder="0" allowfullscreen></iframe>
+                  <div style="color:grey; display:inline">Project Objective: </div>{{val[0].description}} </br></br>
+                  <div style="color:grey; display:inline">Technologies Exposure: </div>{{val[0].exposure}} </br></br>
+                  <div style="color:grey; display:inline">Contact Person: </div> {{val[0].poc}} </br></br>
+                  <div style="color:grey; display:inline">Contact Email: </div>  <div ng-repeat="email in val[0].email"><a href="mailto:{{email}}">{{email}}</a> </div> </br></br>
+                  <div style="color:grey; display:inline">Contact Number: </div> {{val[0].contact}} </br></br>
                 </div>
               </div>
             </div><!-- .accordion-group -->
@@ -176,7 +176,7 @@
       
       <div class='span12'>
       <footer>
-        <p style="font-size:smaller">&copy; 2013 Osmosis &middot; <a href="#">Privacy</a> &middot; <a href="http://smusg.asia.qualtrics.com/SE/?SID=SV_4ON5xzcvPnxxORf">Post UAT Survey</a></p>
+        <p style="font-size:smaller">&copy; 2013 Osmosis &middot;
       </footer>
       </div><!-- /.span12 -->
 	  
