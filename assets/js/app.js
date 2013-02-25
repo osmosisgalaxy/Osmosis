@@ -26,4 +26,14 @@ var myApp = angular.module('myApp', ['ngResource'])
                 return $q.reject(response);
             });
         };
+    })
+//for loading screen during ng-repeat
+    .directive('myStudRepeatDirective', function(){
+        return function(scope, element, attrs){
+            if(scope.$last){
+                $('#loadingscreen').hide();
+            }else{
+                $('#loadingscreen').show();
+            }
+        };
     });

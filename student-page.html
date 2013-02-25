@@ -53,7 +53,7 @@
      
     </style>
 
-    <div id="loadingscreen"></div>
+    
     <script>
       $('#loadingscreen').show();
     </script>
@@ -73,6 +73,7 @@
    </head>
    
 <body ng-controller="StudentCtrl" ng-show="isLogin">
+  <div id="loadingscreen"></div>
 	  	  <!-----------  Start of navigation bar  ------------>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -190,7 +191,7 @@
                     {{stud_info.full_name}}
                   </div>
                   <div ng-show="p_editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="stud_info.full_name" ng-show="p_editorEnabled" required>
+                    <input type="text" class="span9" ng-model="stud_info.full_name" ng-show="p_editorEnabled" required>
                   </div>
                 <br/>
                 <strong>Year of Admission:</strong><br/>
@@ -204,7 +205,7 @@
                     {{stud_info.skill}}
                   </div>
                   <div ng-show="p_editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="stud_info.skill" ng-show="p_editorEnabled">
+                    <input type="text" class="span9" ng-model="stud_info.skill" ng-show="p_editorEnabled">
                   </div>
                 <br/>
                 <strong>Area of Interest:</strong><br/>
@@ -212,7 +213,7 @@
                     {{stud_info.aoi}}
                   </div>
                   <div ng-show="p_editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="stud_info.aoi" ng-show="p_editorEnabled" required>
+                    <input type="text" class="span9" ng-model="stud_info.aoi" ng-show="p_editorEnabled" required>
                   </div>
                 <br/>
                 <strong>Intended FYP Year:</strong><br/>
@@ -220,7 +221,7 @@
                     {{stud_info.fyp}}
                   </div>
                   <div ng-show="p_editorEnabled">
-                    <input type="text" class="input-xlarge" ng-model="stud_info.fyp" ng-show="p_editorEnabled">
+                    <input type="text" class="span9" ng-model="stud_info.fyp" ng-show="p_editorEnabled">
                   </div>
                 <br/>
                 <div ng-hide="p_editorEnabled">
@@ -372,7 +373,7 @@
                         {{stud_team.name}}
                       </div>
                       <div ng-show="editorEnabled">
-                        <input type="text" class="input-xlarge" ng-model="stud_team.name" ng-show="editorEnabled" required>
+                        <input type="text" class="span9" ng-model="stud_team.name" ng-show="editorEnabled" required>
                       </div>
                     <br/>
                     <strong>Area of Interest:</strong><br/>
@@ -380,7 +381,7 @@
                         {{stud_team.aoi}}
                       </div>
                       <div ng-show="editorEnabled">
-                        <input type="text" class="input-xlarge" ng-model="stud_team.aoi" ng-show="editorEnabled">
+                        <input type="text" class="span9" ng-model="stud_team.aoi" ng-show="editorEnabled">
                       </div>
                     <br/>
                     <strong>FYP Year:</strong><br/>
@@ -388,7 +389,7 @@
                         {{stud_team.fyp}}
                       </div>
                       <div ng-show="editorEnabled">
-                        <input type="text" class="input-xlarge" ng-model="stud_team.fyp" ng-show="editorEnabled" required>
+                        <input type="text" class="span9" ng-model="stud_team.fyp" ng-show="editorEnabled" required>
                       </div>
                     <br/>
                     <strong>Wikipage:</strong><br/>
@@ -396,7 +397,7 @@
                         {{stud_team.wiki}}
                       </div>
                       <div ng-show="editorEnabled">
-                        <input type="text" class="input-xlarge" ng-model="stud_team.wiki" ng-show="editorEnabled">
+                        <input type="text" class="span9" ng-model="stud_team.wiki" ng-show="editorEnabled">
                       </div>
                     <br/>
                     <strong>Sourcing For:</strong><br/>
@@ -404,7 +405,7 @@
                         {{stud_team.position}}
                       </div>
                       <div ng-show="editorEnabled">
-                        <input type="text" class="input-xlarge" ng-model="stud_team.position" ng-show="editorEnabled">
+                        <input type="text" class="span9" ng-model="stud_team.position" ng-show="editorEnabled">
                       </div>
                     <br/>
                     <strong>Recruiting:</strong><br/>
@@ -442,7 +443,10 @@
                       </form>
                     </div>
                     Team Members:</br>
-
+                    <div ng-hide="team_got_member">
+                      Your team do not have any members.
+                      If you are the leader of this team, start inviting students by looking through the available students at the right panel and click invite!
+                    </div>
                     <!-- Start of team member detail accordion -->
                     <div class="accordion" id="memberDetailAccordion">
                       <div class="accordion-group" ng-repeat="(key,val) in stud_team.member"><!-- repeat number of teams recruiting -->
@@ -547,26 +551,25 @@
     
     <!-- Start of well -->                               
 	<div class="well" style="overflow: auto; height: 500px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#C0C0C0">
-    
 	 	<div class="accordion" id="studentNoTeamAccordion" >
-      <div class="accordion-group" ng-repeat="(key,val) in stud_finding_pag"><!-- academic years   -->          
+      <div class="accordion-group" ng-repeat="years in stud_finding" my-stud-repeat-directive><!-- academic years   -->          
 	      <div class="accordion-heading" style="background-color:#FAFAFA">
-	        <a ng-click="reset_page(key)" class="accordion-toggle" data-toggle="collapse" data-parent="#studentNoTeamAccordion" href="#{{key}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- the year -->
-            Academic Year {{key}}<!-- the year -->
+	        <a ng-click="reset_page(years.year)" class="accordion-toggle" data-toggle="collapse" data-parent="#studentNoTeamAccordion" href="#{{years.year}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- the year -->
+            Academic Year {{years.year}}<!-- the year -->
           </a>
         </div>
-        <div id="{{key}}" class="accordion-body collapse in" ><!-- the year -->
+        <div id="{{years.year}}" class="accordion-body collapse in" ><!-- the year -->
           <div class="accordion-inner" style="font-size:12px; background-color:white">
             <!-- Start of inner student detail accordion -->
               <div class="accordion" id="studentDetailAccordion" >
                 <!-- <div ng-repeat="(key,val) in val"> -->
                   <div class="accordion-group" ng-repeat="(key,val) in page_chosen">
                     <div class="accordion-heading" style="background-color:#FAFAFA">
-                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#studentDetailAccordion" href="#s_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#studentDetailAccordion" href="#{{years.year}}_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
                         {{val.full_name}}
                       </a>
                     </div>
-                    <div id="s_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
+                    <div id="{{years.year}}_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
                       <div class="accordion-inner" style="font-size:12px; background-color:white">
                         <div style="color:grey; display:inline">Email: </div> {{val.email}} <br>
                         <div style="color:grey; display:inline">Year of Admission: </div> {{val.yoa}} <br>

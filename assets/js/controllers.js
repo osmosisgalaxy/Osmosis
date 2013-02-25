@@ -51,6 +51,7 @@ function StudentCtrl($scope,$resource){
   $scope.currentpage = 0;
   $scope.page_chosen = null;
   $scope.pagelength = 0;
+  $scope.team_got_member = false;
 
   $scope.checkLogin = function(){
     $scope.Model.send({'method':"check_login"},function(response){
@@ -79,6 +80,12 @@ function StudentCtrl($scope,$resource){
       $scope.stud_team = response;
       if(response.teamid != null){
         $scope.gotTeam = true;
+        if(stud_team.member != null){
+          $scope.team_got_member = true;
+        }
+        else{
+          $scope.team_got_member = false;
+        }
       }
       if(response.isLeader == "true"){
         $scope.isLeader = true;
@@ -95,13 +102,13 @@ function StudentCtrl($scope,$resource){
   $scope.getStudFinding = function(){
     $scope.Model.send({'method':"get_available_stud"}, function(response){
       $scope.stud_finding = response.students;
+      $('#loadingscreen').show();
       $scope.stud_pagination();
     });
   };
 
   //Turn stud findings into arrays"pages" of 10
   $scope.stud_pagination = function(){
-    $('#loadingscreen').show();
     //for each year
     for(var i in $scope.stud_finding){
       //get all students out from the particular year
@@ -118,6 +125,10 @@ function StudentCtrl($scope,$resource){
         //anything 0 modulus will be 0
         if(j == 0){
           grp_of_ten.push(students[j]);
+          if(j == students.length - 1){
+            year_grp.push(grp_of_ten);
+            grp_of_ten = [];
+          }
         }
         //keep pushing into grp_of_ten
         else if((j % 10) != 0){
@@ -145,7 +156,6 @@ function StudentCtrl($scope,$resource){
       $scope.stud_finding_pag[$scope.stud_finding[i]["year"]] = year_grp;
       year_grp = [];
     }
-    $('#loadingscreen').hide();
   };
 
   $scope.reset_page = function(key){
@@ -232,6 +242,7 @@ function StudentCtrl($scope,$resource){
         $scope.teamName = "";
         $scope.isLeader = true;
         $scope.getTeamRecruit();
+        $scope.team_got_member = false;
         alert("Team created.");
       });
     }
@@ -250,6 +261,9 @@ function StudentCtrl($scope,$resource){
       if(response.teamid != null){
         $scope.gotTeam = true;
       }
+      else{
+        $scope.team_got_member = false;
+      }
       $scope.getStudFinding();
       $scope.getTeamRecruit();
     });
@@ -262,6 +276,12 @@ function StudentCtrl($scope,$resource){
 
     $scope.Model.send(data, function(response){
       $scope.stud_team = response;
+      if(stud_team.member != null){
+        $scope.team_got_member = true;
+      }
+      else{
+        $scope.team_got_member = false;
+      }
       $scope.getStudFinding();
     });
   };
@@ -273,6 +293,7 @@ function StudentCtrl($scope,$resource){
       $scope.stud_team = response;
       $scope.getTeamRecruit();
       $scope.gotTeam = false;
+      $scope.team_got_member = false;
     });
   };
 
@@ -365,6 +386,7 @@ function StudentCtrl($scope,$resource){
       $scope.getStudTeam();
       $scope.getStudFinding();
       $scope.getTeamRecruit();
+      $scope.team_got_member = true;
     });
   };
 
@@ -420,6 +442,7 @@ function StudentCtrl($scope,$resource){
       $scope.stud_team = response;
       if(response.teamid != null){
         $scope.gotTeam = true;
+        $scope.team_got_member = true;
       }
       if(response.isLeader == "true"){
         $scope.isLeader = true;
@@ -734,18 +757,31 @@ function ProjectCtrl($scope,$resource){
       if(response.user_type == "std"){
         var toBeReturn = [];
         var member = $scope.stud_team.member;
-        //check if student belong to a team
-        if (member != null){
-          //Collating weight average pts
-          //each project available
-          for (var p in $scope.avail_proj){
-            var temp_proj = $scope.avail_proj[p];
-            var skillHash = {};
-            var proj_exposure = [];
-            if(temp_proj.exposure != null){
-              proj_exposure = temp_proj.exposure.split(",");
-            }
-            //each member in current student team
+        
+        //get leader/individual skills + interest
+        var stud_aoi = [];
+        var stud_skill = [];
+        var stud = $scope.user_info.user_profile;
+        if (stud.aoi != null){
+          stud_aoi = stud.aoi.split(",");
+        }
+        if (stud.skill != null){
+          stud_skill = stud.skill.split(",");
+        }
+
+        //Collating weight average pts
+        //each project available
+        for (var p in $scope.avail_proj){
+          var temp_proj = $scope.avail_proj[p];
+          var skillHash = {};
+          var proj_exposure = [];
+          if(temp_proj.exposure != null){
+            proj_exposure = temp_proj.exposure.split(",");
+          }
+
+          //DO a collate for team members(if there is), AS LEADER IS SEPERATED
+          if (member != null){
+          //each member in current student team
             for (var m in member){
               var mem_skill = [];
               if (member[m].skill != null){
@@ -778,77 +814,50 @@ function ProjectCtrl($scope,$resource){
                 }
               }
             }
-            //get all keys of hashmap, find sum of all weight
-            var skillHashKey = Object.keys(skillHash);
-            var totalMatchCount = 0;
-            for (var shk in skillHashKey){
-              totalMatchCount += skillHash[skillHashKey[shk]];
+          }//END OF TEAM MEMBER COLLATE
+
+          //Do a collate for leader
+          for (var s in stud_skill){
+            var temp_skill = stud_skill[s];
+            //see if skill of student matches any exposure in project
+            //do a count++
+            var num = jQuery.inArray(temp_skill,proj_exposure);
+            if (jQuery.inArray(temp_skill,proj_exposure) != -1){
+              var count = skillHash[temp_skill];
+              if (count == null){count = 0;}
+              count++;
+              skillHash[temp_skill] = count;
             }
-            //find the average weight and put inside project rank
-            var avgWeight = 0;
-            if(totalMatchCount != 0 && skillHashKey.length != 0){
-              avgWeight = totalMatchCount / skillHashKey.length;
-            }
-            $scope.projRank.push([temp_proj,avgWeight]);
           }
+          //each interest of student
+          for (var i in stud_aoi){
+            var temp_aoi = stud_aoi[i];
+            //see if interest of student matches any exposure in project
+            //do a count++
+            var num = jQuery.inArray(temp_aoi,proj_exposure);
+            if (jQuery.inArray(temp_aoi,proj_exposure) != -1){
+              var count = skillHash[temp_aoi];
+              if (count == null){count = 0;}
+              count++;
+              skillHash[temp_aoi] = count;
+            }
+          }
+
+          //get all keys of hashmap, find sum of all weight
+          var skillHashKey = Object.keys(skillHash);
+          var totalMatchCount = 0;
+          for (var shk in skillHashKey){
+            totalMatchCount += skillHash[skillHashKey[shk]];
+          }
+          //find the average weight and put inside project rank
+          var avgWeight = 0;
+          if(totalMatchCount != 0 && skillHashKey.length != 0){
+            avgWeight = totalMatchCount / skillHashKey.length;
+          }
+          $scope.projRank.push([temp_proj,avgWeight]);
+          //END OF LEADER COLLATE
         }
-        else{
-          //get student info
-          var stud_aoi = [];
-          var stud_skill = [];
-          var stud = $scope.stud_team.stud_info;
-          if (stud.aoi != null){
-            stud_aoi = stud.aoi.split(",");
-          }
-          if (stud.skill != null){
-            stud_skill = stud.skill.split(",");
-          }
-          for (var p in $scope.avail_proj){
-            var temp_proj = $scope.avail_proj[p];
-            var skillHash = {};
-            var proj_exposure = [];
-            if(temp_proj.exposure != null){
-              proj_exposure = temp_proj.exposure.split(",");
-            }
-            for (var s in stud_skill){
-              var temp_skill = stud_skill[s];
-              //see if skill of student matches any exposure in project
-              //do a count++
-              var num = jQuery.inArray(temp_skill,proj_exposure);
-              if (jQuery.inArray(temp_skill,proj_exposure) != -1){
-                var count = skillHash[temp_skill];
-                if (count == null){count = 0;}
-                count++;
-                skillHash[temp_skill] = count;
-              }
-            }
-            //each interest of student
-              for (var i in stud_aoi){
-                var temp_aoi = stud_aoi[i];
-                //see if interest of student matches any exposure in project
-                //do a count++
-                var num = jQuery.inArray(temp_aoi,proj_exposure);
-                if (jQuery.inArray(temp_aoi,proj_exposure) != -1){
-                  var count = skillHash[temp_aoi];
-                  if (count == null){count = 0;}
-                  count++;
-                  skillHash[temp_aoi] = count;
-                }
-              }
-            //get all keys of hashmap, find sum of all weight
-            var skillHashKey = Object.keys(skillHash);
-            var totalMatchCount = 0;
-            for (var shk in skillHashKey){
-              totalMatchCount += skillHash[skillHashKey[shk]];
-            }
-            //find the average weight and put inside project rank
-            var avgWeight = 0;
-            if(totalMatchCount != 0 && skillHashKey.length != 0){
-              avgWeight = totalMatchCount / skillHashKey.length;
-            }
-            $scope.projRank.push([temp_proj,avgWeight]);
-          }
-        }
+
         $scope.quickSort($scope.projRank);
         for(var i = 0; i < $scope.projRank.length; i++){
           toBeReturn[i] = $scope.projRank[i][0]
