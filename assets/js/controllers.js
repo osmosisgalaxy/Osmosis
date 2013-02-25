@@ -1,70 +1,4 @@
 'use strict';
-/*SharedServices for the use of:
--Get URL link to redirect user back to login page if user is not in db or user is not logged in
--Get user data (general data)
--Get user profile (Student or Corporate)
-Information will be shared across all controllers except LoginCtrl, which is at the login page
-
-myApp.factory('mySharedServices', function($rootScope,$resource){
-
-  var sharedService = {};
-
-  sharedService.url_link;
-  sharedService.user;
-  sharedService.user_profile;
-
-  sharedService.getUserInfo = function($resource){
-    this.Model = $resource("http://galaxy-osmosis.appspot.com/db/getUserInfo",
-      {},
-      {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
-      );
-    this.Model.send({}, function(response){
-
-      this.url_link = response.url_link;
-      this.user = response.user;
-      this.user_profile = response.user_profile;
-    });
-
-    this.broadcastUserInfo();
-  };
-
-  sharedService.broadcastUserInfo = function(){
-
-    $rootScope.$broadcast('receiveUserInfo');
-  }
-
-  return sharedService;
-
-});
-////////////////////////
-  //Start of sharedService
-  $scope.url_link;
-  $scope.user;
-  $scope.user_profile;
-
-  //check if other controllers have already executed sharedService
-  if($scope.user == null){
-
-    sharedService.getUserInfo();
-    if($scope.user == null){
-
-      window.location = "http://pohyz.github.com/Osmosis_Ver_2/login_acc.html";
-    }
-
-  }
-  else{
-
-    $scope.user_name = user_profile.full_name;
-  }
-
-  $scope.$on('receiveUserInfo',function(){
-    $scope.url_link = sharedService.url_link;
-    $scope.user = sharedService.user;
-    $scope.user_profile = sharedService.user_profile;
-  });
-  //End of sharedService
-  ////////////////////////
-/* Controllers */
 
 function LoginCtrl($scope,$resource){
   $scope.Model = $resource("http://osmosisgal.appspot.com/link",
@@ -116,6 +50,7 @@ function StudentCtrl($scope,$resource){
   $scope.stud_finding_pag = {};
   $scope.currentpage = 0;
   $scope.page_chosen = null;
+  $scope.pagelength = 0;
 
   $scope.checkLogin = function(){
     $scope.Model.send({'method':"check_login"},function(response){
@@ -160,14 +95,13 @@ function StudentCtrl($scope,$resource){
   $scope.getStudFinding = function(){
     $scope.Model.send({'method':"get_available_stud"}, function(response){
       $scope.stud_finding = response.students;
-      $('#loadingscreen').show();
       $scope.stud_pagination();
-      $('#loadingscreen').hide();
     });
   };
 
   //Turn stud findings into arrays"pages" of 10
   $scope.stud_pagination = function(){
+    $('#loadingscreen').show();
     //for each year
     for(var i in $scope.stud_finding){
       //get all students out from the particular year
@@ -211,25 +145,40 @@ function StudentCtrl($scope,$resource){
       $scope.stud_finding_pag[$scope.stud_finding[i]["year"]] = year_grp;
       year_grp = [];
     }
+    $('#loadingscreen').hide();
   };
 
   $scope.reset_page = function(key){
     $scope.currentpage = 0;
+    $('.pp_btn').addClass('disabled');
+    $('.pn_btn').removeClass('disabled');
+    if($scope.stud_finding_pag[key].length == 1){
+      $('.pn_btn').addClass('disabled');
+    }
+    $scope.pagelength = $scope.stud_finding_pag[key].length;
     $scope.page_chosen = $scope.stud_finding_pag[key][$scope.currentpage];
   };
 
   $scope.next_page = function(key){
     if($scope.currentpage < $scope.stud_finding_pag[key].length - 1){
+      $('.pp_btn').removeClass('disabled');
       $scope.currentpage = $scope.currentpage + 1;
       $scope.page_chosen = $scope.stud_finding_pag[key][$scope.currentpage];
+    }
+    if($scope.currentpage == $scope.stud_finding_pag[key].length - 1){
+      $('.pn_btn').addClass('disabled');
     }
 
   };
 
   $scope.previous_page = function(key){
     if($scope.currentpage > 0){
+      $('.pn_btn').removeClass('disabled');
       $scope.currentpage = $scope.currentpage - 1;
       $scope.page_chosen = $scope.stud_finding_pag[key][$scope.currentpage];
+    }
+    if($scope.currentpage == 0){
+      $('.pp_btn').addClass('disabled');
     }
   };
 

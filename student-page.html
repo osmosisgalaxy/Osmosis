@@ -587,8 +587,9 @@
               <!-- Put pagination here, using the number to change the list -->
               
               <ul class="pager">
-                <li><a ng-click="previous_page(key)">Previous</a></li>
-                <li><a ng-click="next_page(key)">Next</a></li>
+                <li class="pp_btn"><a ng-click="previous_page(key)">Previous</a></li>
+                <li>{{currentpage + 1}}/{{pagelength}}</li>
+                <li class="pn_btn"><a ng-click="next_page(key)">Next</a></li>
               </ul>
 
           </div>
