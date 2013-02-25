@@ -512,7 +512,7 @@ function ClientCtrl($scope,$resource){
   $scope.getClientProj = function(){
     $scope.Model.send({'method':"get_cpr_proj"}, function(response){
       var projects = response.proj;
-      if(projects != null){
+      if(projects.length > 0){
         for(var i = 0; i < projects.length; i++){
           if(projects[i].email != null){
             projects[i].email = projects[i].email.split(",");
@@ -520,6 +520,9 @@ function ClientCtrl($scope,$resource){
         }
         $scope.have_project = true;
         $scope.client_proj = projects;
+      }
+      else{
+        $scope.have_project = false;
       }
     });
   };
@@ -531,14 +534,25 @@ function ClientCtrl($scope,$resource){
       tech = $scope.technologiesExposure.trim();
     }
     if($scope.contactEmail != null){
-      c_email = $scope.contactEmail.trim();
+      if($scope.contactEmail instanceof Array){
+        c_email = $scope.contactEmail.join();
+        c_email = c_email.trim();
+      }
+      else{
+        c_email = $scope.contactEmail.trim();
+      }
     }
-    if($scope.projectName == null || $scope.projectObjective == null || 
-      $scope.technologiesExposure == null || $scope.contactPerson == null ||
-      $scope.contactEmail == null || $scope.companyName == null ||
+    // if($scope.projectName == null || $scope.projectObjective == null || 
+    //   $scope.technologiesExposure == null || $scope.contactPerson == null ||
+    //   $scope.contactEmail == null || $scope.companyName == null ||
+    //   $scope.contactNumber == null)
+    if($scope.projectName == null || $scope.contactEmail == null ||
       $scope.contactNumber == null){
-
       alert("Project cannot be created. Check for blank field.");
+      return false;
+    }
+    if($scope.contactNumber.match("[0-9]{8}") == null){
+      alert("Project cannot be created. Make sure contact number is 8 digits.");
       return false;
     }
     var data = {'method':"create_proj",
@@ -744,6 +758,8 @@ function ProjectCtrl($scope,$resource){
   $scope.stud_team;
   $scope.projects;
   $scope.projRank = [];
+  $scope.isClient = false;
+  $scope.forClient;
 
   $scope.getStudTeam = function(){
     $scope.Model.send({'method':"get_user_team"}, function(response){
@@ -852,7 +868,8 @@ function ProjectCtrl($scope,$resource){
           //find the average weight and put inside project rank
           var avgWeight = 0;
           if(totalMatchCount != 0 && skillHashKey.length != 0){
-            avgWeight = totalMatchCount / skillHashKey.length;
+            avgWeight = parseFloat(totalMatchCount / skillHashKey.length);
+            avgWeight = avgWeight.toFixed(2);
           }
           $scope.projRank.push([temp_proj,avgWeight]);
           //END OF LEADER COLLATE
@@ -880,6 +897,9 @@ function ProjectCtrl($scope,$resource){
       if($scope.user_info.user_type == "std"){
         $scope.getStudTeam();
       }
+      else{
+        $scope.forClient = $scope.avail_proj;
+      }
     });
   };
 
@@ -889,12 +909,14 @@ function ProjectCtrl($scope,$resource){
         $scope.user_info = response;
         $scope.isLogin = true;
         if(response.user_type == "cpr"){
+          $scope.isClient = true;
           $scope.home_link = "client-page.html"
           if (response.user_profile.full_name != null){
             $scope.display_name = response.user_profile.full_name;
           }
         }
         else{
+          $scope.isClient = false;
           $scope.home_link = "student-page.html"
           $scope.display_name = response.user_profile.email;
         }

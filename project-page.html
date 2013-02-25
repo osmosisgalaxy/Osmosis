@@ -109,13 +109,23 @@
     <!-----------  End of navigation bar  ------------>
 	<br>
 	<div class="container-fluid">
-    <div class="offset5"><h3>Projects Available</h3></div>
+    <div class="span8 offset2">
+      <div align="center"><h3>Projects Available</h3></div>
+    </div></br>
+      <div class="span8 offset2">
+        <div ng-hide="isClient" class="well" style="overflow: auto; height: 80px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#C0C0C0;  position:relative; left:25px">
+          This project is in an order from being the <b>MOST SUITABLE</b> for you and your team at the top and the least suitable at the bottom.</br>
+          This is calculated based on you and your team members' <b>SKILL</b> and <b>AREA OF INTEREST</b>. Even if you do not have a team, the projects will still be sorted according to your profile.
+        </div>
+      </div>
       <div class='span8 offset2'>
     	 <!-- Start of well -->                               
     	 <div class="well" style="overflow: auto; height: 500px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#C0C0C0;  position:relative; left:25px">
         <!-- Start of PROJECTS AVAILABLE -->
         <div id='projAvailable'>
   				<div class="accordion" id="projAccordion">
+
+            <!-- FOR STUDENTS -->
             <div class="accordion-group" ng-repeat="(key,val) in projRank">
               <div class="accordion-heading" style="background-color:#FAFAFA">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#projAccordion" href="#p_{{val[0].id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
@@ -127,7 +137,7 @@
                   <!-- IMAGE FOR PROJECT -->
                   <img class="project_img" src="{{val[0].img}}" width="100%" height="100%">
                   <!-- VIDEO FOR PROJECT -->
-                  <iframe class="project_video"allowTransparency="true" scrolling="no" style:"width:100%;height:100%;" src="{{val[0].video}}" frameborder="0" allowfullscreen></iframe>
+                  <iframe class="project_video"allowTransparency="true" scrolling="no" style:"width:100%;height:100%;" ng-src="{{val[0].video}}" frameborder="0" allowfullscreen></iframe>
                   <div style="color:grey; display:inline">Project Objective: </div>{{val[0].description}} </br></br>
                   <div style="color:grey; display:inline">Technologies Exposure: </div>{{val[0].exposure}} </br></br>
                   <div style="color:grey; display:inline">Contact Person: </div> {{val[0].poc}} </br></br>
@@ -136,6 +146,31 @@
                 </div>
               </div>
             </div><!-- .accordion-group -->
+            <!-- FOR STUDENTS end-->
+
+            <!-- FOR CLIENT -->
+            <div class="accordion-group" ng-show="isClient" ng-repeat="(key,val) in forClient">
+              <div class="accordion-heading" style="background-color:#FAFAFA">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#projAccordion" href="#p_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
+                <div align="center">{{val.title}}</div>
+                </a>
+              </div>
+              <div id="p_{{val.id}}" class="accordion-body collapse in">
+                <div class="accordion-inner" style="font-size:12px; background-color:white">
+                  <!-- IMAGE FOR PROJECT -->
+                  <img class="project_img" src="{{val.img}}" width="100%" height="100%">
+                  <!-- VIDEO FOR PROJECT -->
+                  <iframe class="project_video"allowTransparency="true" scrolling="no" style:"width:100%;height:100%;" src="{{val.video}}" frameborder="0" allowfullscreen></iframe>
+                  <div style="color:grey; display:inline">Project Objective: </div>{{val.description}} </br></br>
+                  <div style="color:grey; display:inline">Technologies Exposure: </div>{{val.exposure}} </br></br>
+                  <div style="color:grey; display:inline">Contact Person: </div> {{val.poc}} </br></br>
+                  <div style="color:grey; display:inline">Contact Email: </div>  <div ng-repeat="email in val.email"><a href="mailto:{{email}}">{{email}}</a> </div> </br></br>
+                  <div style="color:grey; display:inline">Contact Number: </div> {{val.contact}} </br></br>
+                </div>
+              </div>
+            </div><!-- .accordion-group -->
+            <!-- FOR CLIENT end-->
+
           </div><!-- end of first accordion -->
         </div><!-- End of PROJECTS AVAILABLE --> 
 		  </div> <!-- end of well -->
