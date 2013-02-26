@@ -815,7 +815,7 @@ function ProjectCtrl($scope,$resource){
                 }
               }
               var mem_int = [];
-              if (m.aoi != null){
+              if (member[m].aoi != null){
                 mem_int = m.aoi.split(",");
               }
               //each interest of member
