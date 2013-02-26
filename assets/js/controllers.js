@@ -869,7 +869,7 @@ function ProjectCtrl($scope,$resource){
           var avgWeight = 0;
           if(totalMatchCount != 0 && skillHashKey.length != 0){
             avgWeight = parseFloat(totalMatchCount / (member.length + 1));
-            avgWeight = parseFloat(avgWeight / skillHashKey.length);
+            avgWeight = parseFloat(avgWeight / proj_exposure.length);
             avgWeight = avgWeight.toFixed(2);
           }
           $scope.projRank.push([temp_proj,avgWeight]);
