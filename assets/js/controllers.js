@@ -80,7 +80,7 @@ function StudentCtrl($scope,$resource){
       $scope.stud_team = response;
       if(response.teamid != null){
         $scope.gotTeam = true;
-        if(stud_team.member != null){
+        if($scope.stud_team.member != null){
           $scope.team_got_member = true;
         }
         else{
@@ -869,6 +869,7 @@ function ProjectCtrl($scope,$resource){
           var avgWeight = 0;
           if(totalMatchCount != 0 && skillHashKey.length != 0){
             avgWeight = parseFloat(totalMatchCount / (member.length + 1));
+            avgWeight = parseFloat(avgWeight / skillHashKey.length);
             avgWeight = avgWeight.toFixed(2);
           }
           $scope.projRank.push([temp_proj,avgWeight]);
