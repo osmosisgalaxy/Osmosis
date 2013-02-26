@@ -162,8 +162,11 @@ function StudentCtrl($scope,$resource){
     $scope.currentpage = 0;
     $('.pp_btn').addClass('disabled');
     $('.pn_btn').removeClass('disabled');
-    if($scope.stud_finding_pag[key].length == 1){
+    if($scope.stud_finding_pag[key].length <= 1){
       $('.pn_btn').addClass('disabled');
+    }
+    if($scope.stud_finding_pag[key].length == 0){
+      $scope.currentpage = -1;
     }
     $scope.pagelength = $scope.stud_finding_pag[key].length;
     $scope.page_chosen = $scope.stud_finding_pag[key][$scope.currentpage];
