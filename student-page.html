@@ -122,7 +122,7 @@
                     <div class="accordion-group" ng-repeat="(key,val) in team_recruit"><!-- repeat number of teams recruiting -->
                       <div class="accordion-heading" style="background-color:#FAFAFA">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#recruitTeamAccordion" href="#t_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
-                          {{val.name}}<!-- team name -->
+                          <div align="center">{{val.name}}</div><!-- team name -->
                         </a>
                       </div>
                       <div id="t_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
@@ -182,7 +182,7 @@
             <div class="accordion-group">
               <div class="accordion-heading" style="background-color:#FAFAFA">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#myProfileAccordion" href="#profile_acc" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-                    {{stud_info.full_name}}
+                    <div align="center">{{stud_info.full_name}}</div>
                 </a>
               </div>
               <div id="profile_acc" class="accordion-body collapse in">
@@ -255,7 +255,7 @@
             <div class="accordion-group">                     
               <div class="accordion-heading" style="background-color:#FAFAFA">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#teamAccordion" href="#collapse1" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-                  My Team
+                  <div align="center">My Team</div>
                 </a>
               </div>
               <div id="collapse1" class="accordion-body collapse in">
@@ -274,7 +274,7 @@
                       <div class="accordion-group" ng-repeat="(key,val) in stud_team.invitation"><!-- repeat number of teams recruiting -->
                         <div class="accordion-heading" style="background-color:#FAFAFA">
                           <a class="accordion-toggle" data-toggle="collapse" data-parent="#teamInvitationAccordion" href="#si_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
-                            {{val.name}}
+                            <div align="center">{{val.name}}</div>
                           </a>
                         </div>
                         <div id="si_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
@@ -284,7 +284,7 @@
                             <div class="accordion-group" ng-repeat="(key,val) in val.member"><!-- repeat number of teams recruiting -->
                               <div class="accordion-heading" style="background-color:#FAFAFA">
                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#invitationMemberDetailAccordion" href="#sim_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
-                                  {{val.full_name}}
+                                  <div align="center">{{val.full_name}}</div>
                                 </a>
                               </div>
                               <div id="sim_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
@@ -323,7 +323,7 @@
                       <div class="accordion-group" ng-repeat="(key,val) in stud_team.request"><!-- repeat number of teams recruiting -->
                         <div class="accordion-heading" style="background-color:#FAFAFA">
                           <a class="accordion-toggle" data-toggle="collapse" data-parent="#teamRequestAccordion" href="#sr_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
-                            {{val.name}}
+                            <div align="center">{{val.name}}</div>
                           </a>
                         </div>
                         <div id="sr_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
@@ -333,7 +333,7 @@
                             <div class="accordion-group" ng-repeat="(key,val) in val.member"><!-- repeat number of teams recruiting -->
                               <div class="accordion-heading" style="background-color:#FAFAFA">
                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#requestMemberDetailAccordion" href="#srm_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
-                                  {{val.full_name}}
+                                  <div align="center">{{val.full_name}}</div>
                                 </a>
                               </div>
                               <div id="srm_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
@@ -558,7 +558,7 @@
       <div class="accordion-group" ng-repeat="years in stud_finding" my-stud-repeat-directive><!-- academic years   -->          
 	      <div class="accordion-heading" style="background-color:#FAFAFA">
 	        <a ng-click="reset_page(years.year)" class="accordion-toggle" data-toggle="collapse" data-parent="#studentNoTeamAccordion" href="#{{years.year}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- the year -->
-            Academic Year {{years.year}}<!-- the year -->
+            <div align="center">Academic Year {{years.year}}</div><!-- the year -->
           </a>
         </div>
         <div id="{{years.year}}" class="accordion-body collapse in" ><!-- the year -->
@@ -569,7 +569,7 @@
                   <div class="accordion-group" ng-repeat="(key,val) in page_chosen">
                     <div class="accordion-heading" style="background-color:#FAFAFA">
                       <a class="accordion-toggle" data-toggle="collapse" data-parent="#studentDetailAccordion" href="#{{years.year}}_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
-                        {{val.full_name}}
+                        <div align="center">{{val.full_name}}</div>
                       </a>
                     </div>
                     <div id="{{years.year}}_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
