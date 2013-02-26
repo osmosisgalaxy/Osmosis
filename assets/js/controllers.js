@@ -578,6 +578,7 @@ function ClientCtrl($scope,$resource){
       $scope.have_project = true;
       $('#mainAccordion').load();
       alert("Project Created!");
+      $scope.reset();
       return false;
     });
   };
