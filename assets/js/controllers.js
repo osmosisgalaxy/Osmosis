@@ -14,7 +14,7 @@ function LoginCtrl($scope,$resource){
 
         $scope.student_url = response.student_url;
         $scope.corporate_url = response.corporate_url;
-        $scope.nickname = response.nickname;
+        $scope.nickname = response.nickname;  
       });
     };
 
@@ -193,6 +193,88 @@ function StudentCtrl($scope,$resource){
     if($scope.currentpage == 0){
       $('.pp_btn').addClass('disabled');
     }
+  };
+
+  $scope.searchStudentFunction = function(val){
+    //return !!((val.exposure.indexOf($scope.nameFilter || '') !== -1));
+    var namef = "";
+    var emailf = "";
+    var skillf = "";
+    var aoif = "";
+    var fypf = "";
+    if($scope.nameFilter != null){namef = $scope.nameFilter.toLowerCase();}
+    if($scope.emailFilter != null){emailf = $scope.emailFilter.toLowerCase();}
+    if($scope.skillFilter != null){skillf = $scope.skillFilter.toLowerCase();}
+    if($scope.aoiFilter != null){aoif = $scope.aoiFilter.toLowerCase();}
+    if($scope.fypFilter != null){fypf = $scope.fypFilter.toLowerCase();}
+
+    var vname = "";
+    var vemail = "";
+    var vskill = "";
+    var vaoi = "";
+    var vfyp = "";
+    if(val.full_name != null){vname = val.full_name.toLowerCase();}
+    if(val.email != null){vemail = val.email.toLowerCase();}
+    if(val.skill != null){vskill = val.skill.toLowerCase();}
+    if(val.aoi != null){vaoi = val.aoi.toLowerCase();}
+    if(val.fyp != null){vfyp = val.fyp.toLowerCase();}
+
+    if((vname.indexOf(namef || '') !== -1)&&
+      (vemail.indexOf(emailf || '') !== -1)&&
+      (vskill.indexOf(skillf || '') !== -1)&&
+      (vaoi.indexOf(aoif || '') !== -1)&&
+      (vfyp.indexOf(fypf || '') !== -1)//&&
+      //(val.email.indexOf($scope.emailFilter || '') != -1)//&&
+      //(val.contact.toLowerCase().indexOf($scope.conNumFilter.toLowerCase() || '') !== -1)
+      ){
+      return true;
+    }
+    return false;
+  };
+
+  $scope.searchTeamFunction = function(val){
+    //return !!((val.exposure.indexOf($scope.nameFilter || '') !== -1));
+    var tnamef = "";
+    var memf = "";
+    var taoif = "";
+    var tfypf = "";
+    var opf = "";
+    if($scope.tnameFilter != null){tnamef = $scope.tnameFilter.toLowerCase();}
+    if($scope.memFilter != null){memf = $scope.memFilter;}
+    if($scope.taoiFilter != null){taoif = $scope.taoiFilter.toLowerCase();}
+    if($scope.tfypFilter != null){tfypf = $scope.tfypFilter.toLowerCase();}
+    if($scope.opFilter != null){opf = $scope.opFilter.toLowerCase();}
+
+    var vtname = "";
+    var vmem = [];
+    var vtaoi = "";
+    var vtfyp = "";
+    var vop = "";
+    if(val.name != null){vtname = val.name.toLowerCase();}
+    if(val.member.length != 0){
+      for(var i = 0; i < val.member.length; i++){
+        vmem.push(val.member[i].full_name);
+      }
+      vmem = vmem.join();
+    }
+    else{
+      vmem = "";
+    }
+    if(val.aoi != null){vtaoi = val.aoi.toLowerCase();}
+    if(val.fyp != null){vtfyp = val.fyp.toLowerCase();}
+    if(val.position != null){vop = val.position.toLowerCase();}
+
+    if((vtname.indexOf(tnamef || '') !== -1)&&
+      (vmem.indexOf(memf || '') !== -1)&&
+      (vtaoi.indexOf(taoif || '') !== -1)&&
+      (vtfyp.indexOf(tfypf || '') !== -1)&&
+      (vop.indexOf(opf || '') !== -1)//&&
+      //(val.email.indexOf($scope.emailFilter || '') != -1)//&&
+      //(val.contact.toLowerCase().indexOf($scope.conNumFilter.toLowerCase() || '') !== -1)
+      ){
+      return true;
+    }
+    return false;
   };
 
   $scope.profile_enableEditor = function() {
@@ -494,7 +576,10 @@ function ClientCtrl($scope,$resource){
     'company': "Sample Co.",
     'poc': "Sam Pearl",
     'email': "sam.pearl@sample.com",
-    'number': "72673275"
+    'number': "72673275",
+    'teamsize':"5",
+    'img':"http://i48.tinypic.com/2s01kxw.jpg",
+    'video':"http://goanimate.com/player/embed/06SjLQlMMr3M"
   };
 
   $scope.checkLogin = function(){
@@ -533,6 +618,7 @@ function ClientCtrl($scope,$resource){
   $scope.createProj = function(){
     var tech = "";
     var c_email = "";
+    var errorStr = "";
     if($scope.technologiesExposure != null){
       tech = $scope.technologiesExposure.trim();
     }
@@ -549,26 +635,34 @@ function ClientCtrl($scope,$resource){
     //   $scope.technologiesExposure == null || $scope.contactPerson == null ||
     //   $scope.contactEmail == null || $scope.companyName == null ||
     //   $scope.contactNumber == null)
-    if($scope.projectName == null || $scope.contactEmail == null ||
-      $scope.contactNumber == null){
-      alert("Project cannot be created. Check for blank field.");
-      return false;
+    if($scope.projectName == null){
+      errorStr += "\nProject Name is blank.";
+    } 
+    if($scope.contactEmail == null){
+      errorStr += "\nContact Email is blank.";
     }
-    if($scope.contactNumber.match("[0-9]{8}") == null){
-      alert("Project cannot be created. Make sure contact number is 8 digits.");
-      return false;
+    if($scope.contactNumber == null){
+      errorStr += "\nContact Number is blank.";
+    }
+    else if($scope.contactNumber.match("[0-9]{8}") == null){
+      errorStr += "\nMake sure Contact Number is of 8 digits.";
+    }
+    if(errorStr != ""){
+      alert("Project could not be created." + errorStr);
     }
     var data = {'method':"create_proj",
     'title':$scope.projectName,
-    'description': $scope.projectObjective,
+    'description': editor.getValue(),
     'exposure': tech,
+    'teamsize': $scope.teamsize,
     'poc':$scope.contactPerson,
     'email': c_email,
     'company':$scope.companyName,
     'contact':$scope.contactNumber,
-    'img':"http://i48.tinypic.com/2s01kxw.jpg",
-    'video':"http://goanimate.com/player/embed/06SjLQlMMr3M"};
-
+    'img': $scope.projImg,
+    'video': $scope.projVideo};
+    //
+    //
     $scope.Model.send(data, function(response){
       var project = response.proj;
       if(project.email != null){
@@ -592,13 +686,23 @@ function ClientCtrl($scope,$resource){
     $scope.contactPerson = project.poc;
     $scope.contactEmail = project.email;
     $scope.contactNumber = project.contact;
+    $scope.teamsize = project.teamsize;
+    $scope.projImg = project.img;
+    $scope.projVideo = project.video;
   };
 
-  $scope.enableEditor = function(key) {
+  $scope.enableEditor = function(key,proj_id) {
     $scope.editorEnabled = true;
     $scope.proj_key = key;
     $scope.proj_backup = angular.copy($scope.client_proj[key]);
     $scope.client_proj[key].email = $scope.client_proj[key].email.join();
+    var po = "po_" + proj_id;
+    var potb = "potb_" + proj_id;
+    var proj_editor = new wysihtml5.Editor(po, { // id of textarea element
+                    toolbar:      potb, // id of toolbar element
+                    parserRules:  wysihtml5ParserRules // defined in parser rules set 
+                  });
+    proj_editor.setValue = $scope.client_proj[key].description;
   };
 
   $scope.disableEditor = function() {
@@ -613,6 +717,12 @@ function ClientCtrl($scope,$resource){
     var project = $scope.client_proj[key];
     var tech = "";
     var c_email = "";
+    var po = "po_" + proj_id;
+    var potb = "potb_" + proj_id;
+    var proj_editor = new wysihtml5.Editor(po, { // id of textarea element
+                    toolbar:      potb, // id of toolbar element
+                    parserRules:  wysihtml5ParserRules // defined in parser rules set 
+                  });
     if(project.exposure != null){
       tech = project.exposure.trim();
     }
@@ -622,9 +732,10 @@ function ClientCtrl($scope,$resource){
     var data = {'method':"update_proj",
                 'proj_id': proj_id,
                 'ptitle': project.title,
-                'pdescription': project.description,
+                'pdescription': proj_editor.getValue(),
                 'pexposure': tech,
                 'pcompany': project.company,
+                'pteamsize':project.teamsize,
                 'ppoc': project.poc,
                 'pemail': c_email,
                 'pcontact': project.contact,
@@ -644,6 +755,15 @@ function ClientCtrl($scope,$resource){
     $("#"+key).load();
   };
 
+  $scope.launchVideo = function(key){
+    var project = $scope.client_proj[key];
+    $scope.watch_video = '<iframe class="project_video"allowTransparency="true" scrolling="no" style:"width:100%;height:100%;" src="' + project.video + '" frameborder="0" allowfullscreen></iframe>';
+  };
+
+  $scope.close_video = function(){
+    $scope.watch_video = "";
+  }
+
 	$scope.reset = function() {
     $scope.projectName = "";
     $scope.projectObjective = "";
@@ -652,6 +772,10 @@ function ClientCtrl($scope,$resource){
     $scope.contactPerson = "";
     $scope.contactEmail = "";
     $scope.contactNumber = "";
+    $scope.teamsize = "";
+    $scope.projImg = "";
+    $scope.projVideo = "";
+    editor.setValue("");
   };
 
   $scope.removeProj = function(proj_id, key){
@@ -671,12 +795,16 @@ function ClientCtrl($scope,$resource){
   $scope.genSampleProj = function(){
 
     $scope.projectName = $scope.sample_proj.name;
-        $scope.projectObjective = $scope.sample_proj.description;
+    editor.setValue($scope.sample_proj.description);
+        //$scope.projectObjective = $scope.sample_proj.description;
         $scope.technologiesExposure = $scope.sample_proj.exposure;
         $scope.companyName = $scope.sample_proj.company;
         $scope.contactPerson = $scope.sample_proj.poc;
         $scope.contactEmail = $scope.sample_proj.email;
         $scope.contactNumber = $scope.sample_proj.number;
+        $scope.teamsize = $scope.sample_proj.teamsize;
+        $scope.projImg = $scope.sample_proj.img;
+        $scope.projVideo = $scope.sample_proj.video;
 
   };
 
@@ -872,7 +1000,12 @@ function ProjectCtrl($scope,$resource){
           //find the average weight and put inside project rank
           var avgWeight = 0;
           if(totalMatchCount != 0 && skillHashKey.length != 0){
-            avgWeight = parseFloat(totalMatchCount / (member.length + 1));
+            if(member != null){
+              avgWeight = parseFloat(totalMatchCount / (member.length + 1));
+            }
+            else{
+              avgWeight = parseFloat(totalMatchCount / 1);
+            }
             avgWeight = parseFloat(avgWeight / proj_exposure.length);
             avgWeight = avgWeight.toFixed(2);
           }
@@ -908,6 +1041,98 @@ function ProjectCtrl($scope,$resource){
     });
   };
 
+  $scope.launchVideo = function(key){
+    var project;
+    var proj_video;
+    if($scope.user_info.user_type == "std"){
+      project = $scope.projRank[key];
+      proj_video = project[0].video;
+    }
+    else{
+      project = $scope.forClient[key];
+      proj_video = project.video;
+    }
+    $scope.watch_video = '<iframe class="project_video"allowTransparency="true" scrolling="no" style:"width:100%;height:100%;" src="' + proj_video + '" frameborder="0" allowfullscreen></iframe>';
+  };
+
+  $scope.close_video = function(){
+    $scope.watch_video = "";
+  }
+
+  $scope.clientSearchFunction = function(val){
+    //return !!((val.exposure.indexOf($scope.nameFilter || '') !== -1));
+    var namef = "";
+    var descf = "";
+    var expof = "";
+    var companyf = "";
+    var conperf = "";
+    if($scope.nameFilter != null){namef = $scope.nameFilter.toLowerCase();}
+    if($scope.descFilter != null){descf = $scope.descFilter.toLowerCase();}
+    if($scope.expoFilter != null){expof = $scope.expoFilter.toLowerCase();}
+    if($scope.companyFilter != null){companyf = $scope.companyFilter.toLowerCase();}
+    if($scope.conPerFilter != null){conperf = $scope.conPerFilter.toLowerCase();}
+
+    var vname = "";
+    var vdesc = "";
+    var vexpo = "";
+    var vcompany = "";
+    var vconper = "";
+    if(val.title != null){vname = val.title.toLowerCase();}
+    if(val.description != null){vdesc = val.description.toLowerCase();}
+    if(val.exposure != null){vexpo = val.exposure.toLowerCase();}
+    if(val.company != null){vcompany = val.company.toLowerCase();}
+    if(val.poc != null){vconper = val.poc.toLowerCase();}
+
+    if((vname.indexOf(namef || '') !== -1)&&
+      (vdesc.indexOf(descf || '') !== -1)&&
+      (vexpo.indexOf(expof || '') !== -1)&&
+      (vcompany.indexOf(companyf || '') !== -1)&&
+      (vconper.indexOf(conperf || '') !== -1)//&&
+      //(val.email.indexOf($scope.emailFilter || '') != -1)//&&
+      //(val.contact.toLowerCase().indexOf($scope.conNumFilter.toLowerCase() || '') !== -1)
+      ){
+      return true;
+    }
+    return false;
+  };
+
+  $scope.studentSearchFunction = function(val){
+    //return !!((val.exposure.indexOf($scope.nameFilter || '') !== -1));
+    var namef;
+    var descf;
+    var expof;
+    var companyf;
+    var conperf;
+    if($scope.nameFilter != null){namef = $scope.nameFilter.toLowerCase();}
+    if($scope.descFilter != null){descf = $scope.descFilter.toLowerCase();}
+    if($scope.expoFilter != null){expof = $scope.expoFilter.toLowerCase();}
+    if($scope.companyFilter != null){companyf = $scope.companyFilter.toLowerCase();}
+    if($scope.conPerFilter != null){conperf = $scope.conPerFilter.toLowerCase();}
+    
+    var vname;
+    var vdesc;
+    var vexpo;
+    var vcompany;
+    var vconper;
+    if(val[0].title != null){vname = val[0].title.toLowerCase();}
+    if(val[0].description != null){vdesc = val[0].description.toLowerCase();}
+    if(val[0].exposure != null){vexpo = val[0].exposure.toLowerCase();}
+    if(val[0].company != null){vcompany = val[0].company.toLowerCase();}
+    if(val[0].poc != null){vconper = val[0].poc.toLowerCase();}
+
+    if((vname.indexOf(namef || '') !== -1)&&
+      (vdesc.indexOf(descf || '') !== -1)&&
+      (vexpo.indexOf(expof || '') !== -1)&&
+      (vcompany.indexOf(companyf || '') !== -1)&&
+      (vconper.indexOf(conperf || '') !== -1)//&&
+      //(val.email.indexOf($scope.emailFilter || '') != -1)//&&
+      //(val.contact.toLowerCase().indexOf($scope.conNumFilter.toLowerCase() || '') !== -1)
+      ){
+      return true;
+    }
+    return false;
+  };
+
   $scope.checkLogin = function(){
     $scope.Model.send({'method':"check_login"},function(response){
       if (response.result == "true"){
@@ -935,6 +1160,5 @@ function ProjectCtrl($scope,$resource){
 
   $scope.checkLogin();
 }
-
 
 

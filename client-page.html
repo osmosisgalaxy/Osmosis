@@ -12,9 +12,10 @@
       <script src="assets/js/jquery-1.9.0.min.js" type="text/javascript"></script>
       <script src="assets/js/jquery.tooltipster.min.js"></script>
 
-
       <!--this is for the tags/labels-->
-      <script src="assets/js/jquery.tagsinput.js"></script>
+      <link href="assets/css/bootstrap-tagmanager.css" rel="stylesheet" type="text/css" />
+      <script type="text/javascript" src="assets/js/bootstrap-tagmanager.js"></script>
+
 
       <!-- Le styles -->
       <!-- this is for the tool tip -->
@@ -74,13 +75,13 @@
     <script src="assets/js/angular/angular-resource.min.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/controllers.js"></script>
+
+  </head>
+  <body ng-controller="ClientCtrl" ng-show="isLogin">
+    <div id="loadingscreen"></div>
     <script>
       $('#loadingscreen').show();
     </script>
-
-  </head>
-  <div id="loadingscreen"></div>
-  <body ng-controller="ClientCtrl" ng-show="isLogin">
     <!-----------  Start of navigation bar  ------------>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -139,7 +140,13 @@
                 <div class="control-group">  
                   <label class="control-label" for="projectObjective" style="font-weight:bold">Project Scope<br/></label>
                   
-                  <div class="controls">  
+                  <div class="controls">
+                    <div id="projectObjectivetb" style="display: none;">
+                      <a data-wysihtml5-command="bold">bold</a> |
+                      <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |
+                      <a data-wysihtml5-command="underline">underline</a> |
+                      <a data-wysihtml5-command="insertUnorderedList">Unordered List</a>
+                    </div>
                     <textarea class="span9 tooltipClient" ng-model="projectObjective" id="projectObjective" rows="12" style="resize:vertical; font-size:85%" data-original-title="Skills"
                           title="Over <font color='#00FF00'><strong>85%</strong></font>
                       of students surveyed have rated this field as <font color='#00FFFF'><strong>important</strong></font> for them when making a decision to take up a project"></textarea>
@@ -149,12 +156,24 @@
                 <div class="control-group"> 
                   <label class="control-label" for="technicalRequirements" style="font-weight:bold">Technologies Exposure<br/></label>
                   <div class="controls">
-                    <textarea class="span9 tooltipClient" ng-model="technologiesExposure" id="technologiesExposure" rows="7" style="resize:vertical; font-size:85%" data-original-title="Skills" title="Around <font color='#FFA500'><strong>63%</strong></font> of students surveyed are interested in the amount of technical exposure a project is able to provide them"></textarea>
+                      <input type="text" data-original-title="Skills"  ng-model="technologiesExposure" id="technologiesExposure" name="tags" placeholder="Tags" class="tagsManager" />
+                      <img src="assets/img/info.png" class="tooltipClient1" title="Around <font color='#FFA500'><strong>63%</strong></font> of students surveyed are interested in the amount of technical exposure a project is able to provide them"/>
+
+                      <div>You may enter only up to only maximum of 6 tags, add tags by pressing SPACE, ENTER or ,
+
+                      </div>
+                  </div>
+
+                </div>
+                  <div class="control-group"> 
+                  <label class="control-label" for="teamSize" style="font-weight:bold">Team Size Required<br/></label>
+                  <div class="controls">
+                    <input type="text" class="span9 tooltipClient" ng-model="teamsize" id="teamsize" style="font-size:85%">
                   </div>
                 </div>
 
-                <div class="control-group">  
-                  <label class="control-label" for="contactPerson" style="font-weight:bold">Company Name</label>  
+                  <div class="control-group">
+                 <label class="control-label" for="contactPerson" style="font-weight:bold">Company Name</label>  
                   <div class="controls">  
                     <input type="text" class="span9" ng-model="companyName" id="companyName" style="font-size:85%" required>
                   </div>
@@ -179,6 +198,24 @@
                   <div class="controls">  
                     <input type="text" class="span9 tooltipClient1" ng-model="contactNumber" id="contactNumber" style="font-size:85%" data-original-title="Skills"
                          title=" <font color='#FFA500'><strong>69%</strong></font> of students surveyed will contact you through the contact number provided">
+
+
+                  </div>
+                </div>
+
+                <div class="control-group">  
+                  <label class="control-label" for="projImg" style="font-weight:bold">Project Image<br/></label>  
+                  <div class="controls">  
+                    <input type="text" class="span9 tooltipClient1" ng-model="projImg" id="projImg" style="font-size:85%" data-original-title="Skills"
+                         title="">
+                  </div>
+                </div>
+
+                <div class="control-group">  
+                  <label class="control-label" for="projVideo" style="font-weight:bold">Project Video<br/></label>  
+                  <div class="controls">  
+                    <input type="text" class="span9 tooltipClient1" ng-model="projVideo" id="projVideo" style="font-size:85%" data-original-title="Skills"
+                         title="">
                   </div>
                 </div>
 
@@ -199,11 +236,10 @@
               </fieldset>  
             </form>
         </div>
-          
         <div class="span5">
         <!--Sidebar content-->
         <br>
-          <div class="well" style="overflow: auto; height: 930px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#9A9A9A">
+          <!-- <div class="well" style="overflow: auto; height: 930px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#9A9A9A"> -->
       
             <div class="tabbable">
               <ul class="nav nav-tabs">
@@ -234,21 +270,29 @@
                           <br/>
 
                           <!-- VIDEO FOR PROJECT -->
-                          <iframe class="project_video"allowTransparency="true" scrolling="no" style:"width:100%;height:100%;" src="{{val.video}}" frameborder="0" allowfullscreen></iframe>
+                          <a ng-show="val.video" href="#video_modal" role="button" class="btn span4 offset4" data-toggle="modal" ng-click="launchVideo(key)">watch video</a></br>
+                          
 
                           <!-- link for video -->
                           <div ng-show="editorEnabled">
                             <strong>Video Link:</strong><br/>
-                            <input type="text" class="span12" ng-model="val.video" ng-show="editorEnabled" ng-change="reload_img_video({{val.id}})">
+                            <input type="text" class="span12" ng-model="val.video" ng-show="editorEnabled">
                           </div>
                           <br/>
 
                           <strong>Project Objective:</strong><br/> 
-                            <div ng-hide="editorEnabled">
-                              {{val.description}}
+                            <div ng-hide="editorEnabled" ng-bind-html-unsafe="val.description">
                             </div>
                             <div ng-show="editorEnabled">
-                              <textarea ng-show="editorEnabled" class="span12" ng-model="val.description" rows="12" style="resize:vertical"></textarea>
+
+                              <div id="potb_{{val.id}}" style="display: none;">
+                                <a data-wysihtml5-command="bold">bold</a> |
+                                <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |
+                                <a data-wysihtml5-command="underline">underline</a> |
+                                <a data-wysihtml5-command="insertUnorderedList">Unordered List</a>
+                              </div>
+                              <textarea class="span9 tooltipClient" ng-model="val.description" id="po_{{val.id}}" rows="12" style="resize:vertical;">
+                              </textarea>
                               <!-- <input type="text" class="span12" ng-model="val.description" ng-show="editorEnabled"> -->
                             </div>
                           <br/>
@@ -259,6 +303,14 @@
                             <div ng-show="editorEnabled">
                               <textarea ng-show="editorEnabled" class="span12" ng-model="val.exposure" rows="12" style="resize:vertical"></textarea>
                               <!-- <input type="text" class="span12" ng-model="val.exposure" ng-show="editorEnabled"> -->
+                            </div>
+                          <br/>
+                           <strong>Required Team Size:</strong><br/>
+                            <div ng-hide="editorEnabled">
+                              {{val.teamsize}}
+                            </div>
+                            <div ng-show="editorEnabled">
+                              <input type="text" ng-show="editorEnabled" class="span12" ng-model="val.teamsize">
                             </div>
                           <br/>
                           <strong>Company:</strong><br/>
@@ -302,7 +354,7 @@
                             </form>
                             </li>
           	              <li>
-                            <form ng-submit="enableEditor(key)">
+                            <form ng-submit="enableEditor(key,val.id)">
                               <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Edit</button>
                             </form>
           	              </li>
@@ -323,8 +375,24 @@
                     </div><!--For Every Project in Project List--> 
                   </div>
                 </div>
+
+                <!-- MODAL for watching video -->
+                <div id="video_modal" class="modal hide fade" role="dialog" aria-hidden="true">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close_video()">×</button>
+                    <h3>Watch Video</h3>
+                  </div>
+                  <div class="modal-body">
+                    <div ng-bind-html-unsafe="watch_video">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true" ng-click="close_video()">Close</button>
+                  </div>
+                </div>
+                <!-- END MODAL for watching video -->
+
                 <div id="pane2" class="tab-pane">
-                
                   <div class="well" style="overflow: auto; height: 880px; background-color:#FBF8EF">
               	     <div style="font-size:120%; font-weight:bold; display:inline">IS480 or FYP </div> 
               	     <div style="display:inline; font-size:85%">(Final Year Project) is a compulsory module that all 3rd and 4th year SMU-SIS (Singapore Management University, School of Information System) students have to complete. Students form a team of 4-6 to experience a semester of part-time project team working with a real-life sponsor. 
@@ -394,7 +462,7 @@
                
               </div><!-- /.tab-content -->
             </div><!-- /.tabbable -->
-          </div>
+          <!-- </div> -->
         </div>
       </div>      
     </div>
@@ -402,14 +470,14 @@
       <p>&copy; Osmosis </p>
     </footer>
 
+    <!-- for richtext -->
+    <script src="assets/js/richtext/advanced.js"></script>
+    <script src="assets/js/richtext/wysihtml5-0.3.0.min.js"></script>
     
     <script src="assets/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
     <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-
-
     <script src="assets/js/bootstrap/bootstrap-transition.js"></script>
     <script src="assets/js/bootstrap/bootstrap-alert.js"></script>
-    <script src="assets/js/bootstrap/bootstrap-modal.js"></script>
     <script src="assets/js/bootstrap/bootstrap-dropdown.js"></script>
     <script src="assets/js/bootstrap/bootstrap-scrollspy.js"></script>
     <script src="assets/js/bootstrap/bootstrap-tab.js"></script>
@@ -440,13 +508,33 @@
                 fixedWidth: 150,
                 position: 'right',
                 touchDevices: true,
-                trigger:'hover',
+                trigger:'hover'
 
-            });            
-            
+            });
+        });
 
+
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $(".tagsManager").tagsManager({
+                // prefilled: ["ios", "php", "android"],
+                CapitalizeFirstLetter: false,
+                preventSubmitOnEnter: true,
+                typeahead: true,
+                typeaheadAjaxSource: null,
+                typeaheadSource: ["c++", "css", "jquery", "java", "javascript", "angularjs", "ios", "php", "android"],
+                delimeters: [9, 44, 188, 13],
+                backspace: [8],
+                blinkBGColor_1: '#FFFF9C',
+                blinkBGColor_2: '#CDE69C',
+                hiddenTagListName: 'hiddenTagListA',
+                maxTags: '6'
+            });
         });
     </script>
+
 
     <!--close all accordion-->
     <script type="text/javascript">
@@ -455,6 +543,12 @@
     <script src="assets/js/docs.js" type="text/javascript"></script>
     <script src="assets/js/demo.js" type="text/javascript"></script>
     <script src="assets/js/google-code-prettify/prettify.js" type="text/javascript"></script>
+    <script>
+      var editor = new wysihtml5.Editor("projectObjective", { // id of textarea element
+        toolbar:      "projectObjectivetb", // id of toolbar element
+        parserRules:  wysihtml5ParserRules // defined in parser rules set 
+      });
+    </script>
     <script>
       $('#loadingscreen').hide();
     </script>
