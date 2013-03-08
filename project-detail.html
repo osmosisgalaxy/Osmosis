@@ -39,7 +39,7 @@
     </div>
     <div ng-show="editorEnabled">
 
-      <textarea ui-tinymce="{theme:'simple'}" ng-model="project_modal_detail.description"></textarea>
+      <textarea ui-tinymce="{script_url : 'assets/js/tinymce/tiny_mce.js',theme:'simple'}" ng-model="project_modal_detail.description"></textarea>
       <!-- <div id="potb_{{project_modal_detail.id}}" style="display: none;">
         <a data-wysihtml5-command="bold">bold</a> |
         <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |
