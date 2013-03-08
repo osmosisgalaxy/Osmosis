@@ -573,6 +573,10 @@ function ClientCtrl($scope,$resource){
   $scope.po;
   $scope.potb;
   $scope.proj_editor;
+  $scope.opts = {
+    backdropFade: true,
+    dialogFade:true
+  };
 
   $scope.isLogin = false;
 
@@ -768,10 +772,14 @@ function ClientCtrl($scope,$resource){
   $scope.displayProjModal = function(key){
     $scope.project_modal_detail = $scope.client_proj[key];
     $scope.project_modal_key = key;
+    $scope.openProjModal = true;
   };
 
   $scope.close_project_modal = function(){
-    $scope.view_project_detail = "";
+    //$scope.view_project_detail = "";
+    $scope.project_modal_detail = "";
+    $scope.project_modal_key = "";
+    $scope.openProjModal = false;
   }
 
   $scope.launchVideo = function(key){
