@@ -1,5 +1,5 @@
 <script src="assets/js/richtext/advanced.js"></script>
-    <script src="assets/js/richtext/wysihtml5-0.3.0.min.js"></script>
+<script src="assets/js/richtext/wysihtml5-0.3.0.min.js"></script>
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
   <h3>Project Detail</h3>
@@ -16,6 +16,13 @@
   <br/>
 
   <!-- VIDEO FOR PROJECT -->
+  <script>
+    myModule.value('ui.config', {
+       tinymce: {
+          theme: 'simple',
+       }
+    });
+  </script>
   <a ng-show="project_modal_detail.video" href="#video_modal" role="button" class="btn span4 offset4" data-toggle="modal" ng-click="launchVideo(project_modal_key)">watch video</a></br>
   
 
@@ -31,14 +38,15 @@
     </div>
     <div ng-show="editorEnabled">
 
-      <div id="potb_{{project_modal_detail.id}}" style="display: none;">
+      <textarea ui-tinymce ng-model="project_modal_detail.description"></textarea>
+      <!-- <div id="potb_{{project_modal_detail.id}}" style="display: none;">
         <a data-wysihtml5-command="bold">bold</a> |
         <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |
         <a data-wysihtml5-command="underline">underline</a> |
         <a data-wysihtml5-command="insertUnorderedList">Unordered List</a>
       </div>
       <textarea class="span9 tooltipClient" ng-model="project_modal_detail.description" id="po_{{project_modal_detail.id}}" rows="12" style="resize:vertical;">
-      </textarea>
+      </textarea> -->
       <!-- <input type="text" class="span12" ng-model="project_modal_detail.description" ng-show="editorEnabled"> -->
     </div>
   <br/>
@@ -118,5 +126,5 @@
   </div>
 </div>
 <div class="modal-footer">
-  <button type="btn" class="btn" ng-click="dismiss()">Close</button>
+  <button type="btn" class="btn" ng-click="[dismiss(), close_project_modal()]">Close</button>
 </div>

@@ -570,6 +570,9 @@ function ClientCtrl($scope,$resource){
   $scope.home_link = "student-page.html";
   $scope.project_modal_detail = {};
   $scope.project_modal_key = {};
+  $scope.po;
+  $scope.potb;
+  $scope.proj_editor;
 
   $scope.isLogin = false;
 
@@ -703,9 +706,9 @@ function ClientCtrl($scope,$resource){
     $scope.proj_key = key;
     $scope.proj_backup = angular.copy($scope.client_proj[key]);
     $scope.client_proj[key].email = $scope.client_proj[key].email.join();
-    var po = "po_" + proj_id;
-    var potb = "potb_" + proj_id;
-    var proj_editor = new wysihtml5.Editor(po, { // id of textarea element
+    $scope.po = "po_" + proj_id;
+    $scope.potb = "potb_" + proj_id;
+    $scope.proj_editor = new wysihtml5.Editor(po, { // id of textarea element
                     toolbar:      potb, // id of toolbar element
                     parserRules:  wysihtml5ParserRules // defined in parser rules set 
                   });
@@ -765,114 +768,9 @@ function ClientCtrl($scope,$resource){
   $scope.displayProjModal = function(key){
     $scope.project_modal_detail = $scope.client_proj[key];
     $scope.project_modal_key = key;
-//     $scope.view_project_detail = '\
-// <div ng-controller="ClientCtrl"><img class="project_img" src="' + project.img + '" width="100%" height="100%">\
-// \
-// <div ng-show="editorEnabled">\
-//   <strong>Image Link:</strong><br/>\
-//   <input type="text" class="span12" ng-model="' + project.img + '" ng-show="editorEnabled" ng-change="reload_img_video(' + project.id + ')">\
-// </div>\
-// <br/>\
-// \
-// <a ng-show="' + project.video + '" href="#video_modal" role="button" class="btn span4 offset4" data-toggle="modal" ng-click="launchVideo(key)">watch video</a></br>\
-// \
-// <div ng-show="editorEnabled">\
-//   <strong>Video Link:</strong><br/>\
-//   <input type="text" class="span12" ng-model="' + project.video + '" ng-show="editorEnabled">\
-// </div>\
-// <br/>\
-// \
-// <strong>Project Objective:</strong><br/>\
-//   <div ng-hide="editorEnabled" ng-bind-html-unsafe="' + project.description + '">\
-//   </div>\
-//   <div ng-show="editorEnabled">\
-// \
-//     <div id="potb_' + project.id + '" style="display: none;">\
-//       <a data-wysihtml5-command="bold">bold</a> |\
-//       <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |\
-//       <a data-wysihtml5-command="underline">underline</a> |\
-//       <a data-wysihtml5-command="insertUnorderedList">Unordered List</a>\
-//     </div>\
-//     <textarea class="span9 tooltipClient" ng-model="' + project.description + '" id="po_' + project.id + '" rows="12" style="resize:vertical;">\
-//     </textarea>\
-//   </div>\
-// <br/>\
-// <strong>Technologies Exposure:</strong><br/>\
-//   <div ng-hide="editorEnabled">\
-//     ' + project.exposure + '\
-//   </div>\
-//   <div ng-show="editorEnabled">\
-//     <textarea ng-show="editorEnabled" class="span12" ng-model="' + project.exposure + '" rows="12" style="resize:vertical"></textarea>\
-//   </div>\
-// <br/>\
-//  <strong>Required Team Size:</strong><br/>\
-//   <div ng-hide="editorEnabled">\
-//     ' + project.teamsize + '\
-//   </div>\
-//   <div ng-show="editorEnabled">\
-//     <input type="text" ng-show="editorEnabled" class="span12" ng-model="' + project.teamsize + '">\
-//   </div>\
-// <br/>\
-// <strong>Company:</strong><br/>\
-//   <div ng-hide="editorEnabled">\
-//     ' + project.company + '\
-//   </div>\
-//   <div ng-show="editorEnabled">\
-//     <input type="text" class="span12" ng-model="' + project.company + '" ng-show="editorEnabled" required>\
-//   </div>\
-// <br/>\
-// <strong>Contact Person:</strong><br/>\
-//   <div ng-hide="editorEnabled">\
-//     ' + project.poc + '\
-//   </div>\
-//   <div ng-show="editorEnabled">\
-//     <input type="text" class="span12" ng-model="' + project.poc + '" ng-show="editorEnabled" required>\
-//   </div>\
-// <br/>\
-// <strong>Contact Email:</strong><br/>\
-//   <div ng-hide="editorEnabled" ng-repeat="email in ' + project.email + '">\
-//     {{email}}\
-//   </div>\
-//   <div ng-show="editorEnabled">\
-//     <input type="text" class="span12" ng-model="' + project.email + '" ng-show="editorEnabled" required>\
-//   </div>\
-// <br/>\
-// <strong>Contact Number:</strong><br/>\
-//   <div ng-hide="editorEnabled">\
-//     ' + project.contact + '\
-//   </div>\
-//   <div ng-show="editorEnabled">\
-//     <input type="text" class="span12" ng-model="' + project.contact + '" ng-show="editorEnabled">\
-//   </div>\
-// <br/>\
-// <br/>\
-// <div ng-hide="editorEnabled">\
-// <ul class="inline">\
-//   <li>\
-//   <form ng-submit="removeProj(' + project.id + ',' + key + ')">\
-//     <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Remove</button>\
-//   </form>\
-//   </li>\
-// <li>\
-//   <form ng-submit="enableEditor(' + key + ',' + project.id + ')">\
-//     <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Edit</button>\
-//   </form>\
-// </li>\
-// <li>\
-//   <form ng-submit="copyToForm(' + key + ')">\
-//     <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Copy</button>\
-//   </form>\
-// </li>\
-// </ul>\
-// </div>\
-// <div ng-show="editorEnabled">\
-//   <button class="btn btn-small" ng-show="editorEnabled" ng-click="$parent.saveProj(' + key + ',' + project.id + ')">Save</button>\
-// \
-//   <button class="btn btn-small" ng-show="editorEnabled" ng-click="disableEditor()">Cancel</button>\
-// </div></div>';
   };
 
-  $scope.close_project = function(){
+  $scope.close_project_modal = function(){
     $scope.view_project_detail = "";
   }
 
