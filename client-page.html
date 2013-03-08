@@ -147,8 +147,8 @@
                       <a data-wysihtml5-command="underline">underline</a> |
                       <a data-wysihtml5-command="insertUnorderedList">Unordered List</a>
                     </div>
-                    <textarea class="span9 tooltipClient" ng-model="projectObjective" id="projectObjective" rows="12" style="resize:vertical; font-size:85%" data-original-title="Skills"
-                          title="Over <font color='#00FF00'><strong>85%</strong></font>
+                      <textarea class="span9 tooltipClient" ng-model="projectObjective" id="projectObjective" rows="12" style="resize:vertical; font-size:85%" data-original-title="Skills"
+                                title="Over <font color='#00FF00'><strong>85%</strong></font>
                       of students surveyed have rated this field as <font color='#00FFFF'><strong>important</strong></font> for them when making a decision to take up a project"></textarea>
                    </div>
                 </div>
@@ -156,7 +156,7 @@
                 <div class="control-group"> 
                   <label class="control-label" for="technicalRequirements" style="font-weight:bold">Technologies Exposure<br/></label>
                   <div class="controls">
-                      <input type="text" data-original-title="Skills"  ng-model="technologiesExposure" id="technologiesExposure" name="tags" placeholder="Tags" class="tagsManager" />
+                      <input taggable autocomplete="off" type="text" data-original-title="Skills"  ng-model="technologiesExposure" id="technologiesExposure" name="tags" placeholder="Tags" class="tagsManager" />
                       <img src="assets/img/info.png" class="tooltipClient1" title="Around <font color='#FFA500'><strong>63%</strong></font> of students surveyed are interested in the amount of technical exposure a project is able to provide them"/>
 
                       <div>You may enter only up to only maximum of 6 tags, add tags by pressing SPACE, ENTER or ,
@@ -230,7 +230,7 @@
                 </div> -->
 
                 <div class="form-actions" align="right">  
-                	<button ng-click="reset()" class="btn">Reset</button>  
+                	<button ng-click="reset()" class="btn">Clear All</button>
                 	<button ng-click="createProj()" class="btn btn-primary">Create</button>
                 </div>  <!-- form actions -->
               </fieldset>  
@@ -249,6 +249,27 @@
               <div class="tab-content">
                 <div id="pane1" class="tab-pane active">
                   <div align="center" ng-hide="have_project">You do not have any projects currently.</div>
+
+                  <div ng-repeat="(key,val) in client_proj">
+                    <button type="button" class="btn" bs-modal="'project-detail.html'" ng-click="displayProjModal(key)">{{val.title}}</button></br>
+                  </div>
+
+                  <!-- MODAL for project -->
+                <!-- <div id="project_modal" class="modal hide fade" role="dialog" aria-hidden="true">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close_project()">×</button>
+                    <h3>Project Detail</h3>
+                  </div>
+                  <div class="modal-body">
+                    <div ng-bind-html-unsafe="view_project_detail">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true" ng-click="close_project()">Close</button>
+                  </div>
+                </div> -->
+                <!-- END MODAL for project -->
+
                   <div class="accordion" id="mainAccordion">
                     <div class="accordion-group" ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List-->
                       <div class="accordion-heading" style="background-color:#EFF8FB">
@@ -259,117 +280,7 @@
                       <div id="{{val.id}}" class="accordion-body collapse">
                         <div class="accordion-inner" style="font-size:12px; background-color:white">
 
-                          <!-- IMAGE FOR PROJECT -->
-                          <img class="project_img" src="{{val.img}}" width="100%" height="100%">
-
-                          <!-- Link for image -->
-                          <div ng-show="editorEnabled">
-                            <strong>Image Link:</strong><br/>
-                            <input type="text" class="span12" ng-model="val.img" ng-show="editorEnabled" ng-change="reload_img_video({{val.id}})">
-                          </div>
-                          <br/>
-
-                          <!-- VIDEO FOR PROJECT -->
-                          <a ng-show="val.video" href="#video_modal" role="button" class="btn span4 offset4" data-toggle="modal" ng-click="launchVideo(key)">watch video</a></br>
                           
-
-                          <!-- link for video -->
-                          <div ng-show="editorEnabled">
-                            <strong>Video Link:</strong><br/>
-                            <input type="text" class="span12" ng-model="val.video" ng-show="editorEnabled">
-                          </div>
-                          <br/>
-
-                          <strong>Project Objective:</strong><br/> 
-                            <div ng-hide="editorEnabled" ng-bind-html-unsafe="val.description">
-                            </div>
-                            <div ng-show="editorEnabled">
-
-                              <div id="potb_{{val.id}}" style="display: none;">
-                                <a data-wysihtml5-command="bold">bold</a> |
-                                <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |
-                                <a data-wysihtml5-command="underline">underline</a> |
-                                <a data-wysihtml5-command="insertUnorderedList">Unordered List</a>
-                              </div>
-                              <textarea class="span9 tooltipClient" ng-model="val.description" id="po_{{val.id}}" rows="12" style="resize:vertical;">
-                              </textarea>
-                              <!-- <input type="text" class="span12" ng-model="val.description" ng-show="editorEnabled"> -->
-                            </div>
-                          <br/>
-                          <strong>Technologies Exposure:</strong><br/>
-                            <div ng-hide="editorEnabled">
-                              {{val.exposure}}
-                            </div>
-                            <div ng-show="editorEnabled">
-                              <textarea ng-show="editorEnabled" class="span12" ng-model="val.exposure" rows="12" style="resize:vertical"></textarea>
-                              <!-- <input type="text" class="span12" ng-model="val.exposure" ng-show="editorEnabled"> -->
-                            </div>
-                          <br/>
-                           <strong>Required Team Size:</strong><br/>
-                            <div ng-hide="editorEnabled">
-                              {{val.teamsize}}
-                            </div>
-                            <div ng-show="editorEnabled">
-                              <input type="text" ng-show="editorEnabled" class="span12" ng-model="val.teamsize">
-                            </div>
-                          <br/>
-                          <strong>Company:</strong><br/>
-                            <div ng-hide="editorEnabled">
-                              {{val.company}}
-                            </div>
-                            <div ng-show="editorEnabled">
-                              <input type="text" class="span12" ng-model="val.company" ng-show="editorEnabled" required>
-                            </div>
-                          <br/>
-                          <strong>Contact Person:</strong><br/>
-                            <div ng-hide="editorEnabled">
-                              {{val.poc}}
-                            </div>
-                            <div ng-show="editorEnabled">
-                              <input type="text" class="span12" ng-model="val.poc" ng-show="editorEnabled" required>
-                            </div>
-                          <br/>
-                          <strong>Contact Email:</strong><br/>
-                            <div ng-hide="editorEnabled" ng-repeat="email in val.email">
-                              {{email}}
-                            </div>
-                            <div ng-show="editorEnabled">
-                              <input type="text" class="span12" ng-model="val.email" ng-show="editorEnabled" required>
-                            </div>
-                          <br/>
-                          <strong>Contact Number:</strong><br/>
-                            <div ng-hide="editorEnabled">
-                              {{val.contact}}
-                            </div>
-                            <div ng-show="editorEnabled">
-                              <input type="text" class="span12" ng-model="val.contact" ng-show="editorEnabled">
-                            </div>
-                          <br/>
-                          <br/>
-                          <div ng-hide="editorEnabled">
-          	             <ul class="inline">
-                            <li>
-                            <form ng-submit="removeProj(val.id,key)">
-                              <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Remove</button>
-                            </form>
-                            </li>
-          	              <li>
-                            <form ng-submit="enableEditor(key,val.id)">
-                              <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Edit</button>
-                            </form>
-          	              </li>
-          	              <li>
-                            <form ng-submit="copyToForm(key)">
-                              <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Copy</button>
-                            </form>
-          	              </li>
-          	             </ul>
-                          </div>
-                          <div ng-show="editorEnabled">
-                            <button class="btn btn-small" ng-show="editorEnabled" ng-click="$parent.saveProj(key,val.id)">Save</button>
-
-                            <button class="btn btn-small" ng-show="editorEnabled" ng-click="disableEditor()">Cancel</button>
-                          </div>
                         </div>
                       </div>
                     </div><!--For Every Project in Project List--> 
@@ -487,6 +398,7 @@
     <script src="assets/js/bootstrap/bootstrap-collapse.js"></script>
     <script src="assets/js/bootstrap/bootstrap-carousel.js"></script>
     <script src="assets/js/bootstrap/bootstrap-typeahead.js"></script>
+
     <script>
 
 
@@ -501,7 +413,7 @@
                 offsetY: -20
 
             });
-            
+
             $('.tooltipClient1').tooltipster({
                 animation: 'fade',
                 theme: '.client-info',
@@ -515,26 +427,6 @@
 
 
     </script>
-
-    <script type="text/javascript">
-        $(function () {
-            $(".tagsManager").tagsManager({
-                // prefilled: ["ios", "php", "android"],
-                CapitalizeFirstLetter: false,
-                preventSubmitOnEnter: true,
-                typeahead: true,
-                typeaheadAjaxSource: null,
-                typeaheadSource: ["c++", "css", "jquery", "java", "javascript", "angularjs", "ios", "php", "android"],
-                delimeters: [9, 44, 188, 13],
-                backspace: [8],
-                blinkBGColor_1: '#FFFF9C',
-                blinkBGColor_2: '#CDE69C',
-                hiddenTagListName: 'hiddenTagListA',
-                maxTags: '6'
-            });
-        });
-    </script>
-
 
     <!--close all accordion-->
     <script type="text/javascript">

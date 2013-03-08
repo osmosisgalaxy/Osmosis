@@ -1,0 +1,120 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3>Project Detail</h3>
+</div>
+<div class="modal-body">
+  <!-- IMAGE FOR PROJECT -->
+  <img class="project_img" src="{{project_modal_detail.img}}" width="100%" height="100%">
+
+  <!-- Link for image -->
+  <div ng-show="editorEnabled">
+    <strong>Image Link:</strong><br/>
+    <input type="text" class="span12" ng-model="project_modal_detail.img" ng-show="editorEnabled" ng-change="reload_img_video({{project_modal_detail.id}})">
+  </div>
+  <br/>
+
+  <!-- VIDEO FOR PROJECT -->
+  <a ng-show="project_modal_detail.video" href="#video_modal" role="button" class="btn span4 offset4" data-toggle="modal" ng-click="launchVideo(project_modal_key)">watch video</a></br>
+  
+
+  <!-- link for video -->
+  <div ng-show="editorEnabled">
+    <strong>Video Link:</strong><br/>
+    <input type="text" class="span12" ng-model="project_modal_detail.video" ng-show="editorEnabled">
+  </div>
+  <br/>
+
+  <strong>Project Objective:</strong><br/> 
+    <div ng-hide="editorEnabled" ng-bind-html-unsafe="project_modal_detail.description">
+    </div>
+    <div ng-show="editorEnabled">
+
+      <div id="potb_{{project_modal_detail.id}}" style="display: none;">
+        <a data-wysihtml5-command="bold">bold</a> |
+        <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |
+        <a data-wysihtml5-command="underline">underline</a> |
+        <a data-wysihtml5-command="insertUnorderedList">Unordered List</a>
+      </div>
+      <textarea class="span9 tooltipClient" ng-model="project_modal_detail.description" id="po_{{project_modal_detail.id}}" rows="12" style="resize:vertical;">
+      </textarea>
+      <!-- <input type="text" class="span12" ng-model="project_modal_detail.description" ng-show="editorEnabled"> -->
+    </div>
+  <br/>
+  <strong>Technologies Exposure:</strong><br/>
+    <div ng-hide="editorEnabled">
+      {{project_modal_detail.exposure}}
+    </div>
+    <div ng-show="editorEnabled">
+      <textarea ng-show="editorEnabled" class="span12" ng-model="project_modal_detail.exposure" rows="12" style="resize:vertical"></textarea>
+        <input taggable autocomplete="off" type="text" data-original-title="Skills"  ng-model="technologiesExposure" id="technologiesExposure" name="tags" placeholder="Tags" class="tagsManager" />
+    </div>
+  <br/>
+   <strong>Required Team Size:</strong><br/>
+    <div ng-hide="editorEnabled">
+      {{project_modal_detail.teamsize}}
+    </div>
+    <div ng-show="editorEnabled">
+      <input type="text" ng-show="editorEnabled" class="span12" ng-model="project_modal_detail.teamsize">
+    </div>
+  <br/>
+  <strong>Company:</strong><br/>
+    <div ng-hide="editorEnabled">
+      {{project_modal_detail.company}}
+    </div>
+    <div ng-show="editorEnabled">
+      <input type="text" class="span12" ng-model="project_modal_detail.company" ng-show="editorEnabled" required>
+    </div>
+  <br/>
+  <strong>Contact Person:</strong><br/>
+    <div ng-hide="editorEnabled">
+      {{project_modal_detail.poc}}
+    </div>
+    <div ng-show="editorEnabled">
+      <input type="text" class="span12" ng-model="project_modal_detail.poc" ng-show="editorEnabled" required>
+    </div>
+  <br/>
+  <strong>Contact Email:</strong><br/>
+    <div ng-hide="editorEnabled" ng-repeat="email in project_modal_detail.email">
+      {{email}}
+    </div>
+    <div ng-show="editorEnabled">
+      <input type="text" class="span12" ng-model="project_modal_detail.email" ng-show="editorEnabled" required>
+    </div>
+  <br/>
+  <strong>Contact Number:</strong><br/>
+    <div ng-hide="editorEnabled">
+      {{project_modal_detail.contact}}
+    </div>
+    <div ng-show="editorEnabled">
+      <input type="text" class="span12" ng-model="project_modal_detail.contact" ng-show="editorEnabled">
+    </div>
+  <br/>
+  <br/>
+  <div ng-hide="editorEnabled">
+ <ul class="inline">
+    <li>
+    <form ng-submit="removeProj(project_modal_detail.id,project_modal_key)">
+      <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Remove</button>
+    </form>
+    </li>
+  <li>
+    <form ng-submit="enableEditor(project_modal_key,project_modal_detail.id)">
+      <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Edit</button>
+    </form>
+  </li>
+  <li>
+    <form ng-submit="copyToForm(project_modal_key)">
+      <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Copy</button>
+    </form>
+  </li>
+ </ul>
+  </div>
+  <div ng-show="editorEnabled">
+    <button class="btn btn-small" ng-show="editorEnabled" ng-click="$parent.saveProj(project_modal_key,project_modal_detail.id)">Save</button>
+
+    <button class="btn btn-small" ng-show="editorEnabled" ng-click="disableEditor()">Cancel</button>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="btn" class="btn" ng-click="dismiss()">Close</button>
+</div>
