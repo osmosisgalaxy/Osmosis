@@ -1,6 +1,6 @@
 'use strict';
 
-var myApp = angular.module('myApp', ['ngResource', 'tagger'])
+var myApp = angular.module('myApp', ['ngResource', 'tagger', 'ui'])
 
 .config(function ($httpProvider) {
         $httpProvider.responseInterceptors.push('myHttpInterceptor');
