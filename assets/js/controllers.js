@@ -708,8 +708,8 @@ function ClientCtrl($scope,$resource){
     $scope.client_proj[key].email = $scope.client_proj[key].email.join();
     $scope.po = "po_" + proj_id;
     $scope.potb = "potb_" + proj_id;
-    $scope.proj_editor = new wysihtml5.Editor(po, { // id of textarea element
-                    toolbar:      potb, // id of toolbar element
+    $scope.proj_editor = new wysihtml5.Editor($scope.po, { // id of textarea element
+                    toolbar:      $scope.potb, // id of toolbar element
                     parserRules:  wysihtml5ParserRules // defined in parser rules set 
                   });
     proj_editor.setValue = $scope.client_proj[key].description;
