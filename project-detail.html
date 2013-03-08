@@ -1,5 +1,12 @@
 <script src="assets/js/tinymce/tiny_mce.js"></script>
 <script src="assets/js/tinymce/tiny_mce_src.js"></script>
+<script>
+    myApp.value('ui.config', {
+       tinymce: {
+          theme: 'simple',
+       }
+    });
+  </script>
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
   <h3>Project Detail</h3>
@@ -16,13 +23,6 @@
   <br/>
 
   <!-- VIDEO FOR PROJECT -->
-  <script>
-    myApp.value('ui.config', {
-       tinymce: {
-          theme: 'simple',
-       }
-    });
-  </script>
   <a ng-show="project_modal_detail.video" href="#video_modal" role="button" class="btn span4 offset4" data-toggle="modal" ng-click="launchVideo(project_modal_key)">watch video</a></br>
   
 
@@ -38,7 +38,7 @@
     </div>
     <div ng-show="editorEnabled">
 
-      <textarea ui-tinymce ng-model="project_modal_detail.description"></textarea>
+      <textarea ui-tinymce="{theme:'simple'}" ng-model="project_modal_detail.description"></textarea>
       <!-- <div id="potb_{{project_modal_detail.id}}" style="display: none;">
         <a data-wysihtml5-command="bold">bold</a> |
         <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |
