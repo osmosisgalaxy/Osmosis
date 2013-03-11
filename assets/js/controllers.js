@@ -570,9 +570,7 @@ function ClientCtrl($scope,$resource){
   $scope.home_link = "student-page.html";
   $scope.project_modal_detail = {};
   $scope.project_modal_key = {};
-  $scope.po;
-  $scope.potb;
-  $scope.proj_editor;
+  $scope.exposure_tags;
   $scope.opts = {
     backdropFade: true,
     dialogFade:true
@@ -592,6 +590,23 @@ function ClientCtrl($scope,$resource){
     'img':"http://i48.tinypic.com/2s01kxw.jpg",
     'video':"http://goanimate.com/player/embed/06SjLQlMMr3M"
   };
+
+  $("#editor_tag").tagsManager({
+                CapitalizeFirstLetter: false,
+                preventSubmitOnEnter: true,
+                typeahead: true,
+                typeaheadAjaxSource: null,
+                typeaheadSource: ["c++", "css", "jquery", "java", "javascript", "angularjs", "ios", "php", "android"],
+                typeaheadPolling: true,
+                delimeters: [9, 44, 188, 13, 32],
+                backspace: [8],
+                blinkBGColor_1: '#FFFF9C',
+                blinkBGColor_2: '#CDE69C',
+                hiddenTagListName: 'editor_tech',
+                maxTags: '6'
+            });
+
+  $scope.proj_editor = null;
 
   $scope.checkLogin = function(){
     $scope.Model.send({'method':"check_login"},function(response){
@@ -644,10 +659,6 @@ function ClientCtrl($scope,$resource){
         c_email = $scope.contactEmail.trim();
       }
     }
-    // if($scope.projectName == null || $scope.projectObjective == null || 
-    //   $scope.technologiesExposure == null || $scope.contactPerson == null ||
-    //   $scope.contactEmail == null || $scope.companyName == null ||
-    //   $scope.contactNumber == null)
     if($scope.projectName == null){
       errorStr += "\nProject Name is blank.";
     } 
@@ -667,7 +678,7 @@ function ClientCtrl($scope,$resource){
     var data = {'method':"create_proj",
     'title':$scope.projectName,
     'description': editor.getValue(),
-    'exposure': JSON.stringify(tech),
+    'exposure': tech,
     'teamsize': $scope.teamsize,
     'poc':$scope.contactPerson,
     'email': c_email,
@@ -703,28 +714,57 @@ function ClientCtrl($scope,$resource){
     $scope.teamsize = project.teamsize;
     $scope.projImg = project.img;
     $scope.projVideo = project.video;
+    $scope.close_project_modal();
   };
 
   $scope.enableEditor = function(key,proj_id) {
+    $scope.exposure_tags = $scope.project_modal_detail.exposure.split(",");
     $scope.editorEnabled = true;
     $scope.proj_key = key;
     $scope.proj_backup = angular.copy($scope.client_proj[key]);
     $scope.client_proj[key].email = $scope.client_proj[key].email.join();
-    $scope.po = "po_" + proj_id;
-    $scope.potb = "potb_" + proj_id;
-    $scope.proj_editor = new wysihtml5.Editor($scope.po, { // id of textarea element
-                    toolbar:      $scope.potb, // id of toolbar element
-                    parserRules:  wysihtml5ParserRules // defined in parser rules set 
-                  });
-    proj_editor.setValue = $scope.client_proj[key].description;
+    if($scope.proj_editor == null){
+      $scope.proj_editor = new wysihtml5.Editor("po_modal", { // id of textarea element
+                      toolbar:      "potb_modal", // id of toolbar element
+                      parserRules:  wysihtml5ParserRules // defined in parser rules set 
+                    });
+    }
+    $scope.proj_editor.setValue = $scope.client_proj[key].description;
+
+    //do a prefilled for the tags in modal
+    var t = $("#editor_tag").tagsManager({
+                prefilled: $scope.exposure_tags,
+                CapitalizeFirstLetter: false,
+                preventSubmitOnEnter: true,
+                typeahead: true,
+                typeaheadAjaxSource: null,
+                typeaheadSource: ["c++", "css", "jquery", "java", "javascript", "angularjs", "ios", "php", "android"],
+                typeaheadPolling: true,
+                delimeters: [9, 44, 188, 13, 32],
+                backspace: [8],
+                blinkBGColor_1: '#FFFF9C',
+                blinkBGColor_2: '#CDE69C',
+                hiddenTagListName: 'editor_tech',
+                maxTags: '6'
+            });
+
+    //set the hidden value
+    // document.getElementsByName("editor_tech")[0].value = $scope.client_proj[key].exposure;
   };
 
   $scope.disableEditor = function() {
     $scope.editorEnabled = false;
     if($scope.proj_key != null){
       $scope.client_proj[$scope.proj_key] = angular.copy($scope.proj_backup);
+      $scope.project_modal_detail = $scope.client_proj[$scope.proj_key];
       $scope.proj_key = null;
     }
+    $scope.exposure_tags = [];
+    jQuery('input[name=editor_tech]').empty().remove();
+    jQuery('.myTag').empty().remove();
+    //jQuery('.wysihtml5-sandbox').empty().remove();
+    // jQuery(".editor_tech").remove();
+    // jQuery(".myTag").remove();
   };
 
   $scope.saveProj = function(key,proj_id) {
@@ -733,20 +773,28 @@ function ClientCtrl($scope,$resource){
     var c_email = "";
     var po = "po_" + proj_id;
     var potb = "potb_" + proj_id;
-    var proj_editor = new wysihtml5.Editor(po, { // id of textarea element
-                    toolbar:      potb, // id of toolbar element
-                    parserRules:  wysihtml5ParserRules // defined in parser rules set 
-                  });
-    if(project.exposure != null){
-      tech = project.exposure.trim();
+    if(document.getElementsByName("editor_tech")[0].value != null){
+      tech = document.getElementsByName("editor_tech")[0].value.trim();
+      project.exposure = tech;
+      $scope.exposure_tags = tech.split(",");
     }
+
+    $scope.exposure_tags = [];
+    jQuery('input[name=editor_tech]').empty().remove();
+    jQuery('.myTag').empty().remove();
+
     if(project.email != null){
       c_email = project.email.trim();
     }
+
+    var p_desc = $scope.proj_editor.getValue();
+
+    project.description = p_desc;
+
     var data = {'method':"update_proj",
                 'proj_id': proj_id,
                 'ptitle': project.title,
-                'pdescription': proj_editor.getValue(),
+                'pdescription': p_desc,
                 'pexposure': tech,
                 'pcompany': project.company,
                 'pteamsize':project.teamsize,
@@ -771,6 +819,12 @@ function ClientCtrl($scope,$resource){
 
   $scope.displayProjModal = function(key){
     $scope.project_modal_detail = $scope.client_proj[key];
+    if($scope.project_modal_detail.img == "undefined" || $scope.project_modal_detail.img == "" ){
+      $scope.isBlank = true;
+    }
+    else{
+      $scope.isBlank = false;
+    }
     $scope.project_modal_key = key;
     $scope.openProjModal = true;
   };
@@ -780,6 +834,9 @@ function ClientCtrl($scope,$resource){
     $scope.project_modal_detail = "";
     $scope.project_modal_key = "";
     $scope.openProjModal = false;
+    if($scope.editorEnabled){
+      $scope.disableEditor();
+    }
   }
 
   $scope.launchVideo = function(key){
@@ -814,6 +871,7 @@ function ClientCtrl($scope,$resource){
         if($scope.client_proj.length == 0){
           $scope.have_project = false;
         }
+        $scope.close_project_modal();
         $('#mainAccordion').load();
       }
     });

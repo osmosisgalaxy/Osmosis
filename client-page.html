@@ -57,7 +57,7 @@
 
       .project_img{
         display: block;
-        width: 80%;
+        width: 50%;
         height: auto;
         margin-left: auto;
         margin-right: auto;
@@ -158,10 +158,8 @@
                   <div class="controls">
                       <input taggable autocomplete="off" type="text" data-original-title="Skills"  ng-model="technologiesExposure" id="technologiesExposure" name="tags" placeholder="Tags" class="tagsManager" />
                       <img src="assets/img/info.png" class="tooltipClient1" title="Around <font color='#FFA500'><strong>63%</strong></font> of students surveyed are interested in the amount of technical exposure a project is able to provide them"/>
-
-                      <div>You may enter only up to only maximum of 6 tags, add tags by pressing SPACE, ENTER or ,
-
-                      </div>
+                  </div>
+                  <div>You may enter only up to only maximum of 6 tags, add tags by pressing SPACE, ENTER or ,
                   </div>
 
                 </div>
@@ -251,7 +249,8 @@
                   <div align="center" ng-hide="have_project">You do not have any projects currently.</div>
 
                   <div ng-repeat="(key,val) in client_proj">
-                    <button type="button" class="btn" ng-click="displayProjModal(key)">{{val.title}}</button></br>
+                    <button type="button" class="accordion-toggle" ng-click="displayProjModal(key)">{{val.title}}</button></br>
+                    <!-- <div class="accordion-heading" style="background-color:#EFF8FB" ng-click="displayProjModal(key)">{{val.title}}</button></br> -->
                   </div>
 
 
@@ -262,28 +261,28 @@
 
                   <div modal="openProjModal" close="close_project_modal()" options="opts">
                     <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close_project_modal()">×</button>
                       <h3>Project Detail</h3>
                     </div>
                     <div class="modal-body">
                       <!-- IMAGE FOR PROJECT -->
-                      <img class="project_img" src="{{project_modal_detail.img}}" width="100%" height="100%">
+                      <img class="project_img" ng-src="{{isBlank && 'assets/img/noimg.gif' || project_modal_detail.img}}" onerror="this.src='assets/img/noimg.gif'">
 
                       <!-- Link for image -->
                       <div ng-show="editorEnabled">
                         <strong>Image Link:</strong><br/>
-                        <input type="text" class="span12" ng-model="project_modal_detail.img" ng-show="editorEnabled" ng-change="reload_img_video({{project_modal_detail.id}})">
+                        <input type="text" class="span5" ng-model="project_modal_detail.img" ng-show="editorEnabled" ng-change="reload_img_video({{project_modal_detail.id}})">
                       </div>
                       <br/>
 
                       <!-- VIDEO FOR PROJECT -->
-                      <a ng-show="project_modal_detail.video" href="#video_modal" role="button" class="btn span4 offset4" data-toggle="modal" ng-click="launchVideo(project_modal_key)">watch video</a></br>
+                      <a ng-show="project_modal_detail.video" href="#video_modal" role="button" class="btn span3 offset1" data-toggle="modal" ng-click="launchVideo(project_modal_key)">watch video</a></br>
                       
 
                       <!-- link for video -->
                       <div ng-show="editorEnabled">
                         <strong>Video Link:</strong><br/>
-                        <input type="text" class="span12" ng-model="project_modal_detail.video" ng-show="editorEnabled">
+                        <input type="text" class="span5" ng-model="project_modal_detail.video" ng-show="editorEnabled">
                       </div>
                       <br/>
 
@@ -292,15 +291,15 @@
                         </div>
                         <div ng-show="editorEnabled">
 
-                          <textarea ui-tinymce="{script_url : 'assets/js/tinymce/tiny_mce.js',theme:'simple'}" ng-model="project_modal_detail.description"></textarea>
-                          <!-- <div id="potb_{{project_modal_detail.id}}" style="display: none;">
+                          <!-- <textarea ui-tinymce="{script_url : 'assets/js/tinymce/tiny_mce.js',theme:'simple'}" ng-model="project_modal_detail.description"></textarea> -->
+                          <div id="potb_modal" style="display: none;">
                             <a data-wysihtml5-command="bold">bold</a> |
                             <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |
                             <a data-wysihtml5-command="underline">underline</a> |
                             <a data-wysihtml5-command="insertUnorderedList">Unordered List</a>
                           </div>
-                          <textarea class="span9 tooltipClient" ng-model="project_modal_detail.description" id="po_{{project_modal_detail.id}}" rows="12" style="resize:vertical;">
-                          </textarea> -->
+                          <textarea class="span5 tooltipClient" ng-model="project_modal_detail.description" id="po_modal" rows="12" style="resize:vertical;">
+                          </textarea>
                           <!-- <input type="text" class="span12" ng-model="project_modal_detail.description" ng-show="editorEnabled"> -->
                         </div>
                       <br/>
@@ -309,8 +308,8 @@
                           {{project_modal_detail.exposure}}
                         </div>
                         <div ng-show="editorEnabled">
-                          <textarea ng-show="editorEnabled" class="span12" ng-model="project_modal_detail.exposure" rows="12" style="resize:vertical"></textarea>
-                            <input taggable autocomplete="off" type="text" data-original-title="Skills"  ng-model="technologiesExposure" id="technologiesExposure" name="tags" placeholder="Tags" class="tagsManager" />
+                          <!-- <textarea ng-show="editorEnabled" class="span5" ng-model="project_modal_detail.exposure" rows="12" style="resize:vertical"></textarea> -->
+                            <input taggable autocomplete="off" type="text" data-original-title="Skills" ng-model="try_this"name="tags2" placeholder="Tags" id="editor_tag"class="span5"/>
                         </div>
                       <br/>
                        <strong>Required Team Size:</strong><br/>
@@ -318,7 +317,7 @@
                           {{project_modal_detail.teamsize}}
                         </div>
                         <div ng-show="editorEnabled">
-                          <input type="text" ng-show="editorEnabled" class="span12" ng-model="project_modal_detail.teamsize">
+                          <input type="text" ng-show="editorEnabled" class="span5" ng-model="project_modal_detail.teamsize">
                         </div>
                       <br/>
                       <strong>Company:</strong><br/>
@@ -326,7 +325,7 @@
                           {{project_modal_detail.company}}
                         </div>
                         <div ng-show="editorEnabled">
-                          <input type="text" class="span12" ng-model="project_modal_detail.company" ng-show="editorEnabled" required>
+                          <input type="text" class="span5" ng-model="project_modal_detail.company" ng-show="editorEnabled" required>
                         </div>
                       <br/>
                       <strong>Contact Person:</strong><br/>
@@ -334,7 +333,7 @@
                           {{project_modal_detail.poc}}
                         </div>
                         <div ng-show="editorEnabled">
-                          <input type="text" class="span12" ng-model="project_modal_detail.poc" ng-show="editorEnabled" required>
+                          <input type="text" class="span5" ng-model="project_modal_detail.poc" ng-show="editorEnabled" required>
                         </div>
                       <br/>
                       <strong>Contact Email:</strong><br/>
@@ -342,7 +341,7 @@
                           {{email}}
                         </div>
                         <div ng-show="editorEnabled">
-                          <input type="text" class="span12" ng-model="project_modal_detail.email" ng-show="editorEnabled" required>
+                          <input type="text" class="span5" ng-model="project_modal_detail.email" ng-show="editorEnabled" required>
                         </div>
                       <br/>
                       <strong>Contact Number:</strong><br/>
@@ -350,7 +349,7 @@
                           {{project_modal_detail.contact}}
                         </div>
                         <div ng-show="editorEnabled">
-                          <input type="text" class="span12" ng-model="project_modal_detail.contact" ng-show="editorEnabled">
+                          <input type="text" class="span5" ng-model="project_modal_detail.contact" ng-show="editorEnabled">
                         </div>
                       <br/>
                       <br/>
@@ -374,7 +373,7 @@
                      </ul>
                       </div>
                       <div ng-show="editorEnabled">
-                        <button class="btn btn-small" ng-show="editorEnabled" ng-click="$parent.saveProj(project_modal_key,project_modal_detail.id)">Save</button>
+                        <button class="btn btn-small" ng-show="editorEnabled" ng-click="saveProj(project_modal_key,project_modal_detail.id)">Save</button>
 
                         <button class="btn btn-small" ng-show="editorEnabled" ng-click="disableEditor()">Cancel</button>
                       </div>
@@ -383,29 +382,6 @@
                       <button type="btn" class="btn" ng-click="close_project_modal()">Close</button>
                     </div>
                   </div>
-
-
-
-
-
-
-
-
-                  <!-- MODAL for project -->
-                <!-- <div id="project_modal" class="modal hide fade" role="dialog" aria-hidden="true">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close_project()">×</button>
-                    <h3>Project Detail</h3>
-                  </div>
-                  <div class="modal-body">
-                    <div ng-bind-html-unsafe="view_project_detail">
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true" ng-click="close_project()">Close</button>
-                  </div>
-                </div> -->
-                <!-- END MODAL for project -->
 
                   <div class="accordion" id="mainAccordion">
                     <div class="accordion-group" ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List-->
@@ -522,17 +498,9 @@
     <script src="assets/js/richtext/advanced.js"></script>
     <script src="assets/js/richtext/wysihtml5-0.3.0.min.js"></script>
 
-    <script src="assets/js/tinymce/tiny_mce.js"></script>
-    <script src="assets/js/tinymce/tiny_mce_src.js"></script>
-    <script>
-        myApp.value('ui.config', {
-           tinymce: {
-              script_url : 'assets/js/tinymce/tiny_mce.js',
-              theme: 'simple',
-           }
-        });
-    </script>
+    <!-- for Angular UI Modal -->
     <script src="assets/js/angular/angular_ui_modal.js"></script>
+
     <script src="assets/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
     <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="assets/js/bootstrap/bootstrap-transition.js"></script>
