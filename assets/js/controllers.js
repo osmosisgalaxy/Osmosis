@@ -762,6 +762,7 @@ function ClientCtrl($scope,$resource){
     $scope.exposure_tags = [];
     jQuery('input[name=editor_tech]').empty().remove();
     jQuery('.myTag').empty().remove();
+    $scope.proj_editor = null;
     //jQuery('.wysihtml5-sandbox').empty().remove();
     // jQuery(".editor_tech").remove();
     // jQuery(".myTag").remove();
