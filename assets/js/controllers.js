@@ -732,7 +732,7 @@ function ClientCtrl($scope,$resource){
     $scope.proj_editor.setValue = $scope.client_proj[key].description;
 
     //do a prefilled for the tags in modal
-    var t = $("#editor_tag").tagsManager({
+    $("#editor_tag").tagsManager({
                 prefilled: $scope.exposure_tags,
                 CapitalizeFirstLetter: false,
                 preventSubmitOnEnter: true,
@@ -861,6 +861,22 @@ function ClientCtrl($scope,$resource){
     $scope.projImg = "";
     $scope.projVideo = "";
     editor.setValue("");
+    jQuery('input[name=tech]').empty().remove();
+    jQuery('.myTag').empty().remove();
+    $("#technologiesExposure").tagsManager({
+                CapitalizeFirstLetter: false,
+                preventSubmitOnEnter: true,
+                typeahead: true,
+                typeaheadAjaxSource: null,
+                typeaheadSource: ["c++", "css", "jquery", "java", "javascript", "angularjs", "ios", "php", "android"],
+                typeaheadPolling: true,
+                delimeters: [9, 44, 188, 13, 32],
+                backspace: [8],
+                blinkBGColor_1: '#FFFF9C',
+                blinkBGColor_2: '#CDE69C',
+                hiddenTagListName: 'tech',
+                maxTags: '6'
+            });
   };
 
   $scope.removeProj = function(proj_id, key){
@@ -880,18 +896,33 @@ function ClientCtrl($scope,$resource){
 
   $scope.genSampleProj = function(){
 
+    jQuery('input[name=tech]').empty().remove();
+    jQuery('.myTag').empty().remove();
     $scope.projectName = $scope.sample_proj.name;
     editor.setValue($scope.sample_proj.description);
-        //$scope.projectObjective = $scope.sample_proj.description;
-        $scope.technologiesExposure = $scope.sample_proj.exposure;
-        $scope.companyName = $scope.sample_proj.company;
-        $scope.contactPerson = $scope.sample_proj.poc;
-        $scope.contactEmail = $scope.sample_proj.email;
-        $scope.contactNumber = $scope.sample_proj.number;
-        $scope.teamsize = $scope.sample_proj.teamsize;
-        $scope.projImg = $scope.sample_proj.img;
-        $scope.projVideo = $scope.sample_proj.video;
+    $scope.companyName = $scope.sample_proj.company;
+    $scope.contactPerson = $scope.sample_proj.poc;
+    $scope.contactEmail = $scope.sample_proj.email;
+    $scope.contactNumber = $scope.sample_proj.number;
+    $scope.teamsize = $scope.sample_proj.teamsize;
+    $scope.projImg = $scope.sample_proj.img;
+    $scope.projVideo = $scope.sample_proj.video;
 
+    $("#technologiesExposure").tagsManager({
+                prefilled: $scope.sample_proj.exposure.split(","),
+                CapitalizeFirstLetter: false,
+                preventSubmitOnEnter: true,
+                typeahead: true,
+                typeaheadAjaxSource: null,
+                typeaheadSource: ["c++", "css", "jquery", "java", "javascript", "angularjs", "ios", "php", "android"],
+                typeaheadPolling: true,
+                delimeters: [9, 44, 188, 13, 32],
+                backspace: [8],
+                blinkBGColor_1: '#FFFF9C',
+                blinkBGColor_2: '#CDE69C',
+                hiddenTagListName: 'tech',
+                maxTags: '6'
+            });
   };
 
   $scope.checkLogin();

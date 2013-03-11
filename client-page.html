@@ -117,19 +117,19 @@
               <fieldset>
 	              <h3><b>Create a Project</b></h3>
 
-                <div class="offset9"><button class="btn btn-small" ng-click="genSampleProj()">Generate Sample Project</button></div>
-                    <div class="well" style="font-size:90%; background:rgba(243,243,243,0.8); margin:0px; border-color:#BDBDBD">
+                
+                  <div class="well" style="font-size:90%; background:rgba(243,243,243,0.8); margin:0px; border-color:#BDBDBD">
                   		Thank you for using Osmosis! <br>
 						To post a project to our SMU-SIS students, it only takes you less than 5 minutes to fill up the form below! <br>
 						Get ready to dwell into the experience of working with our SMU-SIS Final Year Project team, with a total dedicated project time of 1000-hour. 
-							<div align="right">
-								For any queries, do contact us at <a href="mailto:osmosisgalaxy@gmail.com">osmosisgalaxy@gmail.com.</a> <br>
-								For academic information, click on the tab “About IS480” for more details.
-							</div>
-                  	</div>
+      							<div align="right">
+      								For any queries, do contact us at <a href="mailto:osmosisgalaxy@gmail.com">osmosisgalaxy@gmail.com.</a> <br>
+      								For academic information, click on the tab “About IS480” for more details.
+      							</div>
+                	</div>
 	    
                 <hr style="position:relative; top:-10px; border-color:#BDBDBD">
-
+                <div class="offset9"><button class="btn btn-small" ng-click="genSampleProj()">Generate Sample Project</button></div>
                 <div class="control-group">  
                   <label class="control-label" for="projectName" style="font-weight:bold">Project Name</label>
                   <div class="controls">
@@ -145,7 +145,8 @@
                       <a data-wysihtml5-command="bold">bold</a> |
                       <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |
                       <a data-wysihtml5-command="underline">underline</a> |
-                      <a data-wysihtml5-command="insertUnorderedList">Unordered List</a>
+                      <a data-wysihtml5-command="insertUnorderedList">Unordered List</a> |
+                      <a data-wysihtml5-command="insertImage">insert image</a>
                     </div>
                       <textarea class="span9 tooltipClient" ng-model="projectObjective" id="projectObjective" rows="12" style="resize:vertical; font-size:85%" data-original-title="Skills"
                                 title="Over <font color='#00FF00'><strong>85%</strong></font>
@@ -154,19 +155,26 @@
                 </div>
 
                 <div class="control-group"> 
-                  <label class="control-label" for="technicalRequirements" style="font-weight:bold">Technologies Exposure<br/></label>
+                  <label class="control-label" for="technicalRequirements" style="font-weight:bold">Technologies Required<br/></label>
                   <div class="controls">
-                      <input taggable autocomplete="off" type="text" data-original-title="Skills"  ng-model="technologiesExposure" id="technologiesExposure" name="tags" placeholder="Tags" class="tagsManager" />
+                      <input 
+                      taggable 
+                      autocomplete="off"
+                      title="You may enter IT abbreviations such as <font color='#00FFFF'><strong>'ios'</strong></font> , <font color='#FE2EF7'><strong>'android'</strong></font>, <font color='#F7FE2E'><strong>'angularjs'</strong></font> and turn them into <font color='#2EFE2E'><strong>Tags</strong> </font> simply by pressing 'Space bar', 'Enter' and 'comma'"
+                      type="text"
+                      data-original-title="Skills"
+                      ng-model="technologiesExposure"
+                      id="technologiesExposure"
+                      name="tags"
+                      placeholder="Tags"
+                      class="tooltipClient1" />
                       <img src="assets/img/info.png" class="tooltipClient1" title="Around <font color='#FFA500'><strong>63%</strong></font> of students surveyed are interested in the amount of technical exposure a project is able to provide them"/>
                   </div>
-                  <div>You may enter only up to only maximum of 6 tags, add tags by pressing SPACE, ENTER or ,
-                  </div>
-
                 </div>
                   <div class="control-group"> 
                   <label class="control-label" for="teamSize" style="font-weight:bold">Team Size Required<br/></label>
                   <div class="controls">
-                    <input type="text" class="span9 tooltipClient" ng-model="teamsize" id="teamsize" style="font-size:85%">
+                    <input type="text" class="span9" ng-model="teamsize" id="teamsize" style="font-size:85%">
                   </div>
                 </div>
 
@@ -196,24 +204,19 @@
                   <div class="controls">  
                     <input type="text" class="span9 tooltipClient1" ng-model="contactNumber" id="contactNumber" style="font-size:85%" data-original-title="Skills"
                          title=" <font color='#FFA500'><strong>69%</strong></font> of students surveyed will contact you through the contact number provided">
-
-
                   </div>
                 </div>
-
                 <div class="control-group">  
                   <label class="control-label" for="projImg" style="font-weight:bold">Project Image<br/></label>  
                   <div class="controls">  
-                    <input type="text" class="span9 tooltipClient1" ng-model="projImg" id="projImg" style="font-size:85%" data-original-title="Skills"
+                    <input type="text" class="span9" ng-model="projImg" id="projImg" style="font-size:85%"
                          title="">
                   </div>
                 </div>
-
                 <div class="control-group">  
                   <label class="control-label" for="projVideo" style="font-weight:bold">Project Video<br/></label>  
                   <div class="controls">  
-                    <input type="text" class="span9 tooltipClient1" ng-model="projVideo" id="projVideo" style="font-size:85%" data-original-title="Skills"
-                         title="">
+                    <input type="text" class="span9" ng-model="projVideo" id="projVideo" style="font-size:85%">
                   </div>
                 </div>
 
@@ -237,7 +240,6 @@
         <div class="span5">
         <!--Sidebar content-->
         <br>
-          <!-- <div class="well" style="overflow: auto; height: 930px; background:rgba(240,240,240,0.7); border-style:solid; border-color:#9A9A9A"> -->
       
             <div class="tabbable">
               <ul class="nav nav-tabs">
@@ -249,58 +251,63 @@
                   <div align="center" ng-hide="have_project">You do not have any projects currently.</div>
 
                   <div ng-repeat="(key,val) in client_proj">
-                    <button type="button" class="accordion-toggle" ng-click="displayProjModal(key)">{{val.title}}</button></br>
-                    <!-- <div class="accordion-heading" style="background-color:#EFF8FB" ng-click="displayProjModal(key)">{{val.title}}</button></br> -->
+                    <button type="button" class="accordion-toggle" ng-click="displayProjModal(key)" align="center">{{val.title}}</button></br>
                   </div>
-
-
-
-
-
-
-
                   <div modal="openProjModal" close="close_project_modal()" options="opts">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close_project_modal()">×</button>
                       <h3>{{project_modal_detail.title}}</h3>
                     </div>
                     <div class="modal-body">
+                      <div ng-hide="editorEnabled" align="center">
+                       <ul class="inline">
+                        <li>
+                          <form ng-submit="removeProj(project_modal_detail.id,project_modal_key)">
+                            <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Delete</button>
+                          </form>
+                        </li>
+                        <li>
+                          <form ng-submit="enableEditor(project_modal_key,project_modal_detail.id)">
+                            <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Edit</button>
+                          </form>
+                        </li>
+                        <li>
+                          <form ng-submit="copyToForm(project_modal_key)">
+                            <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Copy To Form</button>
+                          </form>
+                        </li>
+                       </ul>
+                      </div>
                       <!-- IMAGE FOR PROJECT -->
                       <img class="project_img" ng-src="{{isBlank && 'assets/img/noimg.gif' || project_modal_detail.img}}" onerror="this.src='assets/img/noimg.gif'">
-
                       <!-- Link for image -->
                       <div ng-show="editorEnabled">
                         <strong>Image Link:</strong><br/>
                         <input type="text" class="span5" ng-model="project_modal_detail.img" ng-show="editorEnabled" ng-change="reload_img_video({{project_modal_detail.id}})">
                       </div>
                       <br/>
-
-                      <!-- VIDEO FOR PROJECT -->
-                      <a ng-show="project_modal_detail.video" href="#video_modal" role="button" class="btn span3 offset1" data-toggle="modal" ng-click="launchVideo(project_modal_key)">watch video</a></br></br>
-                      
-
+                      <!-- Show video -->
+                      <iframe class="project_video"allowTransparency="true" scrolling="no" ng-src="{{project_modal_detail.video}}" frameborder="0" allowfullscreen></iframe>
                       <!-- link for video -->
                       <div ng-show="editorEnabled">
                         <strong>Video Link:</strong><br/>
                         <input type="text" class="span5" ng-model="project_modal_detail.video" ng-show="editorEnabled">
                       </div>
                       <br/>
-
+                      <!-- Richtext editor for project objective -->
                       <strong>Project Objective:</strong><br/> 
                         <div ng-hide="editorEnabled" ng-bind-html-unsafe="project_modal_detail.description">
                         </div>
                         <div ng-show="editorEnabled">
-
-                          <!-- <textarea ui-tinymce="{script_url : 'assets/js/tinymce/tiny_mce.js',theme:'simple'}" ng-model="project_modal_detail.description"></textarea> -->
                           <div id="potb_modal" style="display: none;">
                             <a data-wysihtml5-command="bold">bold</a> |
                             <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |
                             <a data-wysihtml5-command="underline">underline</a> |
-                            <a data-wysihtml5-command="insertUnorderedList">Unordered List</a>
+                            <a data-wysihtml5-command="insertUnorderedList">Unordered List</a> |
+                            <a data-wysihtml5-command="insertImage">insert image</a>
                           </div>
                           <textarea class="span5 tooltipClient" ng-model="project_modal_detail.description" id="po_modal" rows="12" style="resize:vertical;">
                           </textarea>
-                          <!-- <input type="text" class="span12" ng-model="project_modal_detail.description" ng-show="editorEnabled"> -->
                         </div>
                       <br/>
                       <strong>Technologies Exposure:</strong><br/>
@@ -308,7 +315,6 @@
                           {{project_modal_detail.exposure}}
                         </div>
                         <div ng-show="editorEnabled">
-                          <!-- <textarea ng-show="editorEnabled" class="span5" ng-model="project_modal_detail.exposure" rows="12" style="resize:vertical"></textarea> -->
                             <input taggable autocomplete="off" type="text" data-original-title="Skills" ng-model="try_this"name="tags2" placeholder="Tags" id="editor_tag"class="span5"/>
                         </div>
                       <br/>
@@ -352,27 +358,7 @@
                           <input type="text" class="span5" ng-model="project_modal_detail.contact" ng-show="editorEnabled">
                         </div>
                       <br/>
-                      <br/>
-                      <div ng-hide="editorEnabled">
-                     <ul class="inline">
-                        <li>
-                        <form ng-submit="removeProj(project_modal_detail.id,project_modal_key)">
-                          <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Remove</button>
-                        </form>
-                        </li>
-                      <li>
-                        <form ng-submit="enableEditor(project_modal_key,project_modal_detail.id)">
-                          <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Edit</button>
-                        </form>
-                      </li>
-                      <li>
-                        <form ng-submit="copyToForm(project_modal_key)">
-                          <button class="btn btn-small" type="submit" ng-hide="editorEnabled">Copy</button>
-                        </form>
-                      </li>
-                     </ul>
-                      </div>
-                      <div ng-show="editorEnabled">
+                      <div ng-show="editorEnabled" align="center">
                         <button class="btn btn-small" ng-show="editorEnabled" ng-click="saveProj(project_modal_key,project_modal_detail.id)">Save</button>
 
                         <button class="btn btn-small" ng-show="editorEnabled" ng-click="disableEditor()">Cancel</button>
@@ -382,39 +368,7 @@
                       <button type="btn" class="btn" ng-click="close_project_modal()">Close</button>
                     </div>
                   </div>
-
-                  <div class="accordion" id="mainAccordion">
-                    <div class="accordion-group" ng-repeat = "(key,val) in client_proj"><!--For Every Project in Project List-->
-                      <div class="accordion-heading" style="background-color:#EFF8FB">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#mainAccordion" href="#{{val.id}}" ng-click="disableEditor()">
-                        <div align="center">{{val.title}}</div>
-                        </a>
-                      </div>
-                      <div id="{{val.id}}" class="accordion-body collapse">
-                        <div class="accordion-inner" style="font-size:12px; background-color:white">
-
-                          
-                        </div>
-                      </div>
-                    </div><!--For Every Project in Project List--> 
-                  </div>
                 </div>
-
-                <!-- MODAL for watching video -->
-                <div id="video_modal" class="modal hide fade" role="dialog" aria-hidden="true">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close_video()">×</button>
-                    <h3>Watch Video</h3>
-                  </div>
-                  <div class="modal-body">
-                    <div ng-bind-html-unsafe="watch_video">
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true" ng-click="close_video()">Close</button>
-                  </div>
-                </div>
-                <!-- END MODAL for watching video -->
 
                 <div id="pane2" class="tab-pane">
                   <div class="well" style="overflow: auto; height: 880px; background-color:#FBF8EF">
@@ -508,7 +462,6 @@
     <script src="assets/js/bootstrap/bootstrap-dropdown.js"></script>
     <script src="assets/js/bootstrap/bootstrap-scrollspy.js"></script>
     <script src="assets/js/bootstrap/bootstrap-tab.js"></script>
-    <script src="assets/js/bootstrap/bootstrap-tooltip.js"></script>
     <script src="assets/js/bootstrap/bootstrap-popover.js"></script>
     <script src="assets/js/bootstrap/bootstrap-button.js"></script>
     <script src="assets/js/bootstrap/bootstrap-collapse.js"></script>
