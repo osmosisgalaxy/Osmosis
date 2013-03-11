@@ -571,6 +571,7 @@ function ClientCtrl($scope,$resource){
   $scope.project_modal_detail = {};
   $scope.project_modal_key = {};
   $scope.exposure_tags;
+  $scope.rskill_tags;
   $scope.opts = {
     backdropFade: true,
     dialogFade:true
@@ -588,7 +589,8 @@ function ClientCtrl($scope,$resource){
     'number': "72673275",
     'teamsize':"5",
     'img':"http://i48.tinypic.com/2s01kxw.jpg",
-    'video':"http://goanimate.com/player/embed/06SjLQlMMr3M"
+    'video':"http://goanimate.com/player/embed/06SjLQlMMr3M",
+    'rskill': "javascript,css,html"
   };
 
   $("#editor_tag").tagsManager({
@@ -602,8 +604,20 @@ function ClientCtrl($scope,$resource){
                 backspace: [8],
                 blinkBGColor_1: '#FFFF9C',
                 blinkBGColor_2: '#CDE69C',
-                hiddenTagListName: 'editor_tech',
-                maxTags: '6'
+                hiddenTagListName: 'editor_tech'
+            });
+  $("#rskill_tag").tagsManager({
+                CapitalizeFirstLetter: false,
+                preventSubmitOnEnter: true,
+                typeahead: true,
+                typeaheadAjaxSource: null,
+                typeaheadSource: ["c++", "css", "jquery", "java", "javascript", "angularjs", "ios", "php", "android"],
+                typeaheadPolling: true,
+                delimeters: [9, 44, 188, 13, 32],
+                backspace: [8],
+                blinkBGColor_1: '#FFFF9C',
+                blinkBGColor_2: '#CDE69C',
+                hiddenTagListName: 'editor_rskill'
             });
 
   $scope.proj_editor = null;
@@ -643,6 +657,7 @@ function ClientCtrl($scope,$resource){
 
   $scope.createProj = function(){
       var tech = document.getElementsByName("tech")[0].value;
+      var rskills = document.getElementsByName("rskills")[0].value;
       //var nodeArray = [];
       //for (var i = 0; i < node.length; ++i) {
        //   nodeArray[i] = node[i];
@@ -685,7 +700,8 @@ function ClientCtrl($scope,$resource){
     'company':$scope.companyName,
     'contact':$scope.contactNumber,
     'img': $scope.projImg,
-    'video': $scope.projVideo};
+    'video': $scope.projVideo,
+    'rskill': rskills};
     //
     //
     $scope.Model.send(data, function(response){
@@ -719,6 +735,7 @@ function ClientCtrl($scope,$resource){
 
   $scope.enableEditor = function(key,proj_id) {
     $scope.exposure_tags = $scope.project_modal_detail.exposure.split(",");
+    $scope.rskill_tags = $scope.project_modal_detail.rskill.split(",");
     $scope.editorEnabled = true;
     $scope.proj_key = key;
     $scope.proj_backup = angular.copy($scope.client_proj[key]);
@@ -744,8 +761,22 @@ function ClientCtrl($scope,$resource){
                 backspace: [8],
                 blinkBGColor_1: '#FFFF9C',
                 blinkBGColor_2: '#CDE69C',
-                hiddenTagListName: 'editor_tech',
-                maxTags: '6'
+                hiddenTagListName: 'editor_tech'
+            });
+
+    $("#rskill_tag").tagsManager({
+                prefilled: $scope.rskill_tags,
+                CapitalizeFirstLetter: false,
+                preventSubmitOnEnter: true,
+                typeahead: true,
+                typeaheadAjaxSource: null,
+                typeaheadSource: ["c++", "css", "jquery", "java", "javascript", "angularjs", "ios", "php", "android"],
+                typeaheadPolling: true,
+                delimeters: [9, 44, 188, 13, 32],
+                backspace: [8],
+                blinkBGColor_1: '#FFFF9C',
+                blinkBGColor_2: '#CDE69C',
+                hiddenTagListName: 'editor_rskill'
             });
 
     //set the hidden value
@@ -761,6 +792,8 @@ function ClientCtrl($scope,$resource){
     }
     $scope.exposure_tags = [];
     jQuery('input[name=editor_tech]').empty().remove();
+    $scope.rskill_tags = [];
+    jQuery('input[name=editor_rskill]').empty().remove();
     jQuery('.myTag').empty().remove();
     $scope.proj_editor = null;
     //jQuery('.wysihtml5-sandbox').empty().remove();
@@ -771,6 +804,7 @@ function ClientCtrl($scope,$resource){
   $scope.saveProj = function(key,proj_id) {
     var project = $scope.client_proj[key];
     var tech = "";
+    var rskills = "";
     var c_email = "";
     var po = "po_" + proj_id;
     var potb = "potb_" + proj_id;
@@ -779,9 +813,16 @@ function ClientCtrl($scope,$resource){
       project.exposure = tech;
       $scope.exposure_tags = tech.split(",");
     }
+    if(document.getElementsByName("editor_rskill")[0].value != null){
+      rskills = document.getElementsByName("editor_rskill")[0].value.trim();
+      project.rskill = rskills;
+      $scope.rskill_tags = rskills.split(",");
+    }
 
     $scope.exposure_tags = [];
     jQuery('input[name=editor_tech]').empty().remove();
+    $scope.rskill_tags = [];
+    jQuery('input[name=editor_rskill]').empty().remove();
     jQuery('.myTag').empty().remove();
 
     if(project.email != null){
@@ -803,7 +844,8 @@ function ClientCtrl($scope,$resource){
                 'pemail': c_email,
                 'pcontact': project.contact,
                 'pimg':project.img,
-                'pvideo':project.video};
+                'pvideo':project.video,
+                'prskill': rskills};
     $scope.Model.send(data, function(response){
       if(project.email != null){
         project.email = project.email.split(",");
@@ -862,6 +904,7 @@ function ClientCtrl($scope,$resource){
     $scope.projVideo = "";
     editor.setValue("");
     jQuery('input[name=tech]').empty().remove();
+    jQuery('input[name=rskills]').empty().remove();
     jQuery('.myTag').empty().remove();
     $("#technologiesExposure").tagsManager({
                 CapitalizeFirstLetter: false,
@@ -874,8 +917,20 @@ function ClientCtrl($scope,$resource){
                 backspace: [8],
                 blinkBGColor_1: '#FFFF9C',
                 blinkBGColor_2: '#CDE69C',
-                hiddenTagListName: 'tech',
-                maxTags: '6'
+                hiddenTagListName: 'tech'
+            });
+    $("#requiredSkill").tagsManager({
+                CapitalizeFirstLetter: false,
+                preventSubmitOnEnter: true,
+                typeahead: true,
+                typeaheadAjaxSource: null,
+                typeaheadSource: ["c++", "css", "jquery", "java", "javascript", "angularjs", "ios", "php", "android"],
+                typeaheadPolling: true,
+                delimeters: [9, 44, 188, 13, 32],
+                backspace: [8],
+                blinkBGColor_1: '#FFFF9C',
+                blinkBGColor_2: '#CDE69C',
+                hiddenTagListName: 'rskills'
             });
   };
 
@@ -897,6 +952,7 @@ function ClientCtrl($scope,$resource){
   $scope.genSampleProj = function(){
 
     jQuery('input[name=tech]').empty().remove();
+    jQuery('input[name=rskills]').empty().remove();
     jQuery('.myTag').empty().remove();
     $scope.projectName = $scope.sample_proj.name;
     editor.setValue($scope.sample_proj.description);
@@ -920,8 +976,21 @@ function ClientCtrl($scope,$resource){
                 backspace: [8],
                 blinkBGColor_1: '#FFFF9C',
                 blinkBGColor_2: '#CDE69C',
-                hiddenTagListName: 'tech',
-                maxTags: '6'
+                hiddenTagListName: 'tech'
+            });
+    $("#requiredSkill").tagsManager({
+                prefilled: $scope.sample_proj.rskill.split(","),
+                CapitalizeFirstLetter: false,
+                preventSubmitOnEnter: true,
+                typeahead: true,
+                typeaheadAjaxSource: null,
+                typeaheadSource: ["c++", "css", "jquery", "java", "javascript", "angularjs", "ios", "php", "android"],
+                typeaheadPolling: true,
+                delimeters: [9, 44, 188, 13, 32],
+                backspace: [8],
+                blinkBGColor_1: '#FFFF9C',
+                blinkBGColor_2: '#CDE69C',
+                hiddenTagListName: 'rskills'
             });
   };
 

@@ -1,6 +1,6 @@
 'use strict';
 
-var myApp = angular.module('myApp', ['ngResource', 'tagger', 'ui.bootstrap'])
+var myApp = angular.module('myApp', ['ngResource', 'tagger', 'tagger2', 'ui.bootstrap'])
 
 .config(function ($httpProvider) {
         $httpProvider.responseInterceptors.push('myHttpInterceptor');
@@ -53,8 +53,28 @@ angular.module('tagger',[]).directive('taggable', function(){
                 backspace: [8],
                 blinkBGColor_1: '#FFFF9C',
                 blinkBGColor_2: '#CDE69C',
-                hiddenTagListName: 'tech',
-                maxTags: '6'
+                hiddenTagListName: 'tech'
+            });
+        }
+    }
+});
+
+angular.module('tagger2',[]).directive('taggable2', function(){
+    return {
+        restrict:'A',
+        link: function (scope, element, attrs) {
+            element.tagsManager({
+                CapitalizeFirstLetter: false,
+                preventSubmitOnEnter: true,
+                typeahead: true,
+                typeaheadAjaxSource: null,
+                typeaheadSource: ["c++", "css", "jquery", "java", "javascript", "angularjs", "ios", "php", "android"],
+                typeaheadPolling: true,
+                delimeters: [9, 44, 188, 13, 32],
+                backspace: [8],
+                blinkBGColor_1: '#FFFF9C',
+                blinkBGColor_2: '#CDE69C',
+                hiddenTagListName: 'rskills'
             });
         }
     }

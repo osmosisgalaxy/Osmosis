@@ -171,6 +171,12 @@
                       <img src="assets/img/info.png" class="tooltipClient1" title="Around <font color='#FFA500'><strong>63%</strong></font> of students surveyed are interested in the amount of technical exposure a project is able to provide them"/>
                   </div>
                 </div>
+                <div class="control-group">
+                  <label class="control-label" for="requiredSkills" style="font-weight:bold">Required Skill(s)<br/></label>
+                          <div class="controls">
+                              <input taggable2 autocomplete="off" title="You may enter IT abbreviations such as <font color='#00FFFF'><strong>'ios'</strong></font> , <font color='#FE2EF7'><strong>'android'</strong></font>, <font color='#F7FE2E'><strong>'angularjs'</strong></font> and turn them into <font color='#2EFE2E'><strong>Tags</strong> </font> simply by pressing 'Space bar', 'Enter' and 'comma'" type="text" data-original-title="Skills" name="tags2" placeholder="Tags" id="requiredSkill" ng-model="requiredSkill"class="span5"/>
+                          </div>
+                </div>
                   <div class="control-group"> 
                   <label class="control-label" for="teamSize" style="font-weight:bold">Team Size Required<br/></label>
                   <div class="controls">
@@ -315,7 +321,15 @@
                           {{project_modal_detail.exposure}}
                         </div>
                         <div ng-show="editorEnabled">
-                            <input taggable autocomplete="off" type="text" data-original-title="Skills" ng-model="try_this"name="tags2" placeholder="Tags" id="editor_tag"class="span5"/>
+                            <input taggable autocomplete="off" type="text" data-original-title="Skills" name="tags2" placeholder="Tags" id="editor_tag"class="span5"/>
+                        </div>
+                      <br/>
+                      <strong>Required Skill(s):</strong><br/>
+                        <div ng-hide="editorEnabled">
+                          {{project_modal_detail.rskill}}
+                        </div>
+                        <div ng-show="editorEnabled">
+                            <input taggable2 autocomplete="off" type="text" data-original-title="Skills" name="tags2" placeholder="Tags" id="rskill_tag"class="span5"/>
                         </div>
                       <br/>
                        <strong>Required Team Size:</strong><br/>
