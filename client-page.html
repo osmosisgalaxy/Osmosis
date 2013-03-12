@@ -154,8 +154,20 @@
                    </div>
                 </div>
 
+                <div class="control-group">
+                  <label class="control-label" for="projectOutcome" style="font-weight:bold">Project Outcome<br/></label>
+
+                  <div class="controls">
+                    <select class="span9" ng-model="projectOutcome">
+                      <option value="Expect Deployment">Expect Deployment</option>
+                      <option value="Further Development">Further Development</option>
+                      <option value="Proof of Concept">Proof of Concept</option>
+                    </select>
+                  </div>
+                </div>
+
                 <div class="control-group"> 
-                  <label class="control-label" for="technicalRequirements" style="font-weight:bold">Technologies Required<br/></label>
+                  <label class="control-label" for="technicalRequirements" style="font-weight:bold">Technologies Student Will Be Exposed To<br/></label>
                   <div class="controls">
                       <input 
                       taggable 
@@ -316,6 +328,18 @@
                           </textarea>
                         </div>
                       <br/>
+                      <strong>Project Outcome:</strong><br/>
+                        <div ng-hide="editorEnabled">
+                          {{project_modal_detail.outcome}}
+                        </div>
+                        <div ng-show="editorEnabled">
+                          <select class="span5" ng-model="project_modal_detail.outcome">
+                            <option value="Expect Deployment">Expect Deployment</option>
+                            <option value="Further Development">Further Development</option>
+                            <option value="Proof of Concept">Proof of Concept</option>
+                          </select>
+                        </div>
+                        <br/>
                       <strong>Technologies Exposure:</strong><br/>
                         <div ng-hide="editorEnabled">
                           {{project_modal_detail.exposure}}

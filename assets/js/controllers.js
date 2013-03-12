@@ -590,7 +590,8 @@ function ClientCtrl($scope,$resource){
     'teamsize':"5",
     'img':"http://i48.tinypic.com/2s01kxw.jpg",
     'video':"http://goanimate.com/player/embed/06SjLQlMMr3M",
-    'rskill': "javascript,css,html"
+    'rskill': "javascript,css,html",
+    'outcome': "Expect Deployment"
   };
 
   $("#editor_tag").tagsManager({
@@ -701,7 +702,8 @@ function ClientCtrl($scope,$resource){
     'contact':$scope.contactNumber,
     'img': $scope.projImg,
     'video': $scope.projVideo,
-    'rskill': rskills};
+    'rskill': rskills,
+    'outcome': $scope.projectOutcome};
     //
     //
     $scope.Model.send(data, function(response){
@@ -720,9 +722,13 @@ function ClientCtrl($scope,$resource){
 
   $scope.copyToForm = function(key){
     var project = angular.copy($scope.client_proj[key]);
+    jQuery('input[name=tech]').empty().remove();
+    jQuery('input[name=rskills]').empty().remove();
+    jQuery('.myTag').empty().remove();
     $scope.projectName = project.title;
     $scope.projectObjective = project.description;
-    $scope.technologiesExposure = project.exposure;
+    editor.setValue(project.description);
+    $scope.projectOutcome = project.outcome;
     $scope.companyName = project.company;
     $scope.contactPerson = project.poc;
     $scope.contactEmail = project.email;
@@ -731,6 +737,35 @@ function ClientCtrl($scope,$resource){
     $scope.projImg = project.img;
     $scope.projVideo = project.video;
     $scope.close_project_modal();
+
+    $("#technologiesExposure").tagsManager({
+                prefilled: project.exposure.split(","),
+                CapitalizeFirstLetter: false,
+                preventSubmitOnEnter: true,
+                typeahead: true,
+                typeaheadAjaxSource: null,
+                typeaheadSource: ["c++", "css", "jquery", "java", "javascript", "angularjs", "ios", "php", "android"],
+                typeaheadPolling: true,
+                delimeters: [9, 44, 188, 13, 32],
+                backspace: [8],
+                blinkBGColor_1: '#FFFF9C',
+                blinkBGColor_2: '#CDE69C',
+                hiddenTagListName: 'tech'
+            });
+    $("#requiredSkill").tagsManager({
+                prefilled: project.rskill.split(","),
+                CapitalizeFirstLetter: false,
+                preventSubmitOnEnter: true,
+                typeahead: true,
+                typeaheadAjaxSource: null,
+                typeaheadSource: ["c++", "css", "jquery", "java", "javascript", "angularjs", "ios", "php", "android"],
+                typeaheadPolling: true,
+                delimeters: [9, 44, 188, 13, 32],
+                backspace: [8],
+                blinkBGColor_1: '#FFFF9C',
+                blinkBGColor_2: '#CDE69C',
+                hiddenTagListName: 'rskills'
+            });
   };
 
   $scope.enableEditor = function(key,proj_id) {
@@ -845,7 +880,8 @@ function ClientCtrl($scope,$resource){
                 'pcontact': project.contact,
                 'pimg':project.img,
                 'pvideo':project.video,
-                'prskill': rskills};
+                'prskill': rskills,
+                'poutcome': project.outcome};
     $scope.Model.send(data, function(response){
       if(project.email != null){
         project.email = project.email.split(",");
@@ -963,6 +999,7 @@ function ClientCtrl($scope,$resource){
     $scope.teamsize = $scope.sample_proj.teamsize;
     $scope.projImg = $scope.sample_proj.img;
     $scope.projVideo = $scope.sample_proj.video;
+    $scope.projectOutcome = $scope.sample_proj.outcome;
 
     $("#technologiesExposure").tagsManager({
                 prefilled: $scope.sample_proj.exposure.split(","),
