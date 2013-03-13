@@ -116,13 +116,25 @@
   	<div class='span4'>
 	    <!-- Start of Teams recruiting -->   
       <h3>Teams Recruiting</h3>
-        <div class="well" style="background:rgba(240,240,240,0.7); border-style:solid; border-color:#C0C0C0;  position:relative;" align="center">
-          <h4>Filter By:</h4>
-          Team Name:</br><input ng-model="tnameFilter"></br>
-          Member:</br><input ng-model="memFilter"></br>
-          Area of Interest:</br><input ng-model="taoiFilter"></br>
-          FYP Year:</br><input ng-model="tfypFilter"></br>
-          Open Positions:</br><input ng-model="opFilter">
+        <div class="well" style="background:rgba(240,240,240,0.7); border-color:#C0C0C0;  position:relative;" align="center">
+          <span class="accordion" id="filterTeamA">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#filterTeamA" href="#teamFilter">
+                  <b>Search Teams</b>
+                </a>
+              </div>
+              <div id="teamFilter" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                  Team Name:</br><input type="text" ng-model="tnameFilter"></br>
+                  Member:</br><input type="text" ng-model="memFilter"></br>
+                  Area of Interest:</br><input type="text" ng-model="taoiFilter"></br>
+                  FYP Year:</br><input type="text" ng-model="tfypFilter"></br>
+                  Open Positions:</br><input type="text" ng-model="opFilter">
+                </div>
+              </div>
+            </div>
+          </span>
         </div>
         <div class="accordion" id="recruitTeamAccordion">
           <div class="accordion-group" ng-repeat="(key,val) in team_recruit | filter:searchTeamFunction"><!-- repeat number of teams recruiting -->
@@ -532,13 +544,25 @@
     <div class="span4">
       <!-- Start of STUDENTS WITHOUT TEAM -->
       <h3>Students Without Team</h3>
-      <div class="well" style="background:rgba(240,240,240,0.7); border-style:solid; border-color:#C0C0C0;  position:relative;" align="center">
-        <h4>Filter By:</h4>
-        Student Name:</br><input ng-model="nameFilter"></br>
-        Email:</br><input ng-model="emailFilter"></br>
-        Skill:</br><input ng-model="skillFilter"></br>
-        Area of Interest:</br><input ng-model="aoiFilter"></br>
-        FYP Year:</br><input ng-model="fypFilter">
+      <div class="well" style="background:rgba(240,240,240,0.7); border-color:#C0C0C0;  position:relative;" align="center">
+        <span class="accordion" id="filterStudA">
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#filterStudA" href="#filterStud">
+                <b>Search Students</b>
+              </a>
+            </div>
+            <div id="filterStud" class="accordion-body collapse in">
+              <div class="accordion-inner">
+                Student Name:</br><input type="text" ng-model="nameFilter"></br>
+                Email:</br><input type="text" ng-model="emailFilter"></br>
+                Skill:</br><input type="text" ng-model="skillFilter"></br>
+                Area of Interest:</br><input type="text" ng-model="aoiFilter"></br>
+                FYP Year:</br><input type="text" ng-model="fypFilter">
+              </div>
+            </div>
+          </div>
+        </span>
       </div>
       <!-- Start of well -->
       <div class="row-fluid">            

@@ -549,11 +549,11 @@ function StudentCtrl($scope,$resource){
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
-function ClientCtrl($scope,$resource){
+function ClientCtrl($scope,$resource,$http){
 
   String.prototype.trim = function () {
     //return this.replace(/^\s*/, "").replace(/\s*$/, "");
-    return this.replace(/ /g,'');
+    return this.replace(/^\s+|\s+$/g,'');
   };
 
   $scope.Model = $resource("http://osmosisgal.appspot.com/:method",
@@ -572,6 +572,13 @@ function ClientCtrl($scope,$resource){
   $scope.project_modal_key = {};
   $scope.exposure_tags;
   $scope.rskill_tags;
+  $scope.cp_tech;
+  $scope.cp_c_email;
+  $scope.cp_rskills;
+  $scope.cp_desc;
+  $scope.project_te = [];
+  $scope.project_rs = [];
+  $scope.project_email = [];
   $scope.opts = {
     backdropFade: true,
     dialogFade:true
@@ -656,23 +663,32 @@ function ClientCtrl($scope,$resource){
     });
   };
 
-  $scope.createProj = function(){
-      var tech = document.getElementsByName("tech")[0].value;
-      var rskills = document.getElementsByName("rskills")[0].value;
-      //var nodeArray = [];
-      //for (var i = 0; i < node.length; ++i) {
-       //   nodeArray[i] = node[i];
-      //}
-      //var tech = nodeArray.toString();
-      var c_email = "";
-      var errorStr = "";
+  $scope.confirmProj = function(){
+    $scope.cp_tech = document.getElementsByName("tech")[0].value;
+    $scope.cp_rskills = document.getElementsByName("rskills")[0].value;
+    if($scope.cp_tech){
+      $scope.project_te = $scope.cp_tech.split(",");
+    }
+    if($scope.cp_rskills){
+      $scope.project_rs = $scope.cp_rskills.split(",");
+    }
+    $scope.cp_desc = editor.getValue();
+    //var nodeArray = [];
+    //for (var i = 0; i < node.length; ++i) {
+     //   nodeArray[i] = node[i];
+    //}
+    //var tech = nodeArray.toString();
+    $scope.cp_c_email = "";
+    var errorStr = "";
     if($scope.contactEmail != null){
       if($scope.contactEmail instanceof Array){
-        c_email = $scope.contactEmail.join();
-        c_email = c_email.trim();
+        $scope.cp_c_email = $scope.contactEmail.join();
+        $scope.cp_c_email = $scope.cp_c_email.trim();
+        $scope.project_email = $scope.contactEmail;
       }
       else{
-        c_email = $scope.contactEmail.trim();
+        $scope.cp_c_email = $scope.contactEmail.trim();
+        $scope.project_email = $scope.contactEmail.split(",");
       }
     }
     if($scope.projectName == null){
@@ -691,18 +707,35 @@ function ClientCtrl($scope,$resource){
       alert("Project could not be created." + errorStr);
       return false;
     }
+    if($scope.project_modal_detail.img == "undefined" || $scope.project_modal_detail.img == "" ){
+      $scope.isBlank = true;
+    }
+    else{
+      $scope.isBlank = false;
+    }
+    $scope.createProjModal = true;
+  };
+
+  $scope.cancelCreateProj = function(){
+    $scope.createProjModal = false;
+    $scope.project_te = [];
+    $scope.project_rs = [];
+  };
+
+  $scope.createProj = function(){
+    $scope.createProjModal = false;
     var data = {'method':"create_proj",
     'title':$scope.projectName,
-    'description': editor.getValue(),
-    'exposure': tech,
+    'description': $scope.cp_desc,
+    'exposure': $scope.cp_tech,
     'teamsize': $scope.teamsize,
     'poc':$scope.contactPerson,
-    'email': c_email,
+    'email': $scope.cp_c_email,
     'company':$scope.companyName,
     'contact':$scope.contactNumber,
     'img': $scope.projImg,
     'video': $scope.projVideo,
-    'rskill': rskills,
+    'rskill': $scope.cp_rskills,
     'outcome': $scope.projectOutcome};
     //
     //
@@ -713,6 +746,8 @@ function ClientCtrl($scope,$resource){
       }
       $scope.client_proj.push(project);
       $scope.have_project = true;
+      $scope.project_te = [];
+      $scope.project_rs = [];
       $('#mainAccordion').load();
       alert("Project Created!");
       $scope.reset();
@@ -831,6 +866,15 @@ function ClientCtrl($scope,$resource){
     jQuery('input[name=editor_rskill]').empty().remove();
     jQuery('.myTag').empty().remove();
     $scope.proj_editor = null;
+
+    var tech = $scope.project_modal_detail.exposure;
+    var rskills = $scope.project_modal_detail.rskill;
+    if(tech){
+      $scope.project_te = tech.split(",");
+    }
+    if(rskills){
+      $scope.project_rs = rskills.split(",");
+    }
     //jQuery('.wysihtml5-sandbox').empty().remove();
     // jQuery(".editor_tech").remove();
     // jQuery(".myTag").remove();
@@ -859,6 +903,15 @@ function ClientCtrl($scope,$resource){
     $scope.rskill_tags = [];
     jQuery('input[name=editor_rskill]').empty().remove();
     jQuery('.myTag').empty().remove();
+
+    var tech = $scope.project_modal_detail.exposure;
+    var rskills = $scope.project_modal_detail.rskill;
+    if(tech){
+      $scope.project_te = tech.split(",");
+    }
+    if(rskills){
+      $scope.project_rs = rskills.split(",");
+    }
 
     if(project.email != null){
       c_email = project.email.trim();
@@ -898,6 +951,14 @@ function ClientCtrl($scope,$resource){
 
   $scope.displayProjModal = function(key){
     $scope.project_modal_detail = $scope.client_proj[key];
+    var tech = $scope.project_modal_detail.exposure;
+    var rskills = $scope.project_modal_detail.rskill;
+    if(tech){
+      $scope.project_te = tech.split(",");
+    }
+    if(rskills){
+      $scope.project_rs = rskills.split(",");
+    }
     if($scope.project_modal_detail.img == "undefined" || $scope.project_modal_detail.img == "" ){
       $scope.isBlank = true;
     }
@@ -1031,6 +1092,7 @@ function ClientCtrl($scope,$resource){
             });
   };
 
+
   $scope.checkLogin();
 }
 /////////////////////////////////////////////////////////////////////////////////////
@@ -1115,6 +1177,10 @@ function ProjectCtrl($scope,$resource){
   $scope.projRank = [];
   $scope.isClient = false;
   $scope.forClient;
+  $scope.project_modal_detail = {};
+  $scope.project_modal_key = {};
+  $scope.project_te = [];
+  $scope.project_rs = [];
 
   $scope.getStudTeam = function(){
     $scope.Model.send({'method':"get_user_team"}, function(response){
@@ -1280,6 +1346,36 @@ function ProjectCtrl($scope,$resource){
 
   $scope.close_video = function(){
     $scope.watch_video = "";
+  }
+
+  $scope.displayProjModal = function(usertype, key){
+    if(usertype == "std"){
+      $scope.project_modal_detail = $scope.projRank[key][0];
+    }
+    else{
+      $scope.project_modal_detail = $scope.forClient[key];
+    }
+    if($scope.project_modal_detail.img == "undefined" || $scope.project_modal_detail.img == "" ){
+      $scope.isBlank = true;
+    }
+    else{
+      $scope.isBlank = false;
+    }
+    if($scope.project_modal_detail.exposure){
+      $scope.project_te = $scope.project_modal_detail.exposure.split(",");
+    }
+    if($scope.project_modal_detail.rskill){
+      $scope.project_rs = $scope.project_modal_detail.rskill.split(",");
+    }
+    $scope.project_modal_key = key;
+    $scope.openProjModal = true;
+  };
+
+  $scope.close_project_modal = function(){
+    //$scope.view_project_detail = "";
+    $scope.project_modal_detail = "";
+    $scope.project_modal_key = "";
+    $scope.openProjModal = false;
   }
 
   $scope.clientSearchFunction = function(val){

@@ -27,10 +27,6 @@
         float: right;
       }
 
-      #projAvailable{
-        overflow: auto;
-      }
-
       #loadingscreen {
         display:    none;
         position:   absolute;
@@ -128,94 +124,109 @@
       <!-- END information shown for students -->
 
       <!-- Search textbox -->
-      <div class="well" style="background:rgba(240,240,240,0.7); border-style:solid; border-color:#C0C0C0;  position:relative; left:25px">
-        Filter By:</br>
-        <table class="table" align="center" >
-          <tr>
-            <td>Project Name:</br><input ng-model="nameFilter"></td>
-            <td>Project Description:</br><input ng-model="descFilter"></td>
-            <td>Technology Exposure:</br><input ng-model="expoFilter"></td>
-          </tr>
-          <tr>
-            <td>Company:</br><input ng-model="companyFilter"></td>
-          </tr>
-        </table>
-      </div>
+      <!-- <div class="well" style="background:rgba(240,240,240,0.7); border-color:#C0C0C0;  position:relative; left:25px" align="center"> -->
+        <span class="accordion" id="filterProjA" style="position:relative;left:25px" align="center">
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#filterProjA" href="#filterProj">
+                <b>Search Projects</b>
+              </a>
+            </div>
+            <div id="filterProj" class="accordion-body collapse in">
+              <div class="accordion-inner">
+                <table class="table" align="center" border="0">
+                  <tr>
+                    <td>Project Name:</br><input type="text" ng-model="nameFilter"></td>
+                    <td>Project Description:</br><input type="text" ng-model="descFilter"></td>
+                    <td>Technology Exposure:</br><input type="text" ng-model="expoFilter"></td>
+                  </tr>
+                  <tr>
+                    <td>Company:</br><input type="text" ng-model="companyFilter"></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </span>
+      <!-- </div> -->
       <!-- END Search textbox -->
 
     </div>
-    <div class='span8 offset2'>
+    <div class='span8 offset2' style="position:relative; left:25px">
       <!-- Start of PROJECTS AVAILABLE -->
-      <div id='projAvailable'>
-				<div class="accordion" id="projAccordion">
+        <div ng-hide="isClient" ng-repeat="(key,val) in projRank | filter: studentSearchFunction">
+          <button class="btn btn-block" ng-click="displayProjModal('std',key)" align="center">{{val[0].title}} [Weightage Points:{{val[1]}}]</button>
+        </div>
 
-          <!-- FOR STUDENTS -->
-          <div class="accordion-group" ng-repeat="(key,val) in projRank | filter: studentSearchFunction">
-            <div class="accordion-heading" style="background-color:#FAFAFA">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#projAccordion" href="#p_{{val[0].id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-              <div align="center">{{val[0].title}} [Weightage Points:{{val[1]}}]</div>
-              </a>
-            </div>
-            <div id="p_{{val[0].id}}" class="accordion-body collapse in">
-              <div class="accordion-inner" style="font-size:12px; background-color:white">
-                <!-- IMAGE FOR PROJECT -->
-                <img class="project_img" src="{{val[0].img}}" width="100%" height="100%"></br></br>
-                <!-- VIDEO FOR PROJECT -->
-                <a ng-show="val.video" href="#video_modal" role="button" class="btn project_video" data-toggle="modal" ng-click="launchVideo(key)">watch video</a></br></br>
-                <div style="color:grey; display:inline">Project Objective: </div><div ng-hide="editorEnabled" ng-bind-html-unsafe="val[0].description"></div></br></br>
-                <div style="color:grey; display:inline">Technologies Exposure: </div>{{val[0].exposure}} </br></br>
-                <div style="color:grey; display:inline">Company: </div>{{val[0].company}} </br></br>
-                <div style="color:grey; display:inline">Contact Person: </div> {{val[0].poc}} </br></br>
-                <div style="color:grey; display:inline">Contact Email: </div>  <div ng-repeat="email in val[0].email"><a href="mailto:{{email}}">{{email}}</a> </div> </br></br>
-                <div style="color:grey; display:inline">Contact Number: </div> {{val[0].contact}} </br></br>
+        <div ng-show="isClient" ng-repeat="(key,val) in forClient | filter: clientSearchFunction">
+          <button class="btn btn-block" ng-click="displayProjModal('cpr',key)" align="center">{{val.title}}</button>
+        </div>
+
+        <div modal="openProjModal" close="close_project_modal()" options="opts">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close_project_modal()">×</button>
+            <h3>{{project_modal_detail.title}}</h3>
+          </div>
+          <div class="modal-body">
+            <!-- IMAGE FOR PROJECT -->
+            <strong>Project Image:</strong><br/>
+            <img class="project_img" ng-src="{{isBlank && 'assets/img/noimg.gif' || project_modal_detail.img}}" onerror="this.src='assets/img/noimg.gif'">
+            
+            <br/>
+            <!-- Show video -->
+            <strong>Project Video:</strong><br/>
+            <iframe class="project_video"allowTransparency="true" scrolling="no" ng-src="{{project_modal_detail.video}}" frameborder="0" allowfullscreen onerror="location.href='assets/img/novid.gif'"></iframe>
+            
+            <br/>
+            <!-- Richtext editor for project objective -->
+            <strong>Project Objective:</strong><br/> 
+              <div ng-hide="editorEnabled" ng-bind-html-unsafe="project_modal_detail.description">
               </div>
-            </div>
-          </div><!-- .accordion-group -->
-          <!-- FOR STUDENTS end-->
-
-          <!-- FOR CLIENT -->
-          <div class="accordion-group" ng-show="isClient" ng-repeat="(key,val) in forClient  | filter: clientSearchFunction">
-            <div class="accordion-heading" style="background-color:#FAFAFA">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#projAccordion" href="#p_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-              <div align="center">{{val.title}}</div>
-              </a>
-            </div>
-            <div id="p_{{val.id}}" class="accordion-body collapse in">
-              <div class="accordion-inner" style="font-size:12px; background-color:white">
-                <!-- IMAGE FOR PROJECT -->
-                <img class="project_img" src="{{val.img}}" width="100%" height="100%"></br></br>
-                <!-- VIDEO FOR PROJECT -->
-                <a ng-show="val.video" href="#video_modal" role="button" class="btn project_video" data-toggle="modal" ng-click="launchVideo(key)">watch video</a></br></br>
-                <div style="color:grey; display:inline">Project Objective: </div><div ng-hide="editorEnabled" ng-bind-html-unsafe="val.description"></div></br></br>
-                <div style="color:grey; display:inline">Technologies Exposure: </div>{{val.exposure}} </br></br>
-                <div style="color:grey; display:inline">Company: </div>{{val.company}} </br></br>
-                <div style="color:grey; display:inline">Contact Person: </div> {{val.poc}} </br></br>
-                <div style="color:grey; display:inline">Contact Email: </div>  <div ng-repeat="email in val.email"><a href="mailto:{{email}}">{{email}}</a> </div> </br></br>
-                <div style="color:grey; display:inline">Contact Number: </div> {{val.contact}} </br></br>
+             
+            <br/>
+            <strong>Project Outcome:</strong><br/>
+                {{project_modal_detail.outcome}}
+              
+              <br/>
+            <strong>Technologies Exposure:</strong><br/>
+                <!-- {{project_modal_detail.exposure}} -->
+                <span ng-repeat="te_tag in project_te">
+                  <span class="myTag">{{te_tag}}</span>
+                </span>
+            <br/><br/>
+            <strong>Required Skill(s):</strong><br/>
+                <!-- {{project_modal_detail.rskill}} -->
+                <span ng-repeat="rs_tag in project_rs">
+                  <span class="myTag">{{rs_tag}}</span>
+                </span>
+            <br/>
+             <strong>Required Team Size:</strong><br/>
+                {{project_modal_detail.teamsize}}
+              
+            <br/>
+            <strong>Company:</strong><br/>
+                {{project_modal_detail.company}}
+            <br/>
+            <strong>Contact Person:</strong><br/>
+                {{project_modal_detail.poc}}
+              
+            <br/>
+            <strong>Contact Email:</strong><br/>
+              <div ng-repeat="email in project_modal_detail.email">
+                {{email}}
               </div>
-            </div>
-          </div><!-- .accordion-group -->
-          <!-- FOR CLIENT end-->
-        </div><!-- end of first accordion -->
-      </div><!-- End of PROJECTS AVAILABLE -->
-    </div>
-	</div>
-
-  <!-- MODAL for watching video -->
-  <div id="video_modal" class="modal hide fade" role="dialog" aria-hidden="true">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close_video()">×</button>
-      <h3>Watch Video</h3>
-    </div>
-    <div class="modal-body">
-      <div ng-bind-html-unsafe="watch_video">
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" data-dismiss="modal" aria-hidden="true" ng-click="close_video()">Close</button>
-    </div>
-  </div>
-  <!-- END MODAL for watching video -->
+              
+            <br/>
+            <strong>Contact Number:</strong><br/>
+                {{project_modal_detail.contact}}
+              
+            <br/>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="btn" class="btn" ng-click="close_project_modal()">Close</button>
+          </div>
+        </div>
 
 	<!-- FOOTER -->
       
@@ -231,7 +242,9 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <!--<script src="test/lib/angular/angular-mocks.js"></script>-->
     
-
+    <link href="assets/css/bootstrap-tagmanager.css" rel="stylesheet" type="text/css" />
+    <!-- for Angular UI Modal -->
+    <script src="assets/js/angular/angular_ui_modal.js"></script>
     <script src="assets/js/bootstrap/bootstrap-transition.js"></script>
     <script src="assets/js/bootstrap/bootstrap-alert.js"></script>
     <script src="assets/js/bootstrap/bootstrap-modal.js"></script>

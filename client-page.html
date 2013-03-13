@@ -250,10 +250,81 @@
 
                 <div class="form-actions" align="right">  
                 	<button ng-click="reset()" class="btn">Clear All</button>
-                	<button ng-click="createProj()" class="btn btn-primary">Create</button>
+                	<button ng-click="confirmProj()" class="btn btn-primary">Create</button>
                 </div>  <!-- form actions -->
               </fieldset>  
             </form>
+
+            <div modal="createProjModal" close="cancelCreateProj()" options="opts">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancelCreateProj()">×</button>
+                <h3>Create Project Confirmation</h3>
+              </div>
+              <div class="modal-body">
+                <strong>Project Title:</strong><br/>
+                    {{projectName}}
+                  
+                  <br/>
+                <!-- IMAGE FOR PROJECT -->
+                <strong>Project Image:</strong><br/>
+                <img class="project_img" ng-src="{{isBlank && 'assets/img/noimg.gif' || projImg}}" onerror="this.src='assets/img/noimg.gif'">
+                
+                <br/>
+                <!-- Show video -->
+                <strong>Project Video:</strong><br/>
+                <iframe id="cp_video" class="project_video"allowTransparency="true" scrolling="no" ng-src="{{projVideo}}" frameborder="0" allowfullscreen onError="document.getElementById('cp_video').innerHTML = '<img src=\'assets/img/novid.gif\'>'"></iframe>
+                
+                <br/>
+                <!-- Richtext editor for project objective -->
+                <strong>Project Objective:</strong><br/> 
+                  <div ng-hide="editorEnabled" ng-bind-html-unsafe="cp_desc">
+                  </div>
+                 
+                <br/>
+                <strong>Project Outcome:</strong><br/>
+                    {{projectOutcome}}
+                  
+                  <br/>
+                <strong>Technologies Exposure:</strong><br/>
+                    <!-- {{project_modal_detail.exposure}} -->
+                    <span ng-repeat="te_tag in project_te">
+                      <span class="showTag">{{te_tag}}</span>
+                    </span>
+                <br/><br/>
+                <strong>Required Skill(s):</strong><br/>
+                    <!-- {{project_modal_detail.rskill}} -->
+                    <span ng-repeat="rs_tag in project_rs">
+                      <span class="showTag">{{rs_tag}}</span>
+                    </span>
+                <br/><br/>
+                 <strong>Required Team Size:</strong><br/>
+                    {{teamsize}}
+                  
+                <br/>
+                <strong>Company:</strong><br/>
+                    {{companyName}}
+                <br/>
+                <strong>Contact Person:</strong><br/>
+                    {{contactPerson}}
+                  
+                <br/>
+                <strong>Contact Email:</strong><br/>
+                  <div ng-repeat="email in project_email">
+                    {{email}}
+                  </div>
+                  
+                <br/>
+                <strong>Contact Number:</strong><br/>
+                    {{contactNumber}}
+                  
+                <br/>
+                
+              </div>
+              <div class="modal-footer">
+                <button type="btn" class="btn" ng-click="cancelCreateProj()">Cancel</button>
+                <button type="btn" class="btn" ng-click="createProj()">Confirm</button>
+              </div>
+            </div>
         </div>
         <div class="span5">
         <!--Sidebar content-->
@@ -269,7 +340,7 @@
                   <div align="center" ng-hide="have_project">You do not have any projects currently.</div>
 
                   <div ng-repeat="(key,val) in client_proj">
-                    <button type="button" class="accordion-toggle" ng-click="displayProjModal(key)" align="center">{{val.title}}</button></br>
+                    <button class="btn btn-block" ng-click="displayProjModal(key)" align="center">{{val.title}}</button>
                   </div>
                   <div modal="openProjModal" close="close_project_modal()" options="opts">
                     <div class="modal-header">
@@ -297,6 +368,7 @@
                        </ul>
                       </div>
                       <!-- IMAGE FOR PROJECT -->
+                      <strong>Project Image:</strong><br/>
                       <img class="project_img" ng-src="{{isBlank && 'assets/img/noimg.gif' || project_modal_detail.img}}" onerror="this.src='assets/img/noimg.gif'">
                       <!-- Link for image -->
                       <div ng-show="editorEnabled">
@@ -305,7 +377,8 @@
                       </div>
                       <br/>
                       <!-- Show video -->
-                      <iframe class="project_video"allowTransparency="true" scrolling="no" ng-src="{{project_modal_detail.video}}" frameborder="0" allowfullscreen></iframe>
+                      <strong>Project Video:</strong><br/>
+                      <iframe class="project_video"allowTransparency="true" scrolling="no" ng-src="{{project_modal_detail.video}}" frameborder="0" allowfullscreen onerror="location.href='assets/img/novid.gif'"></iframe>
                       <!-- link for video -->
                       <div ng-show="editorEnabled">
                         <strong>Video Link:</strong><br/>
@@ -342,20 +415,24 @@
                         <br/>
                       <strong>Technologies Exposure:</strong><br/>
                         <div ng-hide="editorEnabled">
-                          {{project_modal_detail.exposure}}
+                          <div ng-repeat="te_tag in project_te">
+                            <span class="myTag">{{te_tag}}</span>
+                          </div>
                         </div>
                         <div ng-show="editorEnabled">
                             <input taggable autocomplete="off" type="text" data-original-title="Skills" name="tags2" placeholder="Tags" id="editor_tag"class="span5"/>
                         </div>
-                      <br/>
+                      <br/><br/>
                       <strong>Required Skill(s):</strong><br/>
                         <div ng-hide="editorEnabled">
-                          {{project_modal_detail.rskill}}
+                          <div ng-repeat="rs_tag in project_rs">
+                            <span class="myTag">{{rs_tag}}</span>
+                          </div>
                         </div>
                         <div ng-show="editorEnabled">
                             <input taggable2 autocomplete="off" type="text" data-original-title="Skills" name="tags2" placeholder="Tags" id="rskill_tag"class="span5"/>
                         </div>
-                      <br/>
+                      <br/><br/>
                        <strong>Required Team Size:</strong><br/>
                         <div ng-hide="editorEnabled">
                           {{project_modal_detail.teamsize}}
