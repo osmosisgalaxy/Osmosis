@@ -82,6 +82,39 @@
     <script>
       $('#loadingscreen').show();
     </script>
+
+    <!-- MODAL for Client Profile Editing -->
+    <div modal="shouldBeOpen" close="close()" options="opts">
+      <div class="modal-header">
+          <h4>Edit my profile</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="createForm"> 
+        
+          <div class="control-group">  
+            <label class="control-label" for="clientName" style="font-weight:bold">Name</label>
+            <div class="controls">
+              <input type="text" class="span3" id="clientName" ng-model="user_profile.full_name" style="font-size:85%">
+              <br>
+              <span class="help-block" style="font-size:70%" >What is your company name to be shown to students? e.g. SamPearl Co. </span>
+            </div>
+          </div>
+        
+          <div class="control-group">  
+            <label class="control-label" for="website" style="font-weight:bold">Website</label>
+            <div class="controls">
+              <input type="text" class="span3" id="website" ng-model="user_profile.website" style="font-size:85%">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-small" ng-click="saveClientInfo()">Save</button>
+          <button class="btn btn-warning cancel" ng-click="close()">Cancel</button>
+      </div>
+    </div>
+    <!-- END MODAL for Client Profile Editing -->
+
     <!-----------  Start of navigation bar  ------------>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -93,7 +126,7 @@
           </a>
           <img src="assets/img/OsmosisLogo.png" width=9.5% style=" position:relative;  top: 20px">
           <div style="position:relative; top: 5px; float:right; color:grey">Welcome, 
-          	<!-- <a href="#" id="profile_popover" rel="popover" data-content="Skills:skill Area of Interest:area_of_interest" data-original-title="Profile"> -->{{display_name}}<!-- </a> -->
+          	{{display_name}} | <a href="#" ng-click="open()" >Edit Profile</a>
           <br>
           </div>
           <br>
@@ -104,9 +137,11 @@
           </ul>
         </div><!-- /.container -->
       </div><!-- /.navbar-inner -->
+      <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
     </div><!-- /.navbar navbar-inverse navbar-fixed-top -->
     <!-----------  End of navigation bar  ------------>
     <br/>
+    
     
     <div class="container-fluid">
       <div class="row-fluid">
@@ -127,9 +162,9 @@
       								For academic information, click on the tab “About IS480” for more details.
       							</div>
                 	</div>
-	    
-                <hr style="position:relative; top:-10px; border-color:#BDBDBD">
-                <div class="offset9"><button class="btn btn-small" ng-click="genSampleProj()">Generate Sample Project</button></div>
+                <!-- FORM -->
+                <hr style="position:relative; border-color:#BDBDBD">
+                <div class="offset9"><button class="btn btn-small" ng-click="genSampleProj()">Generate Sample Project</button></div></br>
                 <div class="control-group">  
                   <label class="control-label" for="projectName" style="font-weight:bold">Project Name</label>
                   <div class="controls">
@@ -251,10 +286,11 @@
                 <div class="form-actions" align="right">  
                 	<button ng-click="reset()" class="btn">Clear All</button>
                 	<button ng-click="confirmProj()" class="btn btn-primary">Create</button>
-                </div>  <!-- form actions -->
+                </div>
               </fieldset>  
-            </form>
+            </form> <!-- END FORM -->
 
+            <!-- MODAL for project Confirmation -->
             <div modal="createProjModal" close="cancelCreateProj()" options="opts">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancelCreateProj()">×</button>
@@ -326,6 +362,8 @@
               </div>
             </div>
         </div>
+        <!-- END MODAL -->
+
         <div class="span5">
         <!--Sidebar content-->
         <br>
@@ -570,6 +608,7 @@
     <!-- for Angular UI Modal -->
     <script src="assets/js/angular/angular_ui_modal.js"></script>
 
+
     <script src="assets/js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
     <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="assets/js/bootstrap/bootstrap-transition.js"></script>
@@ -582,6 +621,8 @@
     <script src="assets/js/bootstrap/bootstrap-collapse.js"></script>
     <script src="assets/js/bootstrap/bootstrap-carousel.js"></script>
     <script src="assets/js/bootstrap/bootstrap-typeahead.js"></script>
+    <script src="assets/js/angular-ui.min.js"></script>
+    <script src="assets/js/ui-bootstrap-tpls-0.2.0.min.js"></script>
 
     <script>
 

@@ -308,11 +308,14 @@ function StudentCtrl($scope,$resource){
       $scope.Model.send(data, function(response){
         $scope.stud_info = response.user_profile;
         $scope.p_editorEnabled = false;
-        alert("Profile updated.");
+        
+        //$scope.alerts.push({type:'success', msg: "Your profile information is successfully saved! :)"});        
+        $scope.shouldBeOpen = false;
+        $scope.addAlert("success","Your profile information is successfully saved!",10000);
       });
     }
     else{
-      alert("Profile not updated. Please make sure [Full Name] is not a blank field.");
+      $scope.addAlert("error","Profile not updated. Please make sure [Full Name] is not a blank field.",10000);
     }
   };
 
@@ -539,6 +542,45 @@ function StudentCtrl($scope,$resource){
     });
   };
 
+
+
+  $scope.open = function () {
+    $scope.shouldBeOpen = true;
+    $scope.stud_profile_backup = angular.copy($scope.stud_info);
+  };
+
+  $scope.close = function () {
+    $scope.shouldBeOpen = false;
+    $scope.stud_team = angular.copy($scope.team_info_backup);
+  };
+
+  $scope.opts = {
+    backdropFade: true,
+    dialogFade:true
+  };
+
+    $scope.alerts = [
+
+  ];
+
+  $scope.addAlert = function(type,message,timeout) {
+    
+    var alert = {type: type , msg: message};    
+    $scope.alerts.push(alert);
+    
+    if (timeout) {
+      $timeout(function(){
+        $scope.closeAlert($scope.alerts.indexOf(alert));
+      }, timeout);
+    }
+  };
+
+  $scope.closeAlert = function(index) {
+    $scope.alerts.splice(index, 1);
+  };
+
+
+
   $scope.checkLogin();
 }
 
@@ -549,7 +591,7 @@ function StudentCtrl($scope,$resource){
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
-function ClientCtrl($scope,$resource,$http){
+function ClientCtrl($scope,$resource,$http,$timeout){
 
   String.prototype.trim = function () {
     //return this.replace(/^\s*/, "").replace(/\s*$/, "");
@@ -561,6 +603,9 @@ function ClientCtrl($scope,$resource,$http){
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
     );
 
+  $scope.alerts = [];
+  $scope.user_profile;
+  $scope.user_profile_backup;
   $scope.editorEnabled = false;
   $scope.have_project = false;
   $scope.client_proj;
@@ -634,6 +679,7 @@ function ClientCtrl($scope,$resource,$http){
     $scope.Model.send({'method':"check_login"},function(response){
       if (response.result == "true" && response.user_type == "cpr"){
         $scope.isLogin = true;
+        $scope.user_profile = response.user_profile;
         if (response.user_profile.full_name != null){
           $scope.display_name = response.user_profile.full_name;
         }
@@ -644,6 +690,30 @@ function ClientCtrl($scope,$resource,$http){
       }
     });
   };
+
+  $scope.saveClientInfo = function(){
+    $scope.user_profile.full_name = $scope.user_profile.full_name.trim();
+    $scope.user_profile.website = $scope.user_profile.website.trim();
+    if($scope.user_profile.full_name != null){
+      if($scope.user_profile.website != null){
+        var data = {'method':"update_cpr_profile",
+                'full_name':$scope.user_profile.full_name,
+                'website':$scope.user_profile.website};
+        $scope.Model.send(data,function(response){
+          $scope.addAlert("success", "Your profile information is successfully saved!",10000);
+        });
+      }
+      else{
+        $scope.addAlert("error", "Profile not updated. Please make sure [Website] is not a blank field.",10000);
+      }
+    }
+    else{
+      $scope.addAlert("error", "Profile not updated. Please make sure [Full Name] is not a blank field.",10000);
+    }
+
+    $scope.shouldBeOpen = false;
+    
+  }
 
   $scope.getClientProj = function(){
     $scope.Model.send({'method':"get_cpr_proj"}, function(response){
@@ -704,7 +774,7 @@ function ClientCtrl($scope,$resource,$http){
       errorStr += "\nMake sure Contact Number is of 8 digits.";
     }
     if(errorStr != ""){
-      alert("Project could not be created." + errorStr);
+      $scope.addAlert("error","Project could not be created." + errorStr,10000);
       return false;
     }
     if($scope.project_modal_detail.img == "undefined" || $scope.project_modal_detail.img == "" ){
@@ -949,6 +1019,16 @@ function ClientCtrl($scope,$resource,$http){
     $("#"+key).load();
   };
 
+  $scope.open = function () {
+    $scope.shouldBeOpen = true;
+    $scope.user_profile_backup = angular.copy($scope.user_profile);
+  };
+
+  $scope.close = function () {
+    $scope.shouldBeOpen = false;
+    $scope.user_profile = angular.copy($scope.user_profile_backup);
+  };
+
   $scope.displayProjModal = function(key){
     $scope.project_modal_detail = $scope.client_proj[key];
     var tech = $scope.project_modal_detail.exposure;
@@ -1090,6 +1170,22 @@ function ClientCtrl($scope,$resource,$http){
                 blinkBGColor_2: '#CDE69C',
                 hiddenTagListName: 'rskills'
             });
+  };
+
+  $scope.addAlert = function(type,message,timeout) {
+    
+    var alert = {type: type , msg: message};    
+    $scope.alerts.push(alert);
+    
+    if (timeout) {
+      $timeout(function(){
+        $scope.closeAlert($scope.alerts.indexOf(alert));
+      }, timeout);
+    }
+  };
+
+  $scope.closeAlert = function(index) {
+    $scope.alerts.splice(index, 1);
   };
 
   // $scope.createCORSRequest = function (method, url) {
