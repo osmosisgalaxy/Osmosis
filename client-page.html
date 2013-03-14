@@ -272,7 +272,7 @@
                 <br/>
                 <!-- Show video -->
                 <strong>Project Video:</strong><br/>
-                <iframe id="cp_video" class="project_video"allowTransparency="true" scrolling="no" ng-src="{{projVideo}}" frameborder="0" allowfullscreen onError="document.getElementById('cp_video').innerHTML = '<img src=\'assets/img/novid.gif\'>'"></iframe>
+                <iframe ng-show="isLinkValid(projVideo)"id="cp_video" class="project_video"allowTransparency="true" scrolling="no" ng-src="{{projVideo}}" frameborder="0" allowfullscreen onError="document.getElementById('cp_video').innerHTML = '<img src=\'assets/img/novid.gif\'>'"></iframe>
                 
                 <br/>
                 <!-- Richtext editor for project objective -->
