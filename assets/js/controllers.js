@@ -1092,48 +1092,48 @@ function ClientCtrl($scope,$resource,$http){
             });
   };
 
-  $scope.createCORSRequest = function (method, url) {
-    var xhr = new XMLHttpRequest();
-    if ("withCredentials" in xhr) {
+  // $scope.createCORSRequest = function (method, url) {
+  //   var xhr = new XMLHttpRequest();
+  //   if ("withCredentials" in xhr) {
 
-      // Check if the XMLHttpRequest object has a "withCredentials" property.
-      // "withCredentials" only exists on XMLHTTPRequest2 objects.
-      xhr.open(method, url, true);
+  //     // Check if the XMLHttpRequest object has a "withCredentials" property.
+  //     // "withCredentials" only exists on XMLHTTPRequest2 objects.
+  //     xhr.open(method, url, true);
 
-    } else if (typeof XDomainRequest != "undefined") {
+  //   } else if (typeof XDomainRequest != "undefined") {
 
-      // Otherwise, check if XDomainRequest.
-      // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-      xhr = new XDomainRequest();
-      xhr.open(method, url);
+  //     // Otherwise, check if XDomainRequest.
+  //     // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+  //     xhr = new XDomainRequest();
+  //     xhr.open(method, url);
 
-    } else {
+  //   } else {
 
-      // Otherwise, CORS is not supported by the browser.
-      xhr = null;
+  //     // Otherwise, CORS is not supported by the browser.
+  //     xhr = null;
 
-    }
-    return xhr;
-  };
+  //   }
+  //   return xhr;
+  // };
 
 
-  $scope.isLinkValid = function(url){
-    var xhr = $scope.createCORSRequest('GET', url);
+  // $scope.isLinkValid = function(url){
+  //   var xhr = $scope.createCORSRequest('GET', url);
 
-    if (!xhr) {
-      throw new Error('CORS not supported');
-    }
+  //   if (!xhr) {
+  //     throw new Error('CORS not supported');
+  //   }
 
-    xhr.onload = function(){
-      return true;
-    };
-    
-    xhr.onerror = function() {
-      return false;
-    };
+  //   xhr.onload = function(){
+  //     return true;
+  //   };
 
-    xhr.send();
-  };
+  //   xhr.onerror = function() {
+  //     return false;
+  //   };
+
+  //   xhr.send();
+  // };
 
   $scope.checkLogin();
 }
