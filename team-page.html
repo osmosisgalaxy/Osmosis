@@ -80,8 +80,9 @@
   <!-- modal for editing student profile -->
 
   <!-- name textinput, year of admission AUTO, email auto textinput, skill (tags),area of interest (tags), intended fyp year (dropdownlist) -->
-    <div modal="shouldBeOpen" close="close()" options="opts">
+    <div modal="studOpen" close="close()" options="opts">
         <div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">×</button>
             <h4>Edit my profile</h4>
         </div>
         <div class="modal-body">
@@ -134,10 +135,10 @@
                   <div class="controls">
                     <select ui-select2 ng-model="stud_info.fyp" style="font-size:85%">
 						<option value="">Pick a sem</option>
-						<option value="one">Y3S1</option>
-						<option value="two">Y3S2</option>
-						<option value="three">Y4S1</option>
-						<option value="four">Y4S2</option>
+						<option value="Y3S1">Y3S1</option>
+						<option value="Y3S2">Y3S2</option>
+						<option value="Y4S1">Y4S1</option>
+						<option value="Y4S2">Y4S2</option>
 					</select>
                     <br>
                     <span class="help-block" style="font-size:70%" >Which semester do you want to do FYP in? </span> 					
@@ -157,6 +158,38 @@
     </div>
  <!-- end modal for editing student profile -->
 
+    <!-- MODAL for Client Profile Editing -->
+    <div modal="clientOpen" close="close()" options="opts">
+      <div class="modal-header">
+          <h4>Edit my profile</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="createForm"> 
+        
+          <div class="control-group">  
+            <label class="control-label" for="clientName" style="font-weight:bold">Name</label>
+            <div class="controls">
+              <input type="text" class="span3" id="clientName" ng-model="user_profile.full_name" style="font-size:85%">
+              <br>
+              <span class="help-block" style="font-size:70%" >What is your company name to be shown to students? e.g. SamPearl Co. </span>
+            </div>
+          </div>
+        
+          <div class="control-group">  
+            <label class="control-label" for="website" style="font-weight:bold">Website</label>
+            <div class="controls">
+              <input type="text" class="span3" id="website" ng-model="user_profile.website" style="font-size:85%">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-small" ng-click="saveClientInfo()">Save</button>
+          <button class="btn btn-warning cancel" ng-click="close()">Cancel</button>
+      </div>
+    </div>
+    <!-- END MODAL for Client Profile Editing -->
+
 
 
 	  	  <!-----------  Start of navigation bar  ------------>
@@ -170,14 +203,14 @@
           </a>
           	<img src="assets/img/OsmosisLogo.png" width=9.5% style=" position:relative;  top: 20px">
 	          <div style="position:relative; top: 5px; float:right; color:grey">Welcome,
-	            {{stud_info.email}}
+	            {{display_name}}
 	          </a> | 
 	            <a href="#" ng-click="open()" >Edit Profile</a>
 	            <br>
 	          </div>
 	         	<br>
 	         <ul class="nav" style="position:relative; left:110px">
-	            <li class="active"><a href="student-page.html"><i class="icon-home"></i> HOME</a></li>
+	            <li class="active"><a href="{{home_link}}"><i class="icon-home"></i> HOME</a></li>
 	            <li><a href="project-page.html"><i class="icon-book"></i> PROJECT</a></li>
 	            <!-- <li><a href="#link"><i class="icon-book"></i> TEAM</a></li> -->
 	         </ul>
@@ -225,24 +258,14 @@
               <div class="accordion-inner" style="font-size:12px; background-color:white">
                 <div style="color:grey; display:inline">Team members: </div><br>
                 <!-- Start of team member detail accordion -->
-                <div class="accordion" id="memberDetailAccordion">
-                  <div class="accordion-group" ng-repeat="(key,val) in val.member"><!-- repeat number of teams recruiting -->
-                    <div class="accordion-heading" style="background-color:#FAFAFA">
-                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#memberDetailAccordion" href="#tm_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
-                        {{val.full_name}}
-                      </a>
-                    </div>
-                    <div id="tm_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
-                      <div class="accordion-inner" style="font-size:12px; background-color:white">
-                        <div style="color:grey; display:inline">Email: </div> {{val.email}} <br>
-                        <div style="color:grey; display:inline">Year of Admission: </div> {{val.yoa}} <br>
-                        <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
-                        <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
-                        <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
-                      </div>
-                    </div>
-                  </div>
-                </div><!-- end of team member detail accordion -->
+                  
+                   <div ng-repeat="(key,val) in val.member" align = "left">
+                  <a href rel="tooltip" title="Email: {{val.email}} <br> Year of admission: {{val.yoa}} <br> Skill: {{val.skill}} <br> Area of interest: {{val.aoi}} <br> FYP year: {{val.fyp}}">{{val.full_name}}</span>
+
+	                            </span><br>
+
+	              </div>
+                <!-- end of team member detail accordion -->
 
                 <div style="color:grey; display:inline">Area of interest: </div> {{val.aoi}} <br>
                 <div style="color:grey; display:inline">FYP term: </div> {{val.fyp}} <br>

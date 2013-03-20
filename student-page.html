@@ -15,6 +15,8 @@
     <script src="assets/js/controllers.js"></script>
     <script src="assets/js/bootstrap/bootstrap.js"></script>
     <script src="assets/js/angular/angular_ui_modal.js"></script>
+    <script src="assets/js/angular-ui.min.js"></script>
+    <script src="assets/js/ui-bootstrap-tpls-0.2.0.min.js"></script>
 
     <!-- Le styles -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -82,6 +84,89 @@
       $('#loadingscreen').show();
   </script>
 
+
+  <!-- modal for editing student profile -->
+
+  <!-- name textinput, year of admission AUTO, email auto textinput, skill (tags),area of interest (tags), intended fyp year (dropdownlist) -->
+    <div modal="shouldBeOpen" close="close()" options="opts">
+        <div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">×</button>
+            <h4>Edit my profile</h4>
+        </div>
+        <div class="modal-body">
+	        	<form class="form-horizontal" id="createForm"> 
+	        	
+	        	 <div class="control-group">  
+                  <label class="control-label" for="studentName" style="font-weight:bold">Name</label>
+                  <div class="controls">
+                    <input type="text" class="span3" id="studentName" ng-model="stud_info.full_name" style="font-size:85%">
+                    <br>
+                    <span class="help-block" style="font-size:70%" >What is your full name as registered with the school? e.g. Poh Yang Zhou </span>
+                  </div>
+                </div>
+	        	
+	        	 <div class="control-group">  
+                  <label class="control-label" for="yearOfAdmission" style="font-weight:bold">Year of Admission</label>
+                  <div class="controls">
+                    <input type="text" class="span1" id="yearOfAdmission" ng-model="stud_info.yoa" style="font-size:85%">
+                  </div>
+                </div>
+	        	
+	        	
+	        	<div class="control-group">  
+                  <label class="control-label" for="email" style="font-weight:bold">Email</label>
+                  <div class="controls">
+                    <input type="text" class="span3" id="email" ng-model="stud_info.email" style="font-size:85%">
+                  </div>
+                </div>
+  
+	        	<div class="control-group">  
+                  <label class="control-label" for="skills" style="font-weight:bold">Skills</label>
+                  <div class="controls">
+                    <input type="text" class="span3" id="skills" ng-model="stud_info.skill" style="font-size:85%">
+                    <br>
+                    <span class="help-block" style="font-size:70%" >What are your skills? e.g. java, c#, HTML </span>                    
+                  </div>
+                </div>                
+
+	        	<div class="control-group">  
+                  <label class="control-label" for="areaOfInterest" style="font-weight:bold">Area of Interests</label>
+                  <div class="controls">
+                    <input type="text" class="span3" id="areaOfInterest" ng-model="stud_info.aoi" style="font-size:85%">
+                    <br>
+                    <span class="help-block" style="font-size:70%" >What are you interested in developing for FYP? Do you like mobile applications or web applications etc? e.g. ios, android </span>                     
+                  </div>
+                </div> 
+
+	        	<div class="control-group">  
+                  <label class="control-label" for="IntendedFypYear" style="font-weight:bold">Intended FYP Semester</label>
+                  <div class="controls">
+                    <select ui-select2 ng-model="stud_info.fyp" style="font-size:85%">
+						<option value="">Pick a sem</option>
+						<option value="Y3S1">Y3S1</option>
+						<option value="Y3S2">Y3S2</option>
+						<option value="Y4S1">Y4S1</option>
+						<option value="Y4S2">Y4S2</option>
+					</select>
+                    <br>
+                    <span class="help-block" style="font-size:70%" >Which semester do you want to do FYP in? </span> 					
+                  </div>
+                </div> 	        
+                
+               
+	
+	        	
+	        	</form>
+        </div>
+        <div class="modal-footer">
+        	<button class="btn btn-small" ng-click="saveStudInfo()">Save</button>
+            <button class="btn btn-warning cancel" ng-click="close()">Cancel</button>
+        </div>
+    </div>
+ <!-- end modal for editing student profile -->  
+  
+  
+
 	  	  <!-----------  Start of navigation bar  ------------>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -94,8 +179,8 @@
           	<img src="assets/img/OsmosisLogo.png" width=9.5% style=" position:relative;  top: 20px">
 	          <div style="position:relative; top: 5px; float:right; color:grey">Welcome,
 	            {{stud_info.email}}
-	          <!-- </a> | 
-	            <a href="index-for-log-out.html" >Logout</a> -->
+	          </a> | 
+	            <a href="#" ng-click="open()" >Edit Profile</a>
 	            <br>
 	          </div>
 	         	<br>
@@ -106,6 +191,7 @@
 	         </ul>
         </div><!-- /.container -->
       </div><!-- /.navbar-inner -->
+      <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
     </div><!-- /.navbar navbar-inverse navbar-fixed-top -->
     <!-----------  End of navigation bar  ------------>
              
@@ -113,143 +199,12 @@
 	<br>  
 	  
 	<div class="container-fluid">
-  	<div class='span4'>
-	    <!-- Start of Teams recruiting -->   
-      <h3>Teams Recruiting</h3>
-        <div class="well" style="background:rgba(240,240,240,0.7); border-color:#C0C0C0;  position:relative;" align="center">
-          <span class="accordion" id="filterTeamA">
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#filterTeamA" href="#teamFilter">
-                  <b>Search Teams</b>
-                </a>
-              </div>
-              <div id="teamFilter" class="accordion-body collapse in">
-                <div class="accordion-inner">
-                  Team Name:</br><input type="text" ng-model="tnameFilter"></br>
-                  Member:</br><input type="text" ng-model="memFilter"></br>
-                  Area of Interest:</br><input type="text" ng-model="taoiFilter"></br>
-                  FYP Year:</br><input type="text" ng-model="tfypFilter"></br>
-                  Open Positions:</br><input type="text" ng-model="opFilter">
-                </div>
-              </div>
-            </div>
-          </span>
-        </div>
-        <div class="accordion" id="recruitTeamAccordion">
-          <div class="accordion-group" ng-repeat="(key,val) in team_recruit | filter:searchTeamFunction"><!-- repeat number of teams recruiting -->
-            <div class="accordion-heading" style="background-color:#FAFAFA">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#recruitTeamAccordion" href="#t_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
-                <div align="center">{{val.name}}</div><!-- team name -->
-              </a>
-            </div>
-            <div id="t_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
-              <div class="accordion-inner" style="font-size:12px; background-color:white">
-                <div style="color:grey; display:inline">Team members: </div><br>
-                <!-- Start of team member detail accordion -->
-                <div class="accordion" id="memberDetailAccordion">
-                  <div class="accordion-group" ng-repeat="(key,val) in val.member"><!-- repeat number of teams recruiting -->
-                    <div class="accordion-heading" style="background-color:#FAFAFA">
-                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#memberDetailAccordion" href="#tm_{{val.id}}" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'"><!-- team id -->
-                        {{val.full_name}}
-                      </a>
-                    </div>
-                    <div id="tm_{{val.id}}" class="accordion-body collapse in"><!-- team id -->
-                      <div class="accordion-inner" style="font-size:12px; background-color:white">
-                        <div style="color:grey; display:inline">Email: </div> {{val.email}} <br>
-                        <div style="color:grey; display:inline">Year of Admission: </div> {{val.yoa}} <br>
-                        <div style="color:grey; display:inline">Skill: </div> {{val.skill}} <br>
-                        <div style="color:grey; display:inline">Areas of Interest: </div> {{val.aoi}} <br>
-                        <div style="color:grey; display:inline">FYP Term: </div> {{val.fyp}} <br>
-                      </div>
-                    </div>
-                  </div>
-                </div><!-- end of team member detail accordion -->
-
-                <div style="color:grey; display:inline">Area of interest: </div> {{val.aoi}} <br>
-                <div style="color:grey; display:inline">FYP term: </div> {{val.fyp}} <br>
-                <div style="color:grey; display:inline">Wikipage: </div> {{val.wiki}} <br>
-                <div style="color:grey; display:inline">Open Positions: </div> {{val.position}} <br>
-                <div align="right">
-                  <form ng-submit="requestJoinTeam('{{val.id}}')" ng-show="val.show_button"><!-- i want to join -->
-                    <button type="submit" class="btn btn-mini">Request to Join</button>
-                    <input type="text" id="t_{{val.id}}_requestMessage" placeholder="Message to Team">
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>    
-    </div>
-
-		<div class="span4">
-      <h3>My Profile</h3>
-        <div class="row-fluid">
-          <div class="accordion" id="myProfileAccordion">
-            <div class="accordion-group">
-              <div class="accordion-heading" style="background-color:#FAFAFA">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#myProfileAccordion" href="#profile_acc" onMouseOver="this.style.fontWeight='bold'" onMouseOut="this.style.fontWeight='normal'">
-                    <div align="center">{{stud_info.full_name}}</div>
-                </a>
-              </div>
-              <div id="profile_acc" class="accordion-body collapse in">
-                <div class="accordion-inner" style="font-size:12px; background-color:white">
-                  <strong>Full Name:</strong><br/>
-                    <div ng-hide="p_editorEnabled">
-                      {{stud_info.full_name}}
-                    </div>
-                    <div ng-show="p_editorEnabled">
-                      <input type="text" class="span9" ng-model="stud_info.full_name" ng-show="p_editorEnabled" required>
-                    </div>
-                  <br/>
-                  <strong>Year of Admission:</strong><br/>
-                      {{stud_info.yoa}}
-                  <br/><br/>
-                  <strong>Email:</strong><br/>
-                      {{stud_info.email}}
-                  <br/><br/>
-                  <strong>Skill:</strong><br/>
-                    <div ng-hide="p_editorEnabled">
-                      {{stud_info.skill}}
-                    </div>
-                    <div ng-show="p_editorEnabled">
-                      <input type="text" class="span9" ng-model="stud_info.skill" ng-show="p_editorEnabled">
-                    </div>
-                  <br/>
-                  <strong>Area of Interest:</strong><br/>
-                    <div ng-hide="p_editorEnabled">
-                      {{stud_info.aoi}}
-                    </div>
-                    <div ng-show="p_editorEnabled">
-                      <input type="text" class="span9" ng-model="stud_info.aoi" ng-show="p_editorEnabled" required>
-                    </div>
-                  <br/>
-                  <strong>Intended FYP Year:</strong><br/>
-                    <div ng-hide="p_editorEnabled">
-                      {{stud_info.fyp}}
-                    </div>
-                    <div ng-show="p_editorEnabled">
-                      <input type="text" class="span9" ng-model="stud_info.fyp" ng-show="p_editorEnabled">
-                    </div>
-                  <br/>
-                  <div ng-hide="p_editorEnabled">
-                    <form ng-submit="profile_enableEditor()">
-                      <button class="btn_left_side" type="submit" ng-hide="p_editorEnabled">Edit</button>
-                    </form>
-                  </div>
-                  <div ng-show="p_editorEnabled">
-                    <form ng-submit="saveStudInfo()">
-                      <button class="btn_left_side" type="submit" ng-show="p_editorEnabled">Save</button>
-                    </form>
-                    <form ng-submit="profile_disableEditor()">
-                      <button class="btn_left_side" type="submit" ng-show="p_editorEnabled">Cancel</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  	<div class="span4">
+  	</div>
+  	
+  	<div class="span4">
+  	
+  	
 			<h3>My Team</h3>
         <div class="accordion" id="teamAccordion"><!-- Start of TEAM -->
     			<!-- Start of my team accordion -->
@@ -415,29 +370,30 @@
                         <input type="radio" ng-model="stud_team.searching" ng-show="editorEnabled" value="no">No
                       </div>
                     <br/>
+
                     <div ng-hide="editorEnabled">
                       <div ng-show="isLeader">
                         <form ng-submit="enableEditor()">
-                          <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Edit</button>
+                          <button class="btn btn-primary btn-small" type="submit" ng-hide="editorEnabled" style="float:left">Edit</button>
                         </form>
                       </div>
                     </div>
                     <div ng-show="isLeader">
                       <form ng-submit="deleteTeam()">
-                        <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Delete Team</button>
+                        <button class="btn btn-warning btn-small" type="submit" ng-hide="editorEnabled" style="position:relative; left:5px">Delete Team</button>
                       </form>
                     </div>
                     <div ng-hide="isLeader">
                       <form ng-submit="leaveTeam()">
-                        <button class="btn_left_side" type="submit" ng-hide="editorEnabled">Leave Team</button>
+                        <button class="btn btn-warning btn-small" type="submit" ng-hide="editorEnabled">Leave Team</button>
                       </form>
                     </div>
                     <div ng-show="editorEnabled">
                       <form ng-submit="saveTeamInfo()">
-                        <button class="btn_left_side" type="submit" ng-show="editorEnabled">Save</button>
+                        <button class="btn btn-primary btn-small" type="submit" ng-show="editorEnabled" style="float:left">Save</button>
                       </form>
                       <form ng-submit="disableEditor()">
-                        <button class="btn_left_side" type="submit" ng-show="editorEnabled">Cancel</button>
+                        <button class="btn btn-small" type="submit" ng-show="editorEnabled" style="position:relative; left:5px">Cancel</button>
                       </form>
                     </div>
                     Team Members:</br>
@@ -577,22 +533,22 @@
               <div class="accordion-inner" style="font-size:12px; background-color:white">
                 <!-- Start of inner student detail accordion -->
 
-                   <div ng-repeat="(key,val) in page_chosen" align = "center">
-                  <span rel="tooltip" title="Email: {{val.email}} <br> Year of admission: {{val.yoa}} <br> Skill: {{val.skill}} <br> Area of interest: {{val.aoi}} <br> FYP year: {{val.fyp}}">{{val.full_name}}</span>
-                  	 <a class="btn btn-small"' ng-show='gotTeam' rel="popover" data-content="<form ng-submit='inviteStudent('{{val.id}}')>
-                                <input type='text' class='span2'id='s_{{val.id}}_inviteMessage' placeholder='Message to Student'></br>
-                                <button type='submit' class='btn btn-small span1'>Invite!</button><button type='button' class='btn-mini' onclick='myFunction()'>Close</button></br>
-	                            </form>"><i class="icon-plus"></i> Add</a> 
-	                            </span><br><br>
+                   <div ng-repeat="(key,val) in page_chosen" align="left">
+                  <span rel="tooltip" title="<div class='form-horizontal'>Email: {{val.email}} <br> Year of admission: {{val.yoa}} <br> Skill: {{val.skill}} <br> Area of interest: {{val.aoi}} <br> FYP year: {{val.fyp}}</div>">{{val.full_name}}</span>
+                  	 <a style="float:right; font-size:12px; font-weight:bold" class="btn btn-primary btn-mini"' ng-show='gotTeam' rel="popover" data-content="<form ng-submit='inviteStudent('{{val.id}}')>
+                                <input type='text' class='span3'id='s_{{val.id}}_inviteMessage' placeholder='Message to Student'>
+                                <button type='submit' class='btn btn-warning btn-mini'>Invite!</button><button type='button' class='btn btn-mini'  onclick='myFunction()' style='position:relative; left:3px'>Close</button>
+	                            </form>"><i class="icon-plus icon-white"></i> Add</a> 
+	                            </span><br>
 
 	              </div>
 
                   <!-- Put pagination here, using the number to change the list -->
                   
                   <ul class="pager">
-                    <li class="pp_btn"><a ng-click="previous_page(years.year)">Previous</a></li>
+                    <li class="pp_btn btn-mini"><a ng-click="previous_page(years.year)">Previous</a></li>
                     <li>{{currentpage + 1}}/{{pagelength}}</li>
-                    <li class="pn_btn"><a ng-click="next_page(years.year)">Next</a></li>
+                    <li class="pn_btn btn-mini"><a ng-click="next_page(years.year)">Next</a></li>
                   </ul>
 
               </div>

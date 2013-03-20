@@ -28,7 +28,7 @@ function LoginCtrl($scope,$resource){
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
-function StudentCtrl($scope,$resource){
+function StudentCtrl($scope,$resource,$timeout){
   $scope.Model = $resource("http://osmosisgal.appspot.com/:method",
     {},
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
@@ -40,6 +40,7 @@ function StudentCtrl($scope,$resource){
   $scope.gotTeam = false;
   $scope.avail_proj;
   $scope.stud_info;
+  $scope.stud_info_backup;
   $scope.stud_team;
   $scope.team_recruit;
   $scope.stud_finding;
@@ -52,20 +53,46 @@ function StudentCtrl($scope,$resource){
   $scope.page_chosen = null;
   $scope.pagelength = 0;
   $scope.team_got_member = false;
+  $scope.user_profile;
+  $scope.user_profile_backup;
+  $scope.isClient = false;
 
   $scope.checkLogin = function(){
     $scope.Model.send({'method':"check_login"},function(response){
-      if (response.result == "true" && response.user_type == "std"){
+      var link_info = location.pathname.split("/");
+      if(link_info[link_info.length - 1] == 'team-page.html'){
+        if(response.result == "true" && response.user_type == "cpr"){
+          $scope.user_profile = response.user_profile;
+          $scope.isLogin = true;
+          $scope.isClient = true;
+          $scope.home_link = "client-page.html"
+          if (response.user_profile.full_name != null){
+            $scope.display_name = response.user_profile.full_name;
+          }
+        }
+        else if(response.result == "true" && response.user_type == "std"){
+          $scope.isLogin = true;
+          $scope.isClient = false;
+          $scope.home_link = "student-page.html"
+          $scope.stud_info = response.user_profile;
+          $scope.display_name = response.user_profile.email;
+        }
+        $scope.getTeamRecruit();
+      }
+      else if (response.result == "true" && response.user_type == "std"){
         $scope.isLogin = true;
+        $scope.isClient = false;
+        $scope.home_link = "student-page.html"
         $scope.stud_info = response.user_profile;
+        $scope.display_name = response.user_profile.email;
         $scope.getAvailProj();
         $scope.getStudTeam();
         $scope.getStudFinding();
-        $scope.getTeamRecruit();
       }
       else{
         window.location = "http://osmosisgalaxy.github.com/Osmosis/login.html";
       }
+      
     });
   };
 
@@ -310,7 +337,7 @@ function StudentCtrl($scope,$resource){
         $scope.p_editorEnabled = false;
         
         //$scope.alerts.push({type:'success', msg: "Your profile information is successfully saved! :)"});        
-        $scope.shouldBeOpen = false;
+        $scope.studOpen = false;
         $scope.addAlert("success","Your profile information is successfully saved!",10000);
       });
     }
@@ -542,16 +569,51 @@ function StudentCtrl($scope,$resource){
     });
   };
 
+  $scope.saveClientInfo = function(){
+    $scope.user_profile.full_name = $scope.user_profile.full_name.trim();
+    $scope.user_profile.website = $scope.user_profile.website.trim();
+    if($scope.user_profile.full_name != null){
+      if($scope.user_profile.website != null){
+        var data = {'method':"update_cpr_profile",
+                'full_name':$scope.user_profile.full_name,
+                'website':$scope.user_profile.website};
+        $scope.Model.send(data,function(response){
+          $scope.addAlert("success", "Your profile information is successfully saved!",10000);
+        });
+      }
+      else{
+        $scope.addAlert("error", "Profile not updated. Please make sure [Website] is not a blank field.",10000);
+      }
+    }
+    else{
+      $scope.addAlert("error", "Profile not updated. Please make sure [Full Name] is not a blank field.",10000);
+    }
 
+    $scope.clientOpen = false;
+    
+  };
 
   $scope.open = function () {
-    $scope.shouldBeOpen = true;
-    $scope.stud_profile_backup = angular.copy($scope.stud_info);
+    if($scope.isClient){
+      $scope.clientOpen = true;
+      $scope.user_profile_backup = angular.copy($scope.user_profile);
+    }
+    else{
+      $scope.studOpen = true;
+      $scope.stud_info_backup = angular.copy($scope.stud_info);
+    }
+    
   };
 
   $scope.close = function () {
-    $scope.shouldBeOpen = false;
-    $scope.stud_team = angular.copy($scope.team_info_backup);
+    if($scope.isClient){
+      $scope.clientOpen = false;
+      $scope.user_profile = angular.copy($scope.user_profile_backup);
+    }
+    else{
+      $scope.studOpen = false;
+      $scope.stud_info = angular.copy($scope.stud_info_backup);
+    }
   };
 
   $scope.opts = {
@@ -713,7 +775,7 @@ function ClientCtrl($scope,$resource,$http,$timeout){
 
     $scope.shouldBeOpen = false;
     
-  }
+  };
 
   $scope.getClientProj = function(){
     $scope.Model.send({'method':"get_cpr_proj"}, function(response){
@@ -1013,6 +1075,29 @@ function ClientCtrl($scope,$resource,$http,$timeout){
       $scope.editorEnabled = false;
       alert("Project Info Updated!");
     });
+
+    // $http.post("http://osmosisgal.appspot.com/update_proj", {'method':"update_proj",
+    //             'proj_id': proj_id,
+    //             'ptitle': project.title,
+    //             'pdescription': p_desc,
+    //             'pexposure': tech,
+    //             'pcompany': project.company,
+    //             'pteamsize':project.teamsize,
+    //             'ppoc': project.poc,
+    //             'pemail': c_email,
+    //             'pcontact': project.contact,
+    //             'pimg':project.img,
+    //             'pvideo':project.video,
+    //             'prskill': rskills,
+    //             'poutcome': project.outcome}, {'headers':{'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}})
+    // .success(function(data,status){
+    //   if(project.email != null){
+    //     project.email = project.email.split(",");
+    //   }
+    //   $scope.proj_key = null;
+    //   $scope.editorEnabled = false;
+    //   alert("Project Info Updated!");
+    // });
   };
   
   $scope.reload_img_video = function(key){
@@ -1057,15 +1142,6 @@ function ClientCtrl($scope,$resource,$http,$timeout){
     if($scope.editorEnabled){
       $scope.disableEditor();
     }
-  }
-
-  $scope.launchVideo = function(key){
-    var project = $scope.client_proj[key];
-    $scope.watch_video = '<iframe class="project_video"allowTransparency="true" scrolling="no" style:"width:100%;height:100%;" src="' + project.video + '" frameborder="0" allowfullscreen></iframe>';
-  };
-
-  $scope.close_video = function(){
-    $scope.watch_video = "";
   }
 
 	$scope.reset = function() {
@@ -1233,6 +1309,8 @@ function ClientCtrl($scope,$resource,$http,$timeout){
 
   $scope.checkLogin();
 }
+
+ClientCtrl.$inject = ['$scope','$resource','$http','$timeout'];
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
@@ -1240,7 +1318,12 @@ function ClientCtrl($scope,$resource,$http,$timeout){
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
-function ProjectCtrl($scope,$resource){
+function ProjectCtrl($scope,$resource,$timeout){
+  String.prototype.trim = function () {
+    //return this.replace(/^\s*/, "").replace(/\s*$/, "");
+    return this.replace(/^\s+|\s+$/g,'');
+  };
+
   $scope.Model = $resource("http://osmosisgal.appspot.com/:method",
     {},
     {"send": {method: 'JSONP', isArray: false, params: {callback: 'JSON_CALLBACK'}}}
@@ -1307,9 +1390,13 @@ function ProjectCtrl($scope,$resource){
   };
 
   $scope.user_info;
+  $scope.user_profile;
+  $scope.user_profile_backup;
   $scope.home_link;
   $scope.isLogin = false;
   $scope.avail_proj;
+  $scope.stud_info;
+  $scope.stud_info_backup;
   $scope.stud_team;
   $scope.projects;
   $scope.projRank = [];
@@ -1605,6 +1692,7 @@ function ProjectCtrl($scope,$resource){
         else{
           $scope.isClient = false;
           $scope.home_link = "student-page.html"
+          $scope.stud_info = response.user_profile;
           $scope.display_name = response.user_profile.email;
         }
         $scope.getAvailProj();
@@ -1615,7 +1703,98 @@ function ProjectCtrl($scope,$resource){
     });
   };
 
+  $scope.saveClientInfo = function(){
+    $scope.user_profile.full_name = $scope.user_profile.full_name.trim();
+    $scope.user_profile.website = $scope.user_profile.website.trim();
+    if($scope.user_profile.full_name != null){
+      if($scope.user_profile.website != null){
+        var data = {'method':"update_cpr_profile",
+                'full_name':$scope.user_profile.full_name,
+                'website':$scope.user_profile.website};
+        $scope.Model.send(data,function(response){
+          $scope.addAlert("success", "Your profile information is successfully saved!",10000);
+        });
+      }
+      else{
+        $scope.addAlert("error", "Profile not updated. Please make sure [Website] is not a blank field.",10000);
+      }
+    }
+    else{
+      $scope.addAlert("error", "Profile not updated. Please make sure [Full Name] is not a blank field.",10000);
+    }
+
+    $scope.clientOpen = false;
+    
+  };
+
+  $scope.saveStudInfo = function(){
+    if($scope.stud_info.full_name != null){
+      var aoi = "";
+      var skill = "";
+      if($scope.stud_info.aoi != null){
+        aoi = $scope.stud_info.aoi.trim();
+      }
+      if($scope.stud_info.skill != null){
+        skill = $scope.stud_info.skill.trim();
+      }
+      var data = {'method':"update_stud_profile",
+        'stud_aoi': aoi,
+        'stud_fyp': $scope.stud_info.fyp,
+        'stud_skill': skill,
+        'stud_full_name': $scope.stud_info.full_name};
+
+      $scope.Model.send(data, function(response){
+        $scope.stud_info = response.user_profile;
+        $scope.p_editorEnabled = false;
+        
+        //$scope.alerts.push({type:'success', msg: "Your profile information is successfully saved! :)"});        
+        $scope.studOpen = false;
+        $scope.addAlert("success","Your profile information is successfully saved!",10000);
+      });
+    }
+    else{
+      $scope.addAlert("error","Profile not updated. Please make sure [Full Name] is not a blank field.",10000);
+    }
+  };
+
+  $scope.addAlert = function(type,message,timeout) {
+    
+    var alert = {type: type , msg: message};    
+    $scope.alerts.push(alert);
+    
+    if (timeout) {
+      $timeout(function(){
+        $scope.closeAlert($scope.alerts.indexOf(alert));
+      }, timeout);
+    }
+  };
+
+  $scope.closeAlert = function(index) {
+    $scope.alerts.splice(index, 1);
+  };
+
+  $scope.open = function () {
+    if($scope.isClient){
+      $scope.clientOpen = true;
+      $scope.user_profile_backup = angular.copy($scope.user_profile);
+    }
+    else{
+      $scope.studOpen = true;
+      $scope.stud_info_backup = angular.copy($scope.stud_info);
+    }
+    
+  };
+
+  $scope.close = function () {
+    if($scope.isClient){
+      $scope.clientOpen = false;
+      $scope.user_profile = angular.copy($scope.user_profile_backup);
+    }
+    else{
+      $scope.studOpen = false;
+      $scope.stud_info = angular.copy($scope.stud_info_backup);
+    }
+  };
+
   $scope.checkLogin();
 }
-
-

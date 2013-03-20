@@ -15,6 +15,7 @@
       body {
         padding-top: 60px;
         padding-bottom: 40px;
+        background-image: url(assets/img/greyWoodBackground.jpg);
       }
       
      page-header {
@@ -54,8 +55,8 @@
       }
       .project_video{
         display: block;
-        width: 50%;
-        height: auto;
+        width: 560px;
+        height: 315px;
         margin-left: auto;
         margin-right: auto;
       }
@@ -86,6 +87,114 @@
   <script>
     $('#loadingscreen').show();
   </script>
+
+  <!-- Student Modal Editing Profile -->
+   <div modal="studOpen" close="close()" options="opts">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">×</button>
+            <h4>Edit my profile</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" id="createForm"> 
+            
+             <div class="control-group">  
+                  <label class="control-label" for="studentName" style="font-weight:bold">Name</label>
+                  <div class="controls">
+                    <input type="text" class="span3" id="studentName" ng-model="stud_info.full_name" style="font-size:85%">
+                    <br>
+                    <span class="help-block" style="font-size:70%" >What is your full name as registered with the school? e.g. Poh Yang Zhou </span>
+                  </div>
+                </div>
+            
+             <div class="control-group">  
+                  <label class="control-label" for="yearOfAdmission" style="font-weight:bold">Year of Admission</label>
+                  <div class="controls">
+                    <input type="text" class="span1" id="yearOfAdmission" ng-model="stud_info.yoa" style="font-size:85%">
+                  </div>
+                </div>
+            
+            
+            <div class="control-group">  
+                  <label class="control-label" for="email" style="font-weight:bold">Email</label>
+                  <div class="controls">
+                    <input type="text" class="span3" id="email" ng-model="stud_info.email" style="font-size:85%">
+                  </div>
+                </div>
+  
+            <div class="control-group">  
+                  <label class="control-label" for="skills" style="font-weight:bold">Skills</label>
+                  <div class="controls">
+                    <input type="text" class="span3" id="skills" ng-model="stud_info.skill" style="font-size:85%">
+                    <br>
+                    <span class="help-block" style="font-size:70%" >What are your skills? e.g. java, c#, HTML </span>                    
+                  </div>
+                </div>                
+
+            <div class="control-group">  
+                  <label class="control-label" for="areaOfInterest" style="font-weight:bold">Area of Interests</label>
+                  <div class="controls">
+                    <input type="text" class="span3" id="areaOfInterest" ng-model="stud_info.aoi" style="font-size:85%">
+                    <br>
+                    <span class="help-block" style="font-size:70%" >What are you interested in developing for FYP? Do you like mobile applications or web applications etc? e.g. ios, android </span>                     
+                  </div>
+                </div> 
+
+            <div class="control-group">  
+                  <label class="control-label" for="IntendedFypYear" style="font-weight:bold">Intended FYP Semester</label>
+                  <div class="controls">
+                    <select ui-select2 ng-model="stud_info.fyp" style="font-size:85%">
+            <option value="">Pick a sem</option>
+            <option value="Y3S1">Y3S1</option>
+            <option value="Y3S2">Y3S2</option>
+            <option value="Y4S1">Y4S1</option>
+            <option value="Y4S2">Y4S2</option>
+          </select>
+                    <br>
+                    <span class="help-block" style="font-size:70%" >Which semester do you want to do FYP in? </span>          
+                  </div>
+                </div> 
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-small" ng-click="saveStudInfo()">Save</button>
+            <button class="btn btn-warning cancel" ng-click="close()">Cancel</button>
+        </div>
+    </div>
+ <!-- end modal for editing student profile -->
+
+  <!-- MODAL for Client Profile Editing -->
+    <div modal="clientOpen" close="close()" options="opts">
+      <div class="modal-header">
+          <h4>Edit my profile</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="createForm"> 
+        
+          <div class="control-group">  
+            <label class="control-label" for="clientName" style="font-weight:bold">Name</label>
+            <div class="controls">
+              <input type="text" class="span3" id="clientName" ng-model="user_profile.full_name" style="font-size:85%">
+              <br>
+              <span class="help-block" style="font-size:70%" >What is your company name to be shown to students? e.g. SamPearl Co. </span>
+            </div>
+          </div>
+        
+          <div class="control-group">  
+            <label class="control-label" for="website" style="font-weight:bold">Website</label>
+            <div class="controls">
+              <input type="text" class="span3" id="website" ng-model="user_profile.website" style="font-size:85%">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-small" ng-click="saveClientInfo()">Save</button>
+          <button class="btn btn-warning cancel" ng-click="close()">Cancel</button>
+      </div>
+    </div>
+    <!-- END MODAL for Client Profile Editing -->
+
+
 	  	 <!-----------  Start of navigation bar  ------------>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -96,7 +205,7 @@
             <span class="icon-bar"></span>
           </a>
           	<img src="assets/img/OsmosisLogo.png" width=9.5% style=" position:relative;  top: 20px">
-	          <div style="position:relative; top: 5px; float:right; color:grey">Welcome, {{display_name}}
+	          <div style="position:relative; top: 5px; float:right; color:grey">Welcome, {{display_name}} | <a href="#" ng-click="open()" >Edit Profile</a>
 	          </div>
 	         	<br>
 	         <ul class="nav" style="position:relative; left:110px">
@@ -105,6 +214,7 @@
 	         </ul>
         </div><!-- /.container -->
       </div><!-- /.navbar-inner -->
+      <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
     </div><!-- /.navbar navbar-inverse navbar-fixed-top -->
     <!--  End of navigation bar  -->
 	<br>
